@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-r from-purple-600 to-fuchsia-500 h-[calc(100vh-50px)] inline-flex p-16">
+  <div class="bg-gradient-to-r from-purple-600 to-fuchsia-500 h-[calc(100vh-60px)] inline-flex p-16 w-full">
     <div class="w-[50%] my-auto font-custom">
       <h1 class="font-bold text-5xl leading-relaxed">Trello brings all your tasks, teammates, and tools together
       </h1>

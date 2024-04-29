@@ -6,15 +6,12 @@
     <div>
       <input
         class="dark:text-white block px-4 w-full border-gray-300 rounded-full shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-        :placeholder="props.placeholder" :type="props.type" :value="props.modelValue"
-        @input="event => emits('update:modelValue', event.target.value)" />
+        :placeholder="props.placeholder" :type="props.type" :value="props.modelValue" />
     </div>
   </div>
 </template>
 
 <script setup>
-  const emits = defineEmits(["update:modelValue"]);
-
   const props = defineProps({
     modelValue: {
       type: String,

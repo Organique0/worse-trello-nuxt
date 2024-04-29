@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   pages: true,
   devtools: { enabled: true },
+  colorMode: {
+    preference: 'light',
+  },
   css: ['~/assets/css/main.css'],
   modules: [
     'nuxt-icon',

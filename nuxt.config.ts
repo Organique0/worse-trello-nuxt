@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
-    "@nuxt/ui"
+    "@nuxt/ui",
+    "@nuxt/image"
   ],
   postcss: {
     plugins: {

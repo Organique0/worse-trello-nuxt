@@ -9,6 +9,10 @@ export default {
 		"./error.vue",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			backgroundImage: {
+				whiteCurves: "url('/public/white-wave-bg.svg')",
+			},
+		},
 	},
 };

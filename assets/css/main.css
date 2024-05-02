@@ -1,6 +1,4 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 .customHeader {
   @apply font-bold lg:text-5xl md:text-3xl leading-tight text-3xl md:leading-relaxed text-center md:text-left;
@@ -13,4 +11,8 @@
 }
 .homeCarouselItem{
   @apply shadow-md rounded-sm
+}
+
+.homeCenterContainer{
+  @apply px-[5rem] mx-auto md:pl-[1rem] md:pr-[1rem] max-w-[1140px]
 }

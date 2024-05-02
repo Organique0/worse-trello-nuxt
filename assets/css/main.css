@@ -6,9 +6,18 @@
 .customTitle{
   @apply font-bold lg:text-4xl md:text-2xl leading-tight text-2xl md:leading-relaxed;
 }
+
+
 .homeTabButton {
   @apply shadow-2xl text-left relative h-44 border-0 rounded-md bg-white p-4
 }
+
+.homeTabButtonActive {
+  @apply bg-red-400
+}
+
+
+
 .homeCarouselItem{
   @apply shadow-md rounded-sm
 }

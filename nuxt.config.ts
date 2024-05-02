@@ -11,7 +11,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
     "@nuxt/ui",
-    "@nuxt/image"
+    "@nuxt/image",
+    "vue3-carousel-nuxt"
   ],
   postcss: {
     plugins: {

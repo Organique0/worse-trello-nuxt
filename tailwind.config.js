@@ -13,6 +13,8 @@ export default {
 			backgroundImage: {
 				whiteCurves: "url('/public/white-wave-bg.svg')",
 				download: "url('/public/download.svg')",
+				footerLeft: "url('/public/footer-left.svg')",
+				footerRight: "url('/public/footer-right.svg')",
 			},
 			colors: {
 				wierdBlue: "#091E42",

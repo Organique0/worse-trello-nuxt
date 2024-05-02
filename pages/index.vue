@@ -234,7 +234,12 @@
               :surveyBody="item.surveyBody" :surveyFooter="item.surveyFooter" />
           </template>
         </UCarousel>
-        <div class="mt-24 flex flex-col items-center gap-y-5">
+      </div>
+    </div>
+    <div class="bg-gradient-to-t from-white to-wierdGreen h-auto">
+      <!--ReviewsCarousel-->
+      <div class="homeCenterContainer">
+        <div class="pt-24 flex flex-col items-center gap-y-5">
           <h1 class="customTitle">Trello priced your way</h1>
           <h3 class="md:text-xl font-normal text-wierdBlue">Trusted by millions, Trello powers teams all around the
             world.</h3>
@@ -244,8 +249,12 @@
       </div>
     </div>
 
-
-
+    <div class="homeCenterContainer ">
+      <div class="ml-[8%] w-[83%] my-14">
+        <h3 class="text-center">Join over 2,000,000 teams worldwide that are using Trello to get more done.</h3>
+        <NuxtImg src="logos-horizontal-visa-coinbase-john-deere-zoom-grand-hyatt-fender.svg" class="w-full" />
+      </div>
+    </div>
 
     <!--PAGE END-->
     <Footer />

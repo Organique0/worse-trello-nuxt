@@ -227,15 +227,22 @@
       <!--ReviewsCarousel-->
       <div class="homeCenterContainer mt-5">
         <UCarousel ref="reviewCarouselRef" :items="reviewItems" :ui="{ item: 'basis-full', container: '!h-full' }"
-          class="w-full mx-auto rounded-lg shadow-lg h-[30em]  p-0 overflow-hidden">
+          class="w-full mx-auto rounded-lg shadow-lg md:h-[30em] h-[50rem]  p-0 overflow-hidden">
           <template #default="{ item }">
             <!-- Render carousel items here -->
             <HomeReviewItem :reviewBody="item.reviewBody" :reviewFooter="item.reviewFooter"
               :surveyBody="item.surveyBody" :surveyFooter="item.surveyFooter" />
           </template>
         </UCarousel>
+        <div class="mt-24 flex flex-col items-center gap-y-5">
+          <h1 class="customTitle">Trello priced your way</h1>
+          <h3 class="md:text-xl font-normal text-wierdBlue">Trusted by millions, Trello powers teams all around the
+            world.</h3>
+          <UButton color="blue" size="xl" class="p-4">Compare plans</UButton>
+        </div>
       </div>
     </div>
+
 
 
 

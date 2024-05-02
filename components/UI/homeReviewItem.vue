@@ -19,7 +19,7 @@
         <p class="font-medium">{{ reviewFooter.position }}</p>
         <div class="block md:inline-flex justify-between w-full">
           <NuxtImg :src="reviewFooter.logo" sizes="1000px" class="h-[2.45em] w-auto my-3" />
-          <nuxtLink to="www.spongebob.com" class="underline text-blue-700 font-medium content-center">Read the story
+          <nuxtLink to="/" class="underline text-blue-700 font-medium content-center">Read the story
           </nuxtLink>
         </div>
       </div>
@@ -27,7 +27,7 @@
 
     <div class="bg-gradient-to-bl from-surveyPink to-surveyPurple md:w-[40%] px-[2rem] py-[2.5rem] p-2 flex flex-col">
       <h1 class="customTitle text-white mb-auto h-full">{{ surveyBody }}</h1>
-      <nuxtLink to="www.spongebob.com" class="underline text-neutral-300 pb-4">{{ surveyFooter }}
+      <nuxtLink to="/" class="underline text-neutral-300 pb-4">{{ surveyFooter }}
       </nuxtLink>
     </div>
 
@@ -36,8 +36,6 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps } from 'vue';
-
   interface HomeReviewItemProps {
     reviewBody: string;
     reviewFooter: { name: string, position: string, logo: string };

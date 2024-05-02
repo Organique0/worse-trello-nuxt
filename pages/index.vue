@@ -223,7 +223,7 @@
       </div>
     </div>
 
-    <div class="bg-gradient-to-b from-white to-wierdGreen h-[100vh]">
+    <div class="bg-gradient-to-b from-white to-wierdGreen h-auto">
       <!--ReviewsCarousel-->
       <div class="homeCenterContainer mt-5">
         <UCarousel ref="reviewCarouselRef" :items="reviewItems" :ui="{ item: 'basis-full', container: '!h-full' }"
@@ -240,6 +240,7 @@
             world.</h3>
           <UButton color="blue" size="xl" class="p-4">Compare plans</UButton>
         </div>
+        <UIPriceCompare />
       </div>
     </div>
 
@@ -253,6 +254,7 @@
 <script setup lang="jsx">
   import homeCarouselItem from "@/components/UI/homeCarouselItem.vue";
   import HomeReviewItem from "~/components/UI/homeReviewItem.vue";
+
   const items = [
     {
       component: homeCarouselItem,

@@ -14,5 +14,45 @@
 }
 
 .homeCenterContainer{
-  @apply px-[5rem] mx-auto md:pl-[1rem] md:pr-[1rem] max-w-[1140px]
+  @apply md:px-[5rem] px-7 mx-auto md:pl-[1rem] md:pr-[1rem] max-w-[1140px]
+}
+
+.verticalCardsHome{
+  @apply bg-white z-10 rounded-md md:grid md:grid-cols-2 block md:p-8 md:my-16 shadow-xl p-6 my-7
+}
+
+.verticalCardsHomeSidetextTitle{
+  @apply block md:flex mb-6 mt-4 gap-3
+}
+
+.verticalCardsHomeSidetextBody{
+  @apply text-[#091e42] mb-6 text-xl leading-8
+}
+
+.learnMoreLink{
+  @apply text-blue-500
+}
+
+.homeSectionIntro{
+  @apply relative text-left order-1 md:w-[58%] w-full block
+}
+
+.doMoreCard{
+  @apply bg-slate-100 p-4 mb-8
+}
+
+.doMoreCard > div >h2{
+ @apply font-bold text-xl my-5 text-wierdBlue
+}
+
+.doMoreCard > div > p {
+  @apply font-medium text-sm text-wierdBlue leading-7
+}
+
+.doMoreCard > div{
+  @apply h-52 relative
+}
+.doMoreCard > div > button{
+  @apply absolute 
+  
 }

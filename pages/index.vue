@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div class="bg-gradient-to-r from-purple-800 to-pink-500 w-full h-full pt-12">
-      <div class="mx-auto md:pl-[1rem] md:pr-[1rem] max-w-[1140px] px-[5rem]">
-        <div class="items-center justify-start flex flex-wrap ">
+    <div class="bg-gradient-to-r from-purple-800 to-pink-500 w-full h-full pt-16 relative">
+      <div class="absolute bottom-[-17px] w-full h-[15%] bg-cover bg-center bg-whiteCurves"></div>
+      <div class="mx-auto md:pl-[1rem] md:pr-[1rem] max-w-[1140px] px-[1rem]">
+        <div class="items-center justify-center flex flex-wrap ">
 
-          <div class="lg:pt-32 text-white md:flex-1">
+          <div class="lg:pt-32 text-white md:flex-1 pt-24">
             <h1 class="customHeader">Trello brings all
               your tasks,
               teammates, and tools together
@@ -16,7 +17,7 @@
             <UISignUpInput />
           </div>
 
-          <div class="ml-11 relative block md:flex-1 text-center pt-16 md:pt-32 mb-0 pb-0 mt-0">
+          <div class="sm:ml-11 relative block md:flex-1 text-center pt-8 md:pt-32 mb-0 pb-0 mt-0">
             <NuxtImg format="webp" src="/TrelloUICollage_4x.webp" sizes="2100px" />
           </div>
 
@@ -60,8 +61,8 @@
       </div>
 
       <!--EXPLORE ALL USE CASES-->
-      <div class="homeCenterContainer mb-16 block md:flex md:flex-wrap md:justify-items-center md:items-stretch">
-        <p class="md:w-[60%] w-full font-medium leading-relaxed mb-6 md:mb-0 md:mr-auto">
+      <div class="homeCenterContainer">
+        <p class="w-full font-semibold leading-relaxed">
           No need to start from scratch. Jump-start your workflow with a proven playbook designed for different teams.
           Customize it to make it yours.
         </p>
@@ -71,6 +72,7 @@
       </div>
     </div>
 
+    <!--See work-->
     <div class="bg-gradient-to-l from-cyan-500 to-blue-500 h-[85em] relative md:h-[60em]">
       <div class="absolute left-16 w-1/6 h-full bg-cover bg-center bg-viewsBgLeft"></div>
       <div class="absolute right-16 w-1/6 h-full bg-cover bg-center bg-viewsBgRight"></div>

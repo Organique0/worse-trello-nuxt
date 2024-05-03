@@ -9,11 +9,11 @@
 
 
 .homeTabButton {
-  @apply shadow-2xl text-left relative h-44 border-0 rounded-md bg-white p-4
+  @apply  text-left relative h-44 border-0 rounded-md  p-4 bg-transparent
 }
 
 .homeTabButtonActive {
-  @apply bg-red-400
+  @apply after:bg-[#00c7e5] after:content-[''] after:absolute after:top-0 after:left-0 after:w-2 shadow-2xl bg-white
 }
 
 

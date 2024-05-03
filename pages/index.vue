@@ -24,34 +24,7 @@
       </div>
     </div>
     <!--PRODUCTIVITY POWERHOUSE-->
-    <div class="bg-gradient-to-b from-white to-blue-200 h-[900px] mx-auto px-[5rem] w-full">
-      <div class="homeCenterContainer">
-        <!--LEFT CARDS-->
-        <div class=" mt-[3rem] ">
-          <div class="homeSectionIntro">
-            <h3 class="">TRELLO 101</h3>
-            <h1 class="customTitle my-8">A productivity powerhouse</h1>
-            <p>
-              Simple, flexible, and powerful. All it takes are boards, lists, and cards to get a clear view of who’s
-              doing
-              what and what needs to get done.
-            </p>
-          </div>
-
-          <!--RIGHT SLIDING GALLERY-->
-          <div class="inline-flex w-full mt-12">
-            <div class="flex flex-col gap-4 justify-between w-[30%]">
-              <button class="homeTabButton">Boards</button>
-              <button class="homeTabButton">Lists</button>
-              <button class="homeTabButton">Cards</button>
-            </div>
-            <div class="block md:w-[70%] h-72 md:ml-24 w-full">
-              <NuxtImg src="/TrelloUICollage_4x.webp" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Trello101 />
 
 
     <!--TRELLO IN ACTION-->
@@ -98,7 +71,9 @@
       </div>
     </div>
 
-    <div class="bg-gradient-to-l from-cyan-400 to-blue-400 h-[85em] md:h-[60em]">
+    <div class="bg-gradient-to-l from-cyan-500 to-blue-500 h-[85em] relative md:h-[60em]">
+      <div class="absolute left-16 w-1/6 h-full bg-cover bg-center bg-viewsBgLeft"></div>
+      <div class="absolute right-16 w-1/6 h-full bg-cover bg-center bg-viewsBgRight"></div>
       <div class="homeCenterContainer">
 
         <!--HEADER-->

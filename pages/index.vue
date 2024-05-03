@@ -31,14 +31,14 @@
     <!--TRELLO IN ACTION-->
     <div class="">
       <div class="homeCenterContainer">
-        <div class="relative text-left order-1 w-full block  pt-12">
+        <div class="relative text-left order-1 w-full block pt-12">
           <h3 class="">TRELLO IN ACTION</h3>
-          <h1 class="customTitle mt-5">Workflows for any project, big or small</h1>
+          <h1 class="customTitle mt-2">Workflows for any project, big or small</h1>
         </div>
       </div>
 
       <!--SLIDER BUTTONS-->
-      <div class="flex justify-end homeCenterContainer">
+      <div class="hidden md:flex justify-end homeCenterContainer">
         <div @click="goBackward" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full mr-7 w-9 h-9">
           <Icon name="material-symbols:arrow-back-ios-rounded" size="20px" class="translate-x-3 translate-y-1" />
         </div>
@@ -48,9 +48,10 @@
       </div>
 
       <!--CAROUSEL-->
-      <div class="w-full overflow-hidden">
+      <div class="hidden w-full overflow-hidden">
         <div class="homeCenterContainer md:mb-8">
-          <UCarousel ref="carouselRef" :items="items" :ui="{ item: 'basis-1/4', container: 'gap-x-[2em]' }" class="">
+          <UCarousel ref="carouselRef" :items="items" :ui="{ item: 'basis-1/4 snap-start', container: 'gap-x-[2em]' }"
+            class="">
             <template #default="{ item }">
               <!-- Render carousel items here -->
               <component :is="item.component" :title="item.title" :body="item.body" :color="item.color"
@@ -60,16 +61,47 @@
         </div>
       </div>
 
-      <!--EXPLORE ALL USE CASES-->
-      <div class="homeCenterContainer">
-        <p class="w-full font-semibold leading-relaxed">
-          No need to start from scratch. Jump-start your workflow with a proven playbook designed for different teams.
-          Customize it to make it yours.
-        </p>
-        <UButton variant="outline" color="gray" size="md" class="p-[1em] ring-blue-700">
-          Explore all Use Cases
-        </UButton>
+
+      <div class="w-full overflow-hidden">
+        <div class="homeCenterContainer md:mb-8">
+          <UCarousel :items="items" :ui="{
+            item: 'basis-1/4 snap-start',
+            container: 'gap-x-[2em] my-5',
+            indicators: {
+              wrapper: 'gap-0 bg-gray-100 relative bottom-0 rounded-full',
+            }
+          }" class="" indicators>
+            <template #default="{ item }">
+              <!-- Render carousel items here -->
+              <component :is="item.component" :title="item.title" :body="item.body" :color="item.color"
+                :icon="item.icon" />
+            </template>
+
+            <template #indicator="{ onClick, page, active }">
+              <UButton :variant="active && 'solid'" class="rounded-full justify-center w-1/6 h-5" @click="onClick(page)"
+                :class="active && '!bg-gray-500'" disabled />
+            </template>
+
+          </UCarousel>
+        </div>
       </div>
+
+
+      <!--EXPLORE ALL USE CASES-->
+      <div class="homeCenterContainer pt-11">
+        <div class="sm:flex block">
+          <p class="w-full font-semibold leading-loose">
+            No need to start from scratch. Jump-start your workflow with a proven playbook designed for different teams.
+            Customize it to make it yours.
+          </p>
+          <div class="relative pb-20 pt-4">
+            <UButton variant="outline" color="gray" size="md" class="p-[1em] ring-blue-700">
+              Explore all Use Cases
+            </UButton>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!--See work-->
@@ -128,14 +160,14 @@
       </div>
     </div>
 
-    <div class="bg-transparent h-44 z-0" />
+    <div class="bg-transparent h-28 z-0" />
 
     <div class="homeCenterContainer">
       <!--DO MORE INTRO-->
       <div class="homeSectionIntro mb-8">
         <h3>POWERFUL WAYS TO GROW</h3>
-        <h1 class="customTitle my-4">Do more with Trello</h1>
-        <p>
+        <h1 class="customTitle my-2">Do more with Trello</h1>
+        <p class="leading-loose">
           Trello’s intuitive features give any team the ability to quickly set up and customize workflows for just about
           anything.
         </p>
@@ -190,35 +222,20 @@
 
     <div class="h-[3em]" />
 
-    <!--SLIDER BUTTONS-->
-    <div class="flex justify-end homeCenterContainer">
-      <div @click="goBackwardReview" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full mr-7 w-9 h-9">
-        <Icon name="material-symbols:arrow-back-ios-rounded" size="20px" class="translate-x-3 translate-y-1" />
-      </div>
-      <div @click="goForwardReview" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full w-9 h-9">
-        <Icon name="material-symbols:arrow-forward-ios-rounded" size="20px" class="translate-x-2 translate-y-1" />
-      </div>
-    </div>
+    <Testamonials />
 
-    <div class="bg-gradient-to-b from-white to-wierdGreen h-auto">
-      <!--ReviewsCarousel-->
-      <div class="homeCenterContainer mt-5">
-        <UCarousel ref="reviewCarouselRef" :items="reviewItems" :ui="{ item: 'basis-full', container: '!h-full' }"
-          class="w-full mx-auto rounded-lg shadow-lg md:h-[30em] h-[50rem]  p-0 overflow-hidden">
-          <template #default="{ item }">
-            <!-- Render carousel items here -->
-            <HomeReviewItem :reviewBody="item.reviewBody" :reviewFooter="item.reviewFooter"
-              :surveyBody="item.surveyBody" :surveyFooter="item.surveyFooter" />
-          </template>
-        </UCarousel>
-      </div>
-    </div>
+
     <div class="bg-gradient-to-t from-white to-wierdGreen h-auto">
-      <!--ReviewsCarousel-->
+      <!--Price-->
       <div class="homeCenterContainer">
-        <div class="pt-24 flex flex-col items-center gap-y-5">
+        <div class="pt-16 flex flex-col items-center gap-y-3">
           <h1 class="customTitle">Trello priced your way</h1>
-          <h3 class="md:text-xl font-normal text-wierdBlue">Trusted by millions, Trello powers teams all around the
+          <h3 class="md:text-xl font-medium text-wierdBlue text-lg leading-8 text-center">Trusted by millions, Trello
+            powers
+            teams
+            all
+            around
+            the
             world.</h3>
           <UButton color="blue" size="xl" class="p-4">Compare plans</UButton>
         </div>
@@ -238,8 +255,7 @@
   </div>
 </template>
 <script setup lang="jsx">
-  import homeCarouselItem from "@/components/UI/homeCarouselItem.vue";
-  import HomeReviewItem from "~/components/UI/homeReviewItem.vue";
+  import homeCarouselItem from "@/components/UI/homeCarouselItem";
 
   const items = [
     {
@@ -299,51 +315,6 @@
     }
   };
 
-  const reviewItems = [
-    {
-      reviewBody: "[Trello is] great for simplifying complex processes. As a manager, I can chunk [processes] down into bite-sized pieces for my team and then delegate that out, but still keep a bird's-eye view.",
-      reviewFooter: {
-        name: "Joey Rosenberg",
-        position: "Global Leadership Director at Women Who Code",
-        logo: "https://images.ctfassets.net/rz1oowkt5gyp/2f3keSvy7vtldV4YDFKkE2/5ed788fb5257c342995d25ba8e8e313d/WomenWhoCode_logo.svg",
-      },
-      surveyBody: "75% of organizations report that Trello delivers value to their business within 30 days.",
-      surveyFooter: "Trello TechValidate Survey",
-    },
-    {
-      reviewBody: "Whether someone is in the office, working from home, or working on-site with a client, everyone can share context and information through Trello.",
-      reviewFooter: {
-        name: "Sumeet Moghe",
-        position: "Product Manager at ThoughWorks",
-        logo: "https://images.ctfassets.net/rz1oowkt5gyp/2kIh1cWqsxjtHwWHWJJPsJ/d8436f3979be6cab7931f4d276c2d5ce/thoughtworks.svg",
-      },
-      surveyBody: "81% of customers chose Trello for its ease of use.",
-      surveyFooter: "Trello TechValidate Survey",
-    },
-    {
-      reviewBody: "We used Trello to provide clarity on steps, requirements, and procedures. This was exceptional when communicating with teams that had deep cultural and language differences.",
-      reviewFooter: {
-        name: "Jefferson Scomacao",
-        position: "Development Manager at IKEA/PTC",
-        logo: "https://images.ctfassets.net/rz1oowkt5gyp/3X64fxSs4ek9A0ex45BUNI/911daed79127cb2f8a021da93fb68b9f/ptc-logo.svg",
-      },
-      surveyBody: "74% of customers say Trello has improved communication with their co-workers and teams.",
-      surveyFooter: "Trello TechValidate Survey",
-    },
-  ];
 
-  const reviewCarouselRef = ref(null);
-
-  const goBackwardReview = () => {
-    if (reviewCarouselRef.value) {
-      reviewCarouselRef.value.prev();
-    }
-  };
-
-  const goForwardReview = () => {
-    if (reviewCarouselRef.value) {
-      reviewCarouselRef.value.next();
-    }
-  };
 
 </script>

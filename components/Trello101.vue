@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-b from-white to-[#b7d7ff] h-[100vh] mx-auto md:px-[2rem] w-full">
+  <div class="bg-gradient-to-b from-white to-[#b7d7ff] mx-auto md:px-[2rem] w-full pb-20">
     <div class="homeCenterContainer">
       <div class="mt-[3rem]">
         <div class="homeSectionIntro">

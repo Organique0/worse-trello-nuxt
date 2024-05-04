@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-b from-white to-[#b7d7ff] mx-auto md:px-[2rem] w-full pb-20">
+  <div class="bg-gradient-to-b from-white to-[#b7f3ff87] mx-auto md:px-[2rem] w-full pb-20">
     <div class="homeCenterContainer">
       <div class="mt-[3rem]">
         <div class="homeSectionIntro">
@@ -16,7 +16,7 @@
 
 
           <!-- Buttons Column -->
-          <div class="hidden md:w-[40%] md:order-1 md:flex flex-col justify-between">
+          <div class="hidden md:w-[40%] md:order-1 md:flex flex-col justify-between md:mr-8">
             <button class="homeTabButton" :class="{ 'homeTabButtonActive': item === 0 }" @click="navigateToItem(0)">
               <div>
                 <h3>Boards</h3>

@@ -28,15 +28,15 @@
   @apply text-wierdBlue font-bold pb-[4px]
 }
 .homeTabButton > div > p{
-  @apply text-wierdBlue leading-6 font-medium py-1
+  @apply text-wierdBlue leading-6 text-sm py-1
 }
 
 .homeCarouselItem{
-  @apply shadow-md rounded-sm
+  @apply shadow-md rounded-sm hover:shadow-lg
 }
 
 .homeCenterContainer{
-  @apply md:px-[5rem] px-4 mx-auto md:pl-[0rem] md:pr-[0rem] max-w-[1140px]
+  @apply md:px-[5rem] px-10 mx-auto md:pl-[0rem] md:pr-[0rem] max-w-[1140px]
 }
 
 .verticalCardsHome{

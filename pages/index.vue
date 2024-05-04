@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="bg-gradient-to-r from-purple-800 to-pink-500 w-full h-full pt-16 relative">
-      <div class="absolute bottom-[-17px] w-full h-[15%] bg-cover bg-center bg-whiteCurves"></div>
+      <!--<div class="absolute bottom-[-17px] w-full h-[15%] bg-cover bg-center bg-whiteCurves md:w-[150vw]"></div>-->
       <div class="mx-auto md:pl-[1rem] md:pr-[1rem] max-w-[1140px] px-[1rem]">
         <div class="items-center justify-center flex flex-wrap ">
 
@@ -48,10 +48,9 @@
       </div>
 
       <!--CAROUSEL-->
-      <div class="hidden w-full overflow-hidden">
+      <div class="hidden md:block w-full overflow-hidden">
         <div class="homeCenterContainer md:mb-8">
-          <UCarousel ref="carouselRef" :items="items" :ui="{ item: 'basis-1/4 snap-start', container: 'gap-x-[2em]' }"
-            class="">
+          <UCarousel ref="carouselRef" :items="items" :ui="{ item: 'basis-1/4 ', container: 'gap-x-[2em]' }" class="">
             <template #default="{ item }">
               <!-- Render carousel items here -->
               <component :is="item.component" :title="item.title" :body="item.body" :color="item.color"
@@ -62,13 +61,13 @@
       </div>
 
 
-      <div class="w-full overflow-hidden">
+      <div class="w-full overflow-auto md:hidden">
         <div class="homeCenterContainer md:mb-8">
           <UCarousel :items="items" :ui="{
-            item: 'basis-1/4 snap-start',
-            container: 'gap-x-[2em] my-5',
+            item: 'basis-[80%]  h-[16em]',
+            container: 'gap-x-[2em] ',
             indicators: {
-              wrapper: 'gap-0 bg-gray-100 relative bottom-0 rounded-full',
+              wrapper: 'gap-0 bg-gray-100 relative bottom-0 rounded-full md:hidden mt-4',
             }
           }" class="" indicators>
             <template #default="{ item }">
@@ -89,12 +88,12 @@
 
       <!--EXPLORE ALL USE CASES-->
       <div class="homeCenterContainer pt-11">
-        <div class="sm:flex block">
-          <p class="w-full font-semibold leading-loose">
+        <div class="block sm:flex">
+          <p class="w-full leading-loose font-medium text-lg sm:w-[70%] sm:mr-auto">
             No need to start from scratch. Jump-start your workflow with a proven playbook designed for different teams.
             Customize it to make it yours.
           </p>
-          <div class="relative pb-20 pt-4">
+          <div class="relative pb-16 pt-6">
             <UButton variant="outline" color="gray" size="md" class="p-[1em] ring-blue-700">
               Explore all Use Cases
             </UButton>
@@ -104,8 +103,8 @@
 
     </div>
 
-    <!--See work-->
-    <div class="bg-gradient-to-l from-cyan-500 to-blue-500 h-[85em] relative md:h-[60em]">
+    <!--See work in a whole new way-->
+    <div class="bg-gradient-to-l from-cyan-500 to-blue-500 h-[85em] relative md:h-[62em]">
       <div class="absolute left-16 w-1/6 h-full bg-cover bg-center bg-viewsBgLeft"></div>
       <div class="absolute right-16 w-1/6 h-full bg-cover bg-center bg-viewsBgRight"></div>
       <div class="homeCenterContainer">
@@ -160,7 +159,7 @@
       </div>
     </div>
 
-    <div class="bg-transparent h-28 z-0" />
+    <div class="bg-transparent h-36 z-0" />
 
     <div class="homeCenterContainer">
       <!--DO MORE INTRO-->
@@ -245,8 +244,16 @@
 
     <div class="homeCenterContainer ">
       <div class="ml-[8%] w-[83%] my-14">
-        <h3 class="text-center">Join over 2,000,000 teams worldwide that are using Trello to get more done.</h3>
-        <NuxtImg src="logos-horizontal-visa-coinbase-john-deere-zoom-grand-hyatt-fender.svg" class="w-full" />
+        <h3 class="text-center font-medium text-2xl leading-8  my-8">Join over 2,000,000 teams worldwide that are using
+          Trello
+          to
+          get
+          more
+          done.
+        </h3>
+        <NuxtImg src="logos-horizontal-visa-coinbase-john-deere-zoom-grand-hyatt-fender.svg"
+          class="w-full hidden md:block" />
+        <NuxtImg src="logos-3x3-visa-coinbase-john-deere-zoom-grand-hyatt-fender.svg" class="w-full md:hidden" />
       </div>
     </div>
 
@@ -305,13 +312,13 @@
 
   const goBackward = () => {
     if (carouselRef.value) {
-      carouselRef.value.prev();
+      carouselRef.value.select(0);
     }
   };
 
   const goForward = () => {
     if (carouselRef.value) {
-      carouselRef.value.next();
+      carouselRef.value.select(5);
     }
   };
 

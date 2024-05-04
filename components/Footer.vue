@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-gradient-to-r from-purple-800 to-pink-500 inline-flex h-72">
+  <div class="bg-gradient-to-r from-purple-800 to-pink-500 inline-flex h-56">
 
     <div class="hidden lg:h-full lg:w-[20vw] lg:bg-footerLeft lg:bg-no-repeat md:block" />
 

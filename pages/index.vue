@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="bg-gradient-to-r from-purple-800 to-pink-500 w-full h-full pt-16 relative">
-      <!--<div class="absolute bottom-[-17px] w-full h-[15%] bg-cover bg-center bg-whiteCurves md:w-[150vw]"></div>-->
+    <div class="bg-gradient-to-r from-purple-800 to-pink-500 w-full h-[53em] pt-16 relative">
+      <div class="bg-cover bg-center bg-whiteCurves absolute bottom-[-17px] w-full h-[25%]"></div>
       <div class="mx-auto md:pl-[1rem] md:pr-[1rem] max-w-[1140px] px-[1rem]">
         <div class="items-center justify-center flex flex-wrap ">
 

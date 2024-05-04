@@ -5,7 +5,7 @@
     </div>
 
     <div class="bg-white left-4 w-12 absolute top-5 rounded-md flex justify-center items-center">
-      <Icon :name="props.icon" class="h-10 w-10" />
+      <Icon :name="props.icon" class="h-10 w-10" :class="iconClass" />
     </div>
 
     <div class="pt-6 px-4">
@@ -36,4 +36,5 @@
   });
 
   const headerClass = computed(() => "bg-" + props.color + "-400");
+  const iconClass = computed(() => "text-" + props.color + "-400");
 </script>

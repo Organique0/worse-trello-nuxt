@@ -37,27 +37,6 @@
         </div>
       </div>
 
-      <!--SLIDER BUTTONS-->
-      <!--       <div class="hidden md:flex justify-end homeCenterContainer">
-        <div @click="goBackward" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full mr-7 w-9 h-9">
-          <Icon name="material-symbols:arrow-back-ios-rounded" size="20px" class="translate-x-3 translate-y-1" />
-        </div>
-        <div @click="goForward" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full w-9 h-9">
-          <Icon name="material-symbols:arrow-forward-ios-rounded" size="20px" class="translate-x-2 translate-y-1" />
-        </div>
-      </div> -->
-
-      <!--CAROUSEL-->
-      <!--<div class="hidden md:block w-full overflow-hidden">
-        <div class="homeCenterContainer md:mb-8">
-          <UCarousel ref="carouselRef" :items="items" :ui="{ item: 'basis-1/4 ', container: 'gap-x-[2em]' }" class="">
-            <template #default="{ item }">
-              <component :is="item.component" :title="item.title" :body="item.body" :color="item.color"
-                :icon="item.icon" />
-            </template>
-</UCarousel>
-</div>
-</div>-->
 
       <!---carousel new-->
       <div class="hidden lg:flex justify-end homeCenterContainer">

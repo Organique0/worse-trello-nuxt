@@ -48,7 +48,7 @@
   async function onSubmit(event: FormSubmitEvent<any>) {
     form.value.clear()
     try {
-      const response = await $fetch('...')
+      const response = await $fetch('')
       // ...
     } catch (err: any) {
       if (err.statusCode === 422) {

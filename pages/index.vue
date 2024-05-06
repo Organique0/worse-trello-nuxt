@@ -33,41 +33,61 @@
       <div class="homeCenterContainer">
         <div class="relative text-left order-1 w-full block pt-12">
           <h3 class="">TRELLO IN ACTION</h3>
-          <h1 class="customTitle mt-2">Workflows for any project, big or small</h1>
+          <h1 class="customTitle mt-2 mb-4">Workflows for any project, big or small</h1>
         </div>
       </div>
 
       <!--SLIDER BUTTONS-->
-      <div class="hidden md:flex justify-end homeCenterContainer">
+      <!--       <div class="hidden md:flex justify-end homeCenterContainer">
         <div @click="goBackward" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full mr-7 w-9 h-9">
           <Icon name="material-symbols:arrow-back-ios-rounded" size="20px" class="translate-x-3 translate-y-1" />
         </div>
         <div @click="goForward" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full w-9 h-9">
           <Icon name="material-symbols:arrow-forward-ios-rounded" size="20px" class="translate-x-2 translate-y-1" />
         </div>
-      </div>
+      </div> -->
 
       <!--CAROUSEL-->
-      <div class="hidden md:block w-full overflow-hidden">
+      <!--<div class="hidden md:block w-full overflow-hidden">
         <div class="homeCenterContainer md:mb-8">
           <UCarousel ref="carouselRef" :items="items" :ui="{ item: 'basis-1/4 ', container: 'gap-x-[2em]' }" class="">
             <template #default="{ item }">
-              <!-- Render carousel items here -->
               <component :is="item.component" :title="item.title" :body="item.body" :color="item.color"
                 :icon="item.icon" />
             </template>
-          </UCarousel>
+</UCarousel>
+</div>
+</div>-->
+
+      <!---carousel new-->
+      <div class="hidden lg:flex justify-end homeCenterContainer">
+        <div @click="goBackwardNew" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full mr-7 w-9 h-9">
+          <Icon name="material-symbols:arrow-back-ios-rounded" size="20px" class="translate-x-3 translate-y-1" />
+        </div>
+        <div @click="goForwardNew" class="bg-gray-200 text-gray-800  hover:bg-gray-300 rounded-full w-9 h-9">
+          <Icon name="material-symbols:arrow-forward-ios-rounded" size="20px" class="translate-x-2 translate-y-1" />
         </div>
       </div>
 
 
-      <div class="w-full overflow-auto md:hidden">
-        <div class="homeCenterContainer md:mb-8">
+      <div class="w-full overflow-hidden hidden lg:block">
+        <div class="md:mb-8 homeCenterContainer transition-all ease-out duration-500" :class="carouselMarginLeft">
+          <div class="flex relative gap-[2em]">
+            <component v-for="item in items" :is="item.component" :title="item.title" :body="item.body"
+              :color="item.color" :icon="item.icon" class="w-[calc(33%-1em)] flex-shrink-0" />
+          </div>
+        </div>
+      </div>
+
+
+      <!--carousel mobile-->
+      <div class="w-full overflow-auto lg:hidden">
+        <div class="homeCenterContainer lg:mb-8">
           <UCarousel :items="items" :ui="{
             item: 'basis-[80%]  h-[16em]',
             container: 'gap-x-[2em] ',
             indicators: {
-              wrapper: 'gap-0 bg-gray-100 relative bottom-0 rounded-full md:hidden mt-4',
+              wrapper: 'gap-0 bg-gray-100 relative bottom-0 rounded-full lg:hidden mt-4',
             }
           }" class="" indicators>
             <template #default="{ item }">
@@ -310,6 +330,7 @@
   ];
   const carouselRef = ref(null);
 
+
   const goBackward = () => {
     if (carouselRef.value) {
       carouselRef.value.select(0);
@@ -319,6 +340,20 @@
   const goForward = () => {
     if (carouselRef.value) {
       carouselRef.value.select(5);
+    }
+  };
+
+  const carouselMarginLeft = ref("!ml-[calc(-1140px+(100%+1140px)/2)]");
+
+  const goBackwardNew = () => {
+    if (carouselMarginLeft != null) {
+      carouselMarginLeft.value = "!ml-[calc(-1140px+(100%+1140px)/2)]";
+    }
+  };
+
+  const goForwardNew = () => {
+    if (carouselMarginLeft != null) {
+      carouselMarginLeft.value = "!ml-[calc(-1140px+(100%-1140px)/2)]";
     }
   };
 

@@ -1,5 +1,12 @@
 <template>
-  <div class="homeCarouselItem overflow-hidden text-left relative my-4 ml-1" style="border-radius: 1em;">
+  <div class="
+  homeCarouselItem
+  overflow-hidden 
+  text-left 
+  relative 
+  my-4 
+  ml-1
+  " style="border-radius: 1em;">
 
     <div class="text-left block h-12" :class="headerClass">
     </div>

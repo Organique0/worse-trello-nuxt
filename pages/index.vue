@@ -58,7 +58,8 @@
           </div>
         </div>
       </div>
-
+      <img ref="imageRef" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+        alt="Example Image">
       <!--carousel mobile-->
       <div class="w-full overflow-auto lg:hidden">
         <div class="homeCenterContainer lg:mb-8">
@@ -345,11 +346,10 @@
     mx.value = vrednost.value;
 
   }
-
+  const imageRef = ref(null);
   const startDrag = (e) => {
+    e.dataTransfer.setDragImage(imageRef.value, 0, 0);
     startX.value = e.clientX;
-
-
   }
 
   const logDrag = (e) => {

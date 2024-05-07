@@ -334,6 +334,7 @@
   const vrednost = ref(0);
   const startX = ref(0);
   const imageRef = ref(null);
+  const isTransition = ref(null);
 
 
   const endDrag = (e) => {
@@ -368,11 +369,5 @@
       });
     }
   }
-
-
-
   //carouselMarginLeft.value = '!ml-[calc(-1140px+(100%-' + e.screenX + 'px)/2)]';
-
-  const isTransition = ref(null);
-  const noTransition = () => isTransition.value = false;
 </script>

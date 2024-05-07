@@ -50,16 +50,21 @@
 
 
       <div class="w-full overflow-hidden hidden lg:block" @dragend="endDrag($event)" @dragstart="startDrag($event)"
-        @drag="logDrag($event)" draggable @transferData="xxx">
-        <div class="md:mb-8 homeCenterContainer transition-all ease-out duration-500" :style="mxValue">
+        @drag="logDrag($event)" draggable="true">
+        <div class="md:mb-8 homeCenterContainer transition-all ease-out duration-700" :style="mxValue"
+          :class="isTransition && 'transition-none'">
           <div class="flex relative gap-[2em]">
             <component v-for="item in items" :is="item.component" :title="item.title" :body="item.body"
               :color="item.color" :icon="item.icon" class="w-[calc(33%-1em)] flex-shrink-0" />
           </div>
         </div>
       </div>
+
+      <!--invisible image to display when dragging-->
       <img ref="imageRef" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
         alt="Example Image">
+
+
       <!--carousel mobile-->
       <div class="w-full overflow-auto lg:hidden">
         <div class="homeCenterContainer lg:mb-8">
@@ -308,22 +313,10 @@
       color: 'teal'
     }
   ];
-  const carouselRef = ref(null);
 
+  //const carouselMarginLeft = ref("!ml-[calc(-1140px+(100%+1140px)/2)]");
 
-  const goBackward = () => {
-    if (carouselRef.value) {
-      carouselRef.value.select(0);
-    }
-  };
-
-  const goForward = () => {
-    if (carouselRef.value) {
-      carouselRef.value.select(5);
-    }
-  };
-
-  const carouselMarginLeft = ref("!ml-[calc(-1140px+(100%+1140px)/2)]");
+  const mxValue = ref(`margin-left: calc(-1140px + (100% + 1140px) / 2) !important;`)
 
   const goBackwardNew = () => {
     if (mxValue.value != null) {
@@ -337,19 +330,21 @@
     }
   };
 
-  const mx = ref(1140);
-  const mxValue = ref(`margin-left: calc(-1140px + (100% + 1140px) / 2) !important;`)
+  const mx = ref(2550);
   const vrednost = ref(0);
   const startX = ref(0);
+  const imageRef = ref(null);
+
 
   const endDrag = (e) => {
     mx.value = vrednost.value;
-
+    isTransition.value = false;
   }
-  const imageRef = ref(null);
+
   const startDrag = (e) => {
     e.dataTransfer.setDragImage(imageRef.value, 0, 0);
-    startX.value = e.clientX;
+    isTransition.value = true;
+    startX.value = e.offsetX;
   }
 
   const logDrag = (e) => {
@@ -362,7 +357,7 @@
         vrednost.value = 170;
       }
       // Restricting movement to the right beyond the initial value
-      else if (newValue > 2550) { // Adjust 2280 according to your requirement
+      else if (newValue > 2550) {
         vrednost.value = 2550; // Set the maximum allowed value
       } else {
         vrednost.value = newValue; // Allow movement within the limits
@@ -378,6 +373,6 @@
 
   //carouselMarginLeft.value = '!ml-[calc(-1140px+(100%-' + e.screenX + 'px)/2)]';
 
-
-
+  const isTransition = ref(null);
+  const noTransition = () => isTransition.value = false;
 </script>

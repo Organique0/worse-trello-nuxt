@@ -49,15 +49,15 @@
       </div>
 
 
-      <div class="w-full overflow-hidden hidden lg:block">
-        <div class="md:mb-8 homeCenterContainer transition-all ease-out duration-500" :class="carouselMarginLeft">
+      <div class="w-full overflow-hidden hidden lg:block" @dragend="endDrag($event)" @dragstart="startDrag($event)"
+        @drag="logDrag($event)" draggable @transferData="xxx">
+        <div class="md:mb-8 homeCenterContainer transition-all ease-out duration-500" :style="mxValue">
           <div class="flex relative gap-[2em]">
             <component v-for="item in items" :is="item.component" :title="item.title" :body="item.body"
               :color="item.color" :icon="item.icon" class="w-[calc(33%-1em)] flex-shrink-0" />
           </div>
         </div>
       </div>
-
 
       <!--carousel mobile-->
       <div class="w-full overflow-auto lg:hidden">
@@ -325,16 +325,58 @@
   const carouselMarginLeft = ref("!ml-[calc(-1140px+(100%+1140px)/2)]");
 
   const goBackwardNew = () => {
-    if (carouselMarginLeft != null) {
-      carouselMarginLeft.value = "!ml-[calc(-1140px+(100%+1140px)/2)]";
+    if (mxValue.value != null) {
+      mxValue.value = `margin-left: calc(-1140px + (100% + 1140px) / 2) !important;`;
     }
   };
 
   const goForwardNew = () => {
-    if (carouselMarginLeft != null) {
-      carouselMarginLeft.value = "!ml-[calc(-1140px+(100%-1140px)/2)]";
+    if (mxValue.value != null) {
+      mxValue.value = `margin-left: calc(50% - 1780px) !important`;
     }
   };
+
+  const mx = ref(1140);
+  const mxValue = ref(`margin-left: calc(-1140px + (100% + 1140px) / 2) !important;`)
+  const vrednost = ref(0);
+  const startX = ref(0);
+
+  const endDrag = (e) => {
+    mx.value = vrednost.value;
+
+  }
+
+  const startDrag = (e) => {
+    startX.value = e.clientX;
+
+
+  }
+
+  const logDrag = (e) => {
+    if (e.screenX !== 0) {
+      const delta = (e.clientX - startX.value) * 2;
+      const newValue = mx.value + delta;
+
+      // Restricting movement to the left beyond the initial value
+      if (newValue < 170) {
+        vrednost.value = 170;
+      }
+      // Restricting movement to the right beyond the initial value
+      else if (newValue > 2550) { // Adjust 2280 according to your requirement
+        vrednost.value = 2550; // Set the maximum allowed value
+      } else {
+        vrednost.value = newValue; // Allow movement within the limits
+      }
+
+      requestAnimationFrame(() => {
+        mxValue.value = `margin-left: calc(-1140px + (100% - 1440px + ${vrednost.value}px) / 2) !important;`;
+      });
+    }
+  }
+
+
+
+  //carouselMarginLeft.value = '!ml-[calc(-1140px+(100%-' + e.screenX + 'px)/2)]';
 
 
 

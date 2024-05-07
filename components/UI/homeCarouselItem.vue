@@ -6,6 +6,7 @@
   relative 
   my-4 
   ml-1
+  
   " style="border-radius: 1em;">
 
     <div class="text-left block h-12" :class="headerClass">
@@ -15,7 +16,7 @@
       <Icon :name="props.icon" class="h-10 w-10" :class="iconClass" />
     </div>
 
-    <div class="pt-6 px-4">
+    <div class="pt-6 px-4 select-none">
       <h1 class="font-bold pb-2 text-lg">{{ props.title }}</h1>
       <p class="leading-7">{{ props.body }}</p>
     </div>

@@ -6,14 +6,14 @@
         <p>Login to continue</p>
       </template>
 
-      <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+      <UForm :schema="schema" :state="data" class="space-y-4" @submit="submit">
 
         <UFormGroup label="Email" name="email">
-          <UInput v-model="state.email" />
+          <UInput v-model="data.email" />
         </UFormGroup>
 
         <UFormGroup label="Password" name="password">
-          <UInput v-model="state.password" type="password" />
+          <UInput v-model="data.password" type="password" />
         </UFormGroup>
 
         <div class="">
@@ -29,58 +29,57 @@
 </template>
 <script setup lang="ts">
   import { z } from 'zod';
-  import type { FormError, FormSubmitEvent } from '#ui/types';
+  //import type { FormError, FormSubmitEvent } from '#ui/types';
+
+  definePageMeta({ middleware: ["guest"] });
+
+
+  const router = useRouter();
+  const route = useRoute();
+  const { login } = useAuth();
+
+  const data = reactive({
+    email: "",
+    password: "",
+  });
+
+  const status = ref(
+    (route.query.reset ?? "").length > 0 ? atob(route.query.reset as string) : ""
+  );
 
   const schema = z.object({
     email: z.string().email('Invalid email'),
-    password: z.string().min(8, 'Must be at least 8 characters')
+    password: z.string().min(8, 'Must be at least 8 characters'),
+    remember: z.boolean(),
   })
 
-  type Schema = z.output<typeof schema>
+  //type Schema = z.output<typeof schema>
 
-  const state = reactive({
-    email: undefined,
-    password: undefined
-  })
 
   const form = ref()
 
-  async function onSubmit(event: FormSubmitEvent<any>) {
-    form.value.clear()
-    try {
-      const response = await $fetch('')
-      // ...
-    } catch (err: any) {
-      if (err.statusCode === 422) {
-        form.value.setErrors(err.data.errors.map((err: { message: any; path: any; }) => ({
-          // Map validation errors to { path: string, message: string }
-          message: err.message,
-          path: err.path,
-        })))
+  const {
+    submit,
+    succeeded,
+    validationErrors: errors,
+    error,
+    inProgress
+  } = useSubmit(
+    () => {
+      status.value = "";
+      return login(data);
+    },
+    {
+      onSuccess: (res) => {
+        form.value.clear();
+        alert("logged in");
+        console.log(res);
+        //router.push("/dashboard");
+      },
+
+      onError: (res) => {
+        alert(res);
       }
     }
-  }
-
-
-
-  /*   const { login } = useAuth();
-    const data = reactive({
-      username: '',
-      password: '',
-      loading: false
-    });
-  
-    async function handleLogin() {
-      data.loading = true;
-      try {
-        await login({
-          username: data.username,
-          password: data.password
-        });
-      } catch (error) {
-        console.error(error);
-      } finally {
-        data.loading = false;
-      }
-    } */
+  );
 </script>

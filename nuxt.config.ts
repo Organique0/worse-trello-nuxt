@@ -5,6 +5,12 @@ export default defineNuxtConfig({
   colorMode: {
     preference: 'light',
   },
+  runtimeConfig: {
+    public: {
+      backendUrl: "http://localhost:8000",
+      frontendUrl: "http://localhost:3000",
+    },
+  },
   css: ['~/assets/css/main.css'],
   modules: [
     'nuxt-icon',
@@ -14,6 +20,12 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "vue3-carousel-nuxt"
   ],
+  imports: {
+    dirs: ["./utils"],
+  },
+  experimental: {
+    asyncContext: true,
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

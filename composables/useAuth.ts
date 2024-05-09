@@ -6,7 +6,7 @@ export type User = {
 };
 
 export type LoginCredentials = {
-  email: string;
+  username: string;
   password: string;
 };
 
@@ -40,6 +40,7 @@ export const useAuth = <T = User>() => {
   async function refresh() {
     try {
       user.value = await fetchCurrentUser();
+      console.log(user.value);
     } catch {
       user.value = null;
     }

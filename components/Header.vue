@@ -4,10 +4,15 @@
     <img src="public/favicon.ico" class="hover:cursor-pointer group" @click="handleHomeClick" />
     <div class="flex flex-grow justify-end items-center">
       <div class="h-full flex items-center gap-4">
-        <UButton :ui="{ rounded: 'rounded-none' }" class="h-full" label="Login" size="xl" to="/login" variant="ghost"
-          color="blue" />
-        <UButton :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Register" size="xl" to="/register"
+
+        <UButton v-if="!isLoggedIn" :ui="{ rounded: 'rounded-none' }" class="h-full" label="Login" size="xl" to="/login"
           variant="ghost" color="blue" />
+        <UButton v-if="!isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Register" size="xl"
+          to="/register" variant="ghost" color="blue" />
+
+        <UButton v-if="isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Log out" size="xl" to="/"
+          variant="ghost" color="blue" @click="logout" />
+
       </div>
     </div>
   </div>
@@ -16,7 +21,10 @@
 </template>
 
 <script setup>
+  definePageMeta({ middleware: ["guest"] });
   const router = useRouter();
+  const { isLoggedIn, logout } = useAuth();
+
   function handleHomeClick() {
     router.push("/");
   }

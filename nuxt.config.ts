@@ -18,8 +18,13 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     "@nuxt/ui",
     "@nuxt/image",
-    "vue3-carousel-nuxt"
+    "vue3-carousel-nuxt",
+    '@formkit/nuxt',
+    '@pinia/nuxt'
   ],
+  formkit: {
+    autoImport: true
+  },
   imports: {
     dirs: ["./utils"],
   },

@@ -104,11 +104,10 @@
     {
       onSuccess: (res) => {
         form.value.clear();
-        alert("registered");
-        console.log(res);
+        console.log("registered");
       },
       onError: (res) => {
-        alert(res);
+        console.log(res);
       }
     }
   );

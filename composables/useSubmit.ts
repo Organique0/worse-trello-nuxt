@@ -30,7 +30,6 @@ export function useSubmit<T>(
       succeeded.value = false;
       options?.onError?.(e);
       validationErrors.value = e.data?.errors ?? {};
-
       if (e.response?.status !== 422) throw e;
     } finally {
       inProgress.value = false;

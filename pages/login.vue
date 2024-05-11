@@ -44,6 +44,9 @@
           Login
         </UButton>
 
+
+        <SocialAuth class="mt-[12px]" />
+
       </FormKit>
     </UCard>
   </div>

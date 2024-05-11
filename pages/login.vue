@@ -76,7 +76,6 @@
     (route.query.reset ?? "").length > 0 ? atob(route.query.reset as string) : ""
   );
 
-
   const {
     submit,
     succeeded,

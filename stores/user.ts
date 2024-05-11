@@ -61,12 +61,8 @@ export const useMyUserStore = defineStore({
     },
 
     async login(credentials: LoginCredentials) {
-      //console.log(this.isLoggedIn);
-      //if (this.isLoggedIn) return;
-      //console.log("login");
       await $larafetch("/login", { method: "post", body: credentials });
       await this.refresh();
-      //console.log(this.user);
     },
 
 

@@ -1,31 +1,3 @@
-export type User = {
-  username: string;
-  first_name: string;
-  last_name: string;
-  email?: string;
-};
-
-export type LoginCredentials = {
-  username: string;
-  password: string;
-};
-
-export type RegisterCredentials = {
-  username: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  password: string;
-  password_confirmation: string;
-};
-
-export type ResetPasswordCredentials = {
-  email: string;
-  password: string;
-  password_confirmation: string;
-  token: string;
-};
-
 // Value is initialized in: ~/plugins/auth.ts
 export const useUser = <T = User>() => {
   return useState<T | undefined | null>("user", () => undefined);
@@ -40,7 +12,6 @@ export const useAuth = <T = User>() => {
   async function refresh() {
     try {
       user.value = await fetchCurrentUser();
-      console.log(user.value);
     } catch {
       user.value = null;
     }

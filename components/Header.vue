@@ -5,13 +5,13 @@
     <div class="flex flex-grow justify-end items-center">
       <div class="h-full flex items-center gap-4">
 
-        <UButton v-if="!isLoggedIn" :ui="{ rounded: 'rounded-none' }" class="h-full" label="Login" size="xl" to="/login"
-          variant="ghost" color="blue" />
-        <UButton v-if="!isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Register" size="xl"
+        <UButton v-if="!store.isLoggedIn" :ui="{ rounded: 'rounded-none' }" class="h-full" label="Login" size="xl"
+          to="/login" variant="ghost" color="blue" />
+        <UButton v-if="!store.isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Register" size="xl"
           to="/register" variant="ghost" color="blue" />
 
-        <UButton v-if="isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Log out" size="xl" to="/"
-          variant="ghost" color="blue" @click="logout" />
+        <UButton v-if="store.isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Log out" size="xl"
+          to="/" variant="ghost" color="blue" @click="store.logout" />
 
       </div>
     </div>
@@ -21,9 +21,8 @@
 </template>
 
 <script setup>
-  definePageMeta({ middleware: ["guest"] });
   const router = useRouter();
-  const { isLoggedIn, logout } = useAuth();
+  const store = useMyUserStore();
 
   function handleHomeClick() {
     router.push("/");

@@ -45,7 +45,8 @@
         </UButton>
 
 
-        <SocialAuth class="mt-[12px]" />
+        <SocialAuth class="mt-[12px]" :for="'google'" />
+        <SocialAuth class="mt-[12px]" :for="'github'" />
 
       </FormKit>
     </UCard>

@@ -43,7 +43,8 @@
             Sign up
           </UButton>
 
-          <SocialAuth class="mt-[12px]" />
+          <SocialAuth class="mt-[12px]" :for="'google'" />
+          <SocialAuth class="mt-[12px]" :for="'github'" />
         </div>
 
       </UForm>
@@ -107,8 +108,7 @@
     {
       onSuccess: () => {
         form.value.clear();
-        alert("registered");
-        router.push("/");
+        router.push("/verify-email");
       },
       onError: () => {
         form.value.setErrors(Object.entries(validationErrors.value).map(([key, value]) => ({

@@ -1,85 +1,67 @@
 <script setup lang="ts">
-definePageMeta({ middleware: ["guest"] });
+  import { z } from 'zod';
 
-const router = useRouter();
-const route = useRoute();
-const { resetPassword } = useAuth();
+  definePageMeta({ middleware: ["guest"] });
 
-if (!route.query.email) {
-  router.push("/");
-}
+  const router = useRouter();
+  const route = useRoute();
+  const { resetPassword } = useAuth();
 
-const data = reactive({
-  email: route.query.email as string,
-  password: "",
-  password_confirmation: "",
-});
-const token = computed(() => route.params.token);
-const {
-  submit,
-  inProgress,
-  validationErrors: errors,
-} = useSubmit(() => resetPassword({ token: token.value as string, ...data }), {
-  onSuccess: (result) =>
-    router.push({
-      path: "/login",
-      query: { reset: btoa(result?.status ?? "") },
-    }),
-});
+  if (!route.query.email) {
+    router.push("/");
+  }
+
+  const data = reactive({
+    email: route.query.email as string,
+    password: "",
+    password_confirmation: "",
+  });
+
+  const token = computed(() => route.params.token);
+  const {
+    submit,
+    inProgress,
+    validationErrors: errors,
+  } = useSubmit(() => resetPassword({ token: token.value as string, ...data }), {
+    onSuccess: (result) =>
+      router.push({
+        path: "/login",
+        query: { reset: btoa(result?.status ?? "") },
+      }),
+  });
+
+  const schema = z.object({
+    password: z.string().min(8, 'Must be at least 8 characters'),
+    password_confirmation: z.string().min(8, 'Must be at least 8 characters'),
+  }).refine((val) => val.password === val.password_confirmation, {
+    message: "Passwords do not match",
+  });
+
+  type Schema = z.output<typeof schema>
+
 </script>
 
 <template>
   <AuthCard>
     <template #logo>
-      <NuxtLink href="/">
-        <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+      <NuxtLink to="/">
+        <img src="/favicon.ico" />
       </NuxtLink>
     </template>
 
-    <form @submit.prevent="submit">
-      <!-- Email Address -->
-      <div class="mt-4">
-        <Label for="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          class="block mt-1 w-full opacity-80"
-          v-model="data.email"
-          :errors="errors.email"
-          disabled
-          required
-        />
-      </div>
+    <UForm :state="data" :schema="schema" class="space-y-4" @submit="submit">
+      <UFormGroup label="Password" name="password">
+        <UInput v-model="data.password" type="password" />
+      </UFormGroup>
 
-      <!-- Password -->
-      <div class="mt-4">
-        <Label for="password">New Password</Label>
-        <Input
-          id="password"
-          type="password"
-          class="block mt-1 w-full"
-          v-model="data.password"
-          :errors="errors.password"
-          required
-        />
-      </div>
+      <UFormGroup label="Password again" name="password">
+        <UInput v-model="data.password_confirmation" type="password" />
+      </UFormGroup>
 
-      <!-- Confirm Password -->
-      <div class="mt-4">
-        <Label for="password_confirmation">Confirm Password</Label>
-        <Input
-          id="password_confirmation"
-          type="password"
-          class="block mt-1 w-full"
-          v-model="data.password_confirmation"
-          :errors="errors.password_confirmation"
-          required
-        />
-      </div>
+      <UButton type="submit">
+        Submit
+      </UButton>
 
-      <div class="flex items-center justify-end mt-4">
-        <Button :disabled="inProgress">Reset Password</Button>
-      </div>
-    </form>
+    </UForm>
   </AuthCard>
 </template>

@@ -12,7 +12,7 @@
   }
 
   onBeforeMount(async () => {
-    await handleResendVerification();
+    //await handleResendVerification();
   })
 
 </script>
@@ -21,9 +21,10 @@
   <AuthCard>
     <template #logo>
       <NuxtLink to="/">
-        <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+        <img src="/public/favicon.ico" />
       </NuxtLink>
     </template>
+
     <div class="mb-4 text-sm text-gray-600">
       Thanks for signing up! Before getting started, could you verify your email
       address by clicking on the link we just emailed to you? If you didn't
@@ -38,13 +39,13 @@
     </template>
 
     <div class="mt-4 flex items-center justify-between">
-      <Button @click="handleResendVerification" :disabled="verificationIsSent">
+      <UButton @click="handleResendVerification" :disabled="verificationIsSent">
         Resend Verification Email
-      </Button>
+      </UButton>
 
-      <button type="button" class="underline text-sm text-gray-600 hover:text-gray-900" @click="logout">
+      <UButton type="button" class="underline text-sm" @click="logout">
         Logout
-      </button>
+      </UButton>
     </div>
   </AuthCard>
 </template>

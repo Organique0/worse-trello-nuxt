@@ -1,35 +1,49 @@
 <script setup lang="ts">
-definePageMeta({ middleware: ["guest"] });
+  import { object, z } from 'zod';
+  import type { FormSubmitEvent } from '#ui/types'
 
-const { forgotPassword } = useAuth();
+  //definePageMeta({ middleware: ["guest"] });
 
-const email = ref("");
-const resetEmailSent = ref(false);
-const status = ref("");
+  const { forgotPassword } = useAuth();
 
-const {
-  submit,
-  inProgress,
-  validationErrors: errors,
-} = useSubmit(
-  () => {
-    status.value = "";
-    return forgotPassword(email.value);
-  },
-  {
-    onSuccess: (result) => {
-      status.value = result?.status ?? "";
-      resetEmailSent.value = true;
+  const resetEmailSent = ref(false);
+  const status = ref("");
+
+  const {
+    submit,
+    inProgress,
+    validationErrors: errors,
+  } = useSubmit(
+    () => {
+      status.value = "";
+      return forgotPassword(state.email);
     },
-  }
-);
+    {
+      onSuccess: (result) => {
+        status.value = result?.status ?? "";
+        resetEmailSent.value = true;
+      },
+    }
+  );
+
+  type Schema = z.output<typeof schema>
+
+  const state = reactive({
+    email: "",
+  });
+
+  const schema = object({
+    email: z.string().email('Invalid email'),
+  });
+
+
 </script>
 
 <template>
   <AuthCard>
     <template #logo>
       <NuxtLink to="/">
-        <ApplicationLogo class="w-20 h-20 fill-current text-gray-500" />
+        <img src="/favicon.ico" />
       </NuxtLink>
     </template>
 
@@ -42,27 +56,15 @@ const {
     <!-- Session Status -->
     <AuthSessionStatus class="mb-4" :status="status" />
 
-    <form @submit.prevent="submit">
-      <!-- Email Address -->
-      <div>
-        <Label for="email">Email</Label>
-        <Input
-          id="email"
-          type="email"
-          class="block mt-1 w-full"
-          v-model="email"
-          :errors="errors.email"
-          :disabled="resetEmailSent"
-          required
-          autoFocus
-        />
-      </div>
 
-      <div class="flex items-center justify-end mt-4">
-        <Button class="ml-3" :disabled="inProgress || resetEmailSent">
-          Email Password Reset Link
-        </Button>
-      </div>
-    </form>
+    <UForm @submit="submit" :state="state" :schema="schema" class="space-y-4">
+      <UFormGroup label="Email" name="email">
+        <UInput v-model="state.email" />
+      </UFormGroup>
+
+      <UButton type="submit">
+        Submit
+      </UButton>
+    </UForm>
   </AuthCard>
 </template>

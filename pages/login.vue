@@ -49,6 +49,8 @@
         <SocialAuth class="mt-[12px]" :for="'github'" />
 
       </FormKit>
+
+      <nuxt-link to="/forgot-password">Don't remember your password?</nuxt-link>
     </UCard>
   </div>
 

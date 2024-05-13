@@ -1,7 +1,7 @@
 <script setup lang="ts">
   //definePageMeta({ middleware: ["unverified"] });
 
-  const { logout, resendEmailVerification } = useAuth();
+  const { resendEmailVerification } = useAuth();
   const verificationIsSent = ref(false);
 
   async function handleResendVerification() {
@@ -20,24 +20,20 @@
 <template>
   <AuthCard>
 
-    <h1 class="mb-4 text-md font-semibold text-center mt-4">
+    <h1 class="mb-8 text-lg font-semibold text-center mt-4">
       Verify your email address
     </h1>
 
-    <template v-if="verificationIsSent">
-      <div class="mb-4 font-medium text-sm text-green-600">
+    <template v-if="true">
+      <div class="mb-4 font-medium text-sm text-primary">
         A new verification link has been sent to the email address you provided
         during registration.
       </div>
     </template>
 
-    <div class="mt-4 flex items-center justify-between">
-      <UButton @click="handleResendVerification" :disabled="verificationIsSent">
+    <div class="mt-14 flex justify-end">
+      <UButton @click="handleResendVerification" :disabled="verificationIsSent" size="xs">
         Resend Verification Email
-      </UButton>
-
-      <UButton type="button" class="underline text-sm" @click="logout">
-        Logout
       </UButton>
     </div>
   </AuthCard>

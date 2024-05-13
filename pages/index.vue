@@ -241,7 +241,7 @@
             around
             the
             world.</h3>
-          <UButton color="blue" size="xl" class="p-4">Compare plans</UButton>
+          <UButton color="primary" size="xl" class="p-4">Compare plans</UButton>
         </div>
         <UIPriceCompare />
       </div>

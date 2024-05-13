@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   pages: true,
   devtools: { enabled: true },
   colorMode: {
-    preference: 'dark',
+    preference: 'light',
   },
   runtimeConfig: {
     public: {

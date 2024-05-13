@@ -19,17 +19,10 @@
 
 <template>
   <AuthCard>
-    <template #logo>
-      <NuxtLink to="/">
-        <img src="/public/favicon.ico" />
-      </NuxtLink>
-    </template>
 
-    <div class="mb-4 text-sm text-gray-600">
-      Thanks for signing up! Before getting started, could you verify your email
-      address by clicking on the link we just emailed to you? If you didn't
-      receive the email, we will gladly send you another.
-    </div>
+    <h1 class="mb-4 text-md font-semibold text-center mt-4">
+      Verify your email address
+    </h1>
 
     <template v-if="verificationIsSent">
       <div class="mb-4 font-medium text-sm text-green-600">

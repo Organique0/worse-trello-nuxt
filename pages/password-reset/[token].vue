@@ -45,7 +45,7 @@
   <AuthCard>
     <template #logo>
       <NuxtLink to="/">
-        <img src="/favicon.ico" />
+        <img src="/icon-green.svg" class="w-16 h-16">
       </NuxtLink>
     </template>
 

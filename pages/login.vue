@@ -27,32 +27,40 @@
 </UCard>
 </div> -->
 
-  <div class="flex flex-col justify-center min-h-[calc(100%-100px)]">
-    <UCard
-      class="flex flex-col my-0 mx-auto w-[400px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl  transition-all duration-200">
-      <FormKit id="loginForm" type="form" submit-label="Login" @submit="submit" :actions="false">
 
-        <FormKit v-model="data.username" type="text" name="username" label="Username" placeholder="username"
-          validation="required" />
+  <div class="min-h-[calc(100%-100px)] bgImage">
+    <div class="flex flex-col justify-center h-[100vh]">
+      <UCard
+        class="flex flex-col my-0 mx-auto w-[400px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl  transition-all duration-200">
+        <FormKit id="loginForm" type="form" submit-label="Login" @submit="submit" :actions="false">
 
-        <FormKit v-model="data.password" type="password" name="password" label="Password" placeholder="password"
-          validation="required" />
+          <FormKit v-model="data.username" type="text" name="username" label="Username" placeholder="username"
+            validation="required" />
 
-        <UAlert v-if="validationErrors.error" title="Incorrect credentials" variant="outline" color="red" />
+          <FormKit v-model="data.password" type="password" name="password" label="Password" placeholder="password"
+            validation="required" />
 
-        <UButton type="submit" class="mb-2 h-10" block variant="solid" color="primary">
-          Login
-        </UButton>
+          <UAlert v-if="validationErrors.error" title="Incorrect credentials" variant="outline" color="red" />
 
-        <SocialAuth class="mt-12" :for="'google'" />
-        <SocialAuth class="mt-[12px]" :for="'github'" />
+          <UButton type="submit" class="mb-2 h-10" block variant="solid" color="primary">
+            Login
+          </UButton>
 
-      </FormKit>
+          <SocialAuth class="mt-12" :for="'google'" />
+          <SocialAuth class="mt-[12px]" :for="'github'" />
 
-      <nuxt-link to="/forgot-password" class="text-gray-400 font-light text-sm w-[100%] text-right block">Don't remember
-        your
-        password?</nuxt-link>
-    </UCard>
+        </FormKit>
+
+        <nuxt-link to="/forgot-password" class="text-gray-400 font-light text-sm w-[100%] text-right block">Don't
+          remember
+          your
+          password?</nuxt-link>
+      </UCard>
+
+
+      <!--     <NuxtImg src="trello-left.svg" sizes="" />
+    <NuxtImg src="trello-right.svg" /> -->
+    </div>
   </div>
 
 </template>
@@ -97,7 +105,6 @@
     {
       onSuccess: (res) => {
         //reset('loginForm', { username: null, password: null });
-        alert("logged in");
         router.push("/");
       },
 

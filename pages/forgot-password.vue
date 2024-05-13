@@ -41,28 +41,21 @@
 
 <template>
   <AuthCard>
-    <template #logo>
-      <NuxtLink to="/">
-        <img src="/favicon.ico" />
-      </NuxtLink>
-    </template>
 
-    <div class="mb-4 text-sm text-gray-600">
-      Forgot your password? No problem. Just let us know your email address and
-      we will email you a password reset link that will allow you to choose a
-      new one.
-    </div>
+    <h1 class="mb-4 text-md font-semibold text-center mt-4">
+      Forgot your password?
+    </h1>
 
     <!-- Session Status -->
     <AuthSessionStatus class="mb-4" :status="status" />
 
 
     <UForm @submit="submit" :state="state" :schema="schema" class="space-y-4">
-      <UFormGroup label="Email" name="email">
-        <UInput v-model="state.email" />
+      <UFormGroup label="We'll send a recovery link to" name="email">
+        <UInput v-model="state.email" placeholder="Enter email" />
       </UFormGroup>
 
-      <UButton type="submit">
+      <UButton type="submit" class="mb-2 h-10 mt-12" block variant="solid" color="primary">
         Submit
       </UButton>
     </UForm>

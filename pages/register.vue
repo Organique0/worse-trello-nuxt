@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center min-h-[calc(100%-100px)]">
+  <div class="flex flex-col justify-center h-full bgImage">
     <UCard
       class="flex flex-col my-0 mx-auto w-[600px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl transition-all duration-200">
       <template #header>

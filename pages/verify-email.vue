@@ -1,15 +1,20 @@
 <script setup lang="ts">
-definePageMeta({ middleware: ["unverified"] });
+  //definePageMeta({ middleware: ["unverified"] });
 
-const { logout, resendEmailVerification } = useAuth();
-const verificationIsSent = ref(false);
+  const { logout, resendEmailVerification } = useAuth();
+  const verificationIsSent = ref(false);
 
-async function handleResendVerification() {
-  const status = (await resendEmailVerification()).status;
-  if (status === "verification-link-sent") {
-    verificationIsSent.value = true;
+  async function handleResendVerification() {
+    const status = (await resendEmailVerification()).status;
+    if (status === "verification-link-sent") {
+      verificationIsSent.value = true;
+    }
   }
-}
+
+  onBeforeMount(async () => {
+    await handleResendVerification();
+  })
+
 </script>
 
 <template>
@@ -37,11 +42,7 @@ async function handleResendVerification() {
         Resend Verification Email
       </Button>
 
-      <button
-        type="button"
-        class="underline text-sm text-gray-600 hover:text-gray-900"
-        @click="logout"
-      >
+      <button type="button" class="underline text-sm text-gray-600 hover:text-gray-900" @click="logout">
         Logout
       </button>
     </div>

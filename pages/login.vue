@@ -40,17 +40,18 @@
 
         <UAlert v-if="validationErrors.error" title="Incorrect credentials" variant="outline" color="red" />
 
-        <UButton type="submit" color="white" class="mt-8 mb-2" block>
+        <UButton type="submit" class="mb-2 h-10" block variant="solid" color="primary">
           Login
         </UButton>
 
-
-        <SocialAuth class="mt-[12px]" :for="'google'" />
+        <SocialAuth class="mt-12" :for="'google'" />
         <SocialAuth class="mt-[12px]" :for="'github'" />
 
       </FormKit>
 
-      <nuxt-link to="/forgot-password">Don't remember your password?</nuxt-link>
+      <nuxt-link to="/forgot-password" class="text-gray-400 font-light text-sm w-[100%] text-right block">Don't remember
+        your
+        password?</nuxt-link>
     </UCard>
   </div>
 

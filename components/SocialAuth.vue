@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UButton color="white" class="mb-4" block @click="onSubmit">
+    <UButton color="white" class="mb-4 h-10" block @click="onSubmit">
       <LogosGithubIcon v-if="props.for === 'github'" />
       <LogosGoogleIcon v-if="props.for === 'google'" />
       {{ props.for.charAt(0).toUpperCase() + props.for.slice(1) }}

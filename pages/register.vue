@@ -39,11 +39,12 @@
 
 
         <div class="">
-          <UButton type="submit" color="white" class="mt-12" block>
-            Sign up
+          <UButton type="submit" class="mb-2 h-10" block variant="solid" color="primary">
+            Sign Up
           </UButton>
 
-          <SocialAuth class="mt-[12px]" :for="'google'" />
+
+          <SocialAuth class="mt-12" :for="'google'" />
           <SocialAuth class="mt-[12px]" :for="'github'" />
         </div>
 

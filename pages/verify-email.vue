@@ -20,21 +20,27 @@
 <template>
   <AuthCard>
 
-    <h1 class="mb-8 text-lg font-semibold text-center mt-4">
-      Verify your email address
-    </h1>
-
-    <template v-if="true">
-      <div class="mb-4 font-medium text-sm text-primary">
-        A new verification link has been sent to the email address you provided
-        during registration.
-      </div>
+    <template #header>
+      <h1 class="text-center text-xl font-medium mb-11">
+        Verify your email address
+      </h1>
     </template>
 
-    <div class="mt-14 flex justify-end">
-      <UButton @click="handleResendVerification" :disabled="verificationIsSent" size="xs">
-        Resend Verification Email
-      </UButton>
-    </div>
+
+    <template #form>
+      <template v-if="verificationIsSent">
+        <div class="mb-4 font-medium text-sm text-primary">
+          A new verification link has been sent to the email address you provided
+          during registration.
+        </div>
+      </template>
+
+      <div class="mt-14 flex justify-end">
+        <UButton @click="handleResendVerification" :disabled="verificationIsSent" size="xs">
+          Resend Verification Email
+        </UButton>
+      </div>
+
+    </template>
   </AuthCard>
 </template>

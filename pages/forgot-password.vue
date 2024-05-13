@@ -7,7 +7,7 @@
   const { forgotPassword } = useAuth();
 
   const resetEmailSent = ref(false);
-  const status = ref("");
+  const status = ref("asdfasdf");
 
   const {
     submit,
@@ -40,24 +40,26 @@
 </script>
 
 <template>
+
   <AuthCard>
 
-    <h1 class="mb-4 text-md font-semibold text-center mt-4">
-      Forgot your password?
-    </h1>
+    <template #header>
+      <h1 class="text-center text-xl font-medium mb-11">Reset password</h1>
+    </template>
 
-    <!-- Session Status -->
-    <AuthSessionStatus class="mb-4" :status="status" />
+    <template #form>
+      <UForm @submit="submit" :state="state" :schema="schema" class="space-y-4">
+        <UFormGroup label="We'll send a recovery link to" name="email">
+          <UInput v-model="state.email" placeholder="Enter email" />
+        </UFormGroup>
 
+        <UButton type="submit" class="mb-2 h-10 mt-12" block variant="solid" color="primary">
+          Submit
+        </UButton>
+      </UForm>
 
-    <UForm @submit="submit" :state="state" :schema="schema" class="space-y-4">
-      <UFormGroup label="We'll send a recovery link to" name="email">
-        <UInput v-model="state.email" placeholder="Enter email" />
-      </UFormGroup>
+    </template>
 
-      <UButton type="submit" class="mb-2 h-10 mt-12" block variant="solid" color="primary">
-        Submit
-      </UButton>
-    </UForm>
   </AuthCard>
+
 </template>

@@ -3,9 +3,8 @@
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
-
   </div>
 </template>
 <script setup lang="ts">
-
+  import 'iconify-icon';
 </script>

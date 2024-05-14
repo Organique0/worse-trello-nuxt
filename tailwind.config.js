@@ -18,6 +18,7 @@ export default {
 				footerRight: "url('/public/footer-right.svg')",
 				viewsBgRight: "url('/public/ViewsBackground_Right_Narrow.svg')",
 				viewsBgLeft: "url('/public/ViewsBackground_Left_Narrow.svg')",
+				logoGif: "url('/public/logoGif.gif')",
 			},
 			colors: {
 				wierdBlue: "#091E42",

@@ -15,28 +15,82 @@
         </div>
       </nuxt-link>
 
-      <UDropdown class="block relative mt-0 flex-shrink-0  px-2 h-[32px]">
-        <UButton color="white" label="Workspaces" trailing-icon="i-heroicons-chevron-down-20-solid"
-          class="hover:bg-slate-200 text-opacity-65" variant="ghost" :ui="{ rounded: 'rounded-sm' }" />
-      </UDropdown>
-
-      <UDropdown class="block relative mt-0 flex-shrink-0  px-2 h-[32px]">
+      <UDropdown class="block relative mt-0 px-2 h-[32px]" :items=workspaceItems>
         <UButton color="white" label="Recent" trailing-icon="i-heroicons-chevron-down-20-solid"
           class="hover:bg-slate-200 text-opacity-65" variant="ghost" :ui="{ rounded: 'rounded-sm' }" />
+
+
+        <template #item="{ item }">
+          <div class="inline-flex w-full">
+            <NuxtImg :src="item.src" class=" h-4 w-4" />
+            <p class="font-semibold ml-1 float-left">{{ item.title }}</p>
+          </div>
+        </template>
+
       </UDropdown>
 
-      <UDropdown class="block relative mt-0 flex-shrink-0  px-2 h-[32px]">
+      <UDropdown class="block relative mt-0 px-2 h-[32px]" :items=recentItems>
+        <UButton color="white" label="Recent" trailing-icon="i-heroicons-chevron-down-20-solid"
+          class="hover:bg-slate-200 text-opacity-65" variant="ghost" :ui="{ rounded: 'rounded-sm' }" />
+
+
+        <template #item="{ item }">
+          <div class="inline-flex w-full">
+            <NuxtImg :src="item.src" class=" h-4 w-4" />
+            <p class="font-semibold ml-1 float-left">{{ item.title }}</p>
+          </div>
+        </template>
+
+      </UDropdown>
+
+      <UDropdown class="block relative mt-0  px-2 h-[32px]" :items="starredItems"
+        :ui="{ item: { disabled: 'cursor-default bg-white opacity-100' } }">
         <UButton color="white" label="Starred" trailing-icon="i-heroicons-chevron-down-20-solid"
           class="hover:bg-slate-200 text-opacity-65" variant="ghost" :ui="{ rounded: 'rounded-sm' }" />
+
+        <template #item="{ item }">
+          <div>
+            <NuxtImg src="/starred.svg" />
+            <p>
+              Star important boards to access them quicly and easily.
+            </p>
+          </div>
+        </template>
       </UDropdown>
 
-      <UDropdown class="block relative mt-0 flex-shrink-0  px-2 h-[32px] ">
+      <UDropdown :items="templatesItems"
+        :ui="{ item: { base: 'block', disabled: 'cursor-default bg-white opacity-100' }, container: 'w-72' }"
+        class="block relative mt-0 px-2 h-[32px]">
         <UButton color="white" label="Templates" trailing-icon="i-heroicons-chevron-down-20-solid"
           class="hover:bg-slate-200 text-opacity-65" variant="ghost" :ui="{ rounded: 'rounded-sm' }" />
+
+        <!--         <template #item="{ item }">
+          <div class="inline-flex w-full">
+            <NuxtImg :src="item.src" class=" h-4 w-4" />
+            <p class="font-semibold ml-1 float-left">{{ item.title }}</p>
+          </div>
+        </template>
+
+        <template #ExploreTemplates="{ item }">
+          <div class="inline-flex w-full items-center">
+            <iconify-icon :icon="item.icon" class=" h-4 w-4" />
+            <p class="font-semibold text-left ml-1">
+              {{ item.title }}
+            </p>
+          </div>
+          <UButton block color="gray" variant="soft" class="mt-2">Explore templates</UButton>
+        </template> -->
+
+        <template>
+          <UContainer>
+            <Placeholder class="h-32" />
+          </UContainer>
+        </template>
       </UDropdown>
 
-      <UDropdown :items="createItems" :ui="{ item: { base: 'block' }, container: 'w-72 py' }"
-        :popper="{ placement: 'bottom-start' }">
+
+      <UDropdown :items="createItems" :ui="{ item: { base: 'block' }, container: 'w-72' }"
+        :popper="{ placement: 'bottom-start' }" class="px-2">
         <UButton :ui="{ rounded: 'rounded-sm' }" class="bg-primary ring-0">
           Create
         </UButton>
@@ -50,7 +104,6 @@
             <p>{{ item.body }}</p>
           </div>
         </template>
-
       </UDropdown>
 
     </div>
@@ -180,6 +233,66 @@
       icon: 'lucide:users-round',
       body: 'A workspace is a group of boards and people. Use it to organize your company, side hustle, family, or friends.'
     }]
+  ];
+
+  const templatesItems = [
+    [
+      {
+        title: "1-on-1 Meeting Agenda",
+        src: "/templatesExample.jpg",
+      },
+      {
+        title: "Agile Board Template | Trello",
+        src: "/templatesExample.jpg",
+      },
+      {
+        title: "Company Overview",
+        src: "/templatesExample.jpg",
+      },
+      {
+        title: "Design Huddle",
+        src: "/templatesExample.jpg",
+      },
+      {
+        title: "Go To Market Strategy Template",
+        src: "/templatesExample.jpg",
+      },
+    ], [
+      {
+        icon: "icon-park:page-template",
+        title: "See hundreds of templates from the Trello community",
+        slot: "ExploreTemplates",
+        disabled: true
+      },
+    ],
+  ];
+
+  const starredItems = [
+
+    [
+      {
+        disabled: true,
+      }
+    ]
+
+  ];
+
+  const recentItems = [
+    [
+      {
+        src: "/templatesExample.jpg",
+        title: "1-on-1 Meeting Agenda",
+        type: "Trello workspace",
+      }
+    ]
+  ];
+
+  const workspaceItems = [
+    [
+      {
+
+      }
+    ]
   ]
 
   function addHoverClass() {

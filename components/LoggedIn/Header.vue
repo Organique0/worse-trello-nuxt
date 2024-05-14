@@ -64,7 +64,7 @@
         <UButton color="white" label="Templates" trailing-icon="i-heroicons-chevron-down-20-solid"
           class="hover:bg-slate-200 text-opacity-65" variant="ghost" :ui="{ rounded: 'rounded-sm' }" />
 
-        <!--         <template #item="{ item }">
+        <template #item="{ item }">
           <div class="inline-flex w-full">
             <NuxtImg :src="item.src" class=" h-4 w-4" />
             <p class="font-semibold ml-1 float-left">{{ item.title }}</p>
@@ -79,13 +79,9 @@
             </p>
           </div>
           <UButton block color="gray" variant="soft" class="mt-2">Explore templates</UButton>
-        </template> -->
-
-        <template>
-          <UContainer>
-            <Placeholder class="h-32" />
-          </UContainer>
         </template>
+
+
       </UDropdown>
 
 

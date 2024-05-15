@@ -20,7 +20,8 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "vue3-carousel-nuxt",
     '@formkit/nuxt',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    "shadcn-nuxt"
   ],
   formkit: {
     autoImport: true
@@ -42,4 +43,16 @@ export default defineNuxtConfig({
       isCustomElement: (tag) => tag === 'iconify-icon',
     },
   },
+  shadcn: {
+    /**
+     * Prefix for all the imported component
+     */
+    prefix: '',
+    /**
+     * Directory that the component lives in.
+     * @default "./components/ui"
+     */
+    componentDir: './shadComponents/ui'
+  }
+
 })

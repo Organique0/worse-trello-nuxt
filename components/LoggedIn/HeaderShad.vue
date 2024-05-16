@@ -188,6 +188,7 @@
 										:src="item.src"
 										class="h-8 w-10 rounded-sm"
 									/>
+
 									<p class="font-semibold ml-3 align-middle">
 										{{ item.title }}
 									</p>
@@ -209,7 +210,7 @@
 							</div>
 
 							<Button
-								class="mt-2 rounded-sm bg-gray-200 w-full hover:bg-gray-300 h-8"
+								class="mt-2 rounded-sm bg-gray-300 w-full hover:bg-gray-400 h-8"
 								>Explore templates</Button
 							>
 						</DropdownMenuContent>
@@ -316,7 +317,7 @@ const isHovered = ref(false);
 const staticGif = "logoBeforeAfter";
 var currentGif = ref("logoBeforeAfter");
 const animatedGif = "logoBeforeAfterAnimated";
-const id = useId();
+
 
 const items = [
 	{
@@ -383,7 +384,7 @@ const createItems = [
 const templatesItems = [
 	{
 		title: "1-on-1 Meeting Agenda",
-		src: "/templatesExample.jpg",
+		src: "templatesExample.jpg",
 	},
 	{
 		title: "Agile Board Template | Trello",

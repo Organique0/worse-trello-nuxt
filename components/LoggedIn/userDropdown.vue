@@ -97,7 +97,10 @@
 
 				<DropdownMenuSeparator />
 
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="ml-[-1.6rem]"
+					@click="logout"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Log out </span>
 				</DropdownMenuItem>
 			</DropdownMenuContent>
@@ -106,12 +109,5 @@
 </template>
 
 <script lang="ts" setup>
-import { ConfigProvider } from "radix-vue";
-const { user, isLoggedIn } = useMyUserStore();
-
-const props = defineProps({
-	id: {
-		type: String,
-	},
-});
+const { user, isLoggedIn, logout } = useMyUserStore();
 </script>

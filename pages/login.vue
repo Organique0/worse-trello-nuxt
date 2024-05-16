@@ -1,5 +1,5 @@
 <template>
-  <!--   <div class="flex flex-col justify-center min-h-[calc(100%-100px)]">
+	<!--   <div class="flex flex-col justify-center min-h-[calc(100%-100px)]">
     <UCard
       class="flex flex-col my-0 mx-auto w-[400px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl  transition-all duration-200">
       <template #header>
@@ -27,92 +27,121 @@
 </UCard>
 </div> -->
 
+	<div class="bgImage">
+		<div class="flex flex-col justify-center h-[100vh]">
+			<UCard
+				class="flex flex-col my-0 mx-auto w-[400px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl transition-all duration-200"
+			>
+				<FormKit
+					id="loginForm"
+					type="form"
+					submit-label="Login"
+					@submit="submit"
+					:actions="false"
+				>
+					<FormKit
+						v-model="data.username"
+						type="text"
+						name="username"
+						label="Username"
+						placeholder="username"
+						validation="required"
+					/>
 
-  <div class="min-h-[calc(100%-100px)] bgImage">
-    <div class="flex flex-col justify-center h-[100vh]">
-      <UCard
-        class="flex flex-col my-0 mx-auto w-[400px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl  transition-all duration-200">
-        <FormKit id="loginForm" type="form" submit-label="Login" @submit="submit" :actions="false">
+					<FormKit
+						v-model="data.password"
+						type="password"
+						name="password"
+						label="Password"
+						placeholder="password"
+						validation="required"
+					/>
 
-          <FormKit v-model="data.username" type="text" name="username" label="Username" placeholder="username"
-            validation="required" />
+					<UAlert
+						v-if="validationErrors.error"
+						title="Incorrect credentials"
+						variant="outline"
+						color="red"
+					/>
 
-          <FormKit v-model="data.password" type="password" name="password" label="Password" placeholder="password"
-            validation="required" />
+					<UButton
+						type="submit"
+						class="mb-2 h-10"
+						block
+						variant="solid"
+						color="primary"
+					>
+						Login
+					</UButton>
 
-          <UAlert v-if="validationErrors.error" title="Incorrect credentials" variant="outline" color="red" />
+					<SocialAuth
+						class="mt-12"
+						:for="'google'"
+					/>
+					<SocialAuth
+						class="mt-[12px]"
+						:for="'github'"
+					/>
+				</FormKit>
 
-          <UButton type="submit" class="mb-2 h-10" block variant="solid" color="primary">
-            Login
-          </UButton>
+				<nuxt-link
+					to="/forgot-password"
+					class="text-gray-400 font-light text-sm w-[100%] text-right block"
+					>Don't remember your password?</nuxt-link
+				>
+			</UCard>
 
-          <SocialAuth class="mt-12" :for="'google'" />
-          <SocialAuth class="mt-[12px]" :for="'github'" />
-
-        </FormKit>
-
-        <nuxt-link to="/forgot-password" class="text-gray-400 font-light text-sm w-[100%] text-right block">Don't
-          remember
-          your
-          password?</nuxt-link>
-      </UCard>
-
-
-      <!--     <NuxtImg src="trello-left.svg" sizes="" />
+			<!--     <NuxtImg src="trello-left.svg" sizes="" />
     <NuxtImg src="trello-right.svg" /> -->
-    </div>
-  </div>
-
+		</div>
+	</div>
 </template>
 <script setup lang="ts">
-  //import { z } from 'zod';
-  //import type { FormError, FormSubmitEvent } from '#ui/types';
-  /*   const schema = z.object({
+//import { z } from 'zod';
+//import type { FormError, FormSubmitEvent } from '#ui/types';
+/*   const schema = z.object({
       email: z.string().email('Invalid email'),
       password: z.string().min(8, 'Must be at least 8 characters'),
       remember: z.boolean(),
     }) */
 
-  //type Schema = z.output<typeof schema>
+//type Schema = z.output<typeof schema>
 
-  import { reset } from '@formkit/core'
-  definePageMeta({ middleware: ["guest"] });
+import { reset } from "@formkit/core";
+definePageMeta({ middleware: ["guest"] });
+definePageMeta({
+	layout: "no-header",
+});
 
-  const router = useRouter();
-  const route = useRoute();
-  const { login } = useMyUserStore();
+const router = useRouter();
+const route = useRoute();
+const { login } = useMyUserStore();
 
-  const data = reactive({
-    username: "",
-    password: "",
-  });
+const data = reactive({
+	username: "",
+	password: "",
+});
 
-  const status = ref(
-    (route.query.reset ?? "").length > 0 ? atob(route.query.reset as string) : ""
-  );
+const status = ref(
+	(route.query.reset ?? "").length > 0 ? atob(route.query.reset as string) : ""
+);
 
-  const {
-    submit,
-    succeeded,
-    validationErrors,
-    error,
-    inProgress
-  } = useSubmit(
-    () => {
-      status.value = "";
-      return login(data);
-    },
-    {
-      onSuccess: (res) => {
-        //reset('loginForm', { username: null, password: null });
-        router.push("/");
-      },
+const { submit, succeeded, validationErrors, error, inProgress } = useSubmit(
+	() => {
+		status.value = "";
+		return login(data);
+	},
+	{
+		onSuccess: (res) => {
+			//reset('loginForm', { username: null, password: null });
+			router.push("/");
+		},
 
-      onError: (res) => {
-        console.log(res);
-      }
-    }
-  );
+		onError: (res) => {
+			console.log(res);
+		},
+	}
+);
 
-  // { "username": [ "Incorrect username" ], "password": [ "Incorrect password" ] }
+// { "username": [ "Incorrect username" ], "password": [ "Incorrect password" ] }
 </script>

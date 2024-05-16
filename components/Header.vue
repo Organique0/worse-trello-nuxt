@@ -1,31 +1,44 @@
 <template>
-  <div
-    class="bg-white flex h-[60px] w-full dark:bg-slate-400 px-4 border-b-2 transition-all duration-400 hover:shadow-md z-50 fixed">
-    <img src="public/icon-green.svg" class="hover:cursor-pointer group" @click="handleHomeClick" />
-    <div class="flex flex-grow justify-end items-center">
-      <div class="h-full flex items-center gap-4">
+	<div
+		class="bg-white flex h-[60px] w-full dark:bg-slate-400 px-4 border-b-2 transition-all duration-400 hover:shadow-lg z-50 fixed"
+	>
+		<img
+			src="public/icon-green.svg"
+			class="hover:cursor-pointer group"
+			@click="handleHomeClick"
+		/>
+		<div class="flex flex-grow justify-end items-center">
+			<div class="h-[calc(100%+3px)] flex items-center gap-4">
+				<Button
+					v-if="!store.isLoggedIn"
+					variant="homeMenu"
+					@click="() => router.push('login')"
+					>Login</Button
+				>
+				<Button
+					v-if="!store.isLoggedIn"
+					variant="default"
+					class="h-full rounded-none text-lg"
+					@click="() => router.push('register')"
+					>Get Trello for free</Button
+				>
 
-        <UButton v-if="!store.isLoggedIn" :ui="{ rounded: 'rounded-none' }" class="h-full" label="Login" size="xl"
-          to="/login" variant="ghost" color="primary" />
-        <UButton v-if="!store.isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Register" size="xl"
-          to="/register" variant="ghost" color="primary" />
-
-        <UButton v-if="store.isLoggedIn" :ui="{ rounded: 'rounded-none' }" class=" h-full" label="Log out" size="xl"
-          to="/" color="primary" @click="store.logout" />
-
-      </div>
-    </div>
-  </div>
-
-
+				<Button
+					v-if="store.isLoggedIn"
+					variant="homeMenu"
+					@click="store.logout"
+					>Log out</Button
+				>
+			</div>
+		</div>
+	</div>
 </template>
 
 <script setup>
-  const router = useRouter();
-  const store = useMyUserStore();
+const router = useRouter();
+const store = useMyUserStore();
 
-  function handleHomeClick() {
-    router.push("/");
-  }
-
+function handleHomeClick() {
+	router.push("/");
+}
 </script>

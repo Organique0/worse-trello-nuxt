@@ -68,7 +68,7 @@ export const useMyUserStore = defineStore({
 
     async logout() {
       const router = useRouter();
-      if (!this.isLoggedIn) return;
+      if (!this.isLoggedIn) console.log("not logged");
 
       await $larafetch("/logout", { method: "post" });
       this.user = null;

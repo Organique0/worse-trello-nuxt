@@ -1,0 +1,13 @@
+Hydration issue (Vue < 3.5) We expose a temporary workaround to allow current
+Nuxt (with version >3.10) project fix the current hydration issue by using useId
+provided by Nuxt. Inspired by Headless UI vue
+<!-- in Nuxt's app.vue -->
+<script setup lang="ts">
+import { ConfigProvider } from "radix-vue";
+
+const useIdFunction = () => useId();
+</script>
+
+<template>
+	<ConfigProvider :use-id="useIdFunction"> … </ConfigProvider>
+</template>

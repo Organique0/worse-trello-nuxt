@@ -38,11 +38,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  vue: {
-    compilerOptions: {
-      isCustomElement: (tag) => tag === 'iconify-icon',
-    },
-  },
+
   shadcn: {
     /**
      * Prefix for all the imported component

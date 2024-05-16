@@ -111,6 +111,7 @@
   @apply text-wierdBlue border border-cyan-400 my-6 mr-auto
 }
 
+
 .bgImage {
   background-image: url('trello-left.svg'), url('trello-right.svg');
   background-size: 368px, 368px;

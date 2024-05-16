@@ -58,10 +58,15 @@
 					</div>
 				</div>
 
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Switch accounts </span>
 				</DropdownMenuItem>
-				<DropdownMenuItem class="ml-[-1.6rem]">
+
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Manage account </span>
 				</DropdownMenuItem>
 
@@ -70,35 +75,69 @@
 				<DropdownMenuLabel class="text-xs text-muted-foreground px-0 py-2"
 					>TRELLO</DropdownMenuLabel
 				>
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer">Profile and visibility</span>
 				</DropdownMenuItem>
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Activity </span>
 				</DropdownMenuItem>
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Cards </span>
 				</DropdownMenuItem>
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Settings </span>
 				</DropdownMenuItem>
-				<DropdownMenuItem class="ml-[-1.6rem]">
-					<span class="w-full pl-4 cursor-pointer"> Theme </span>
-				</DropdownMenuItem>
+
+				<DropdownMenuSub>
+					<DropdownMenuSubTrigger
+						class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+					>
+						<span
+							class="w-full pl-4 cursor-pointer"
+							as-child
+							>Theme</span
+						>
+					</DropdownMenuSubTrigger>
+					<DropdownMenuPortal>
+						<DropdownMenuSubContent>
+							<DropdownMenuItem @click="colorMode.preference = 'light'">
+								Light
+							</DropdownMenuItem>
+							<DropdownMenuItem @click="colorMode.preference = 'dark'">
+								Dark
+							</DropdownMenuItem>
+							<DropdownMenuItem @click="colorMode.preference = 'system'">
+								System
+							</DropdownMenuItem>
+						</DropdownMenuSubContent>
+					</DropdownMenuPortal>
+				</DropdownMenuSub>
 
 				<DropdownMenuSeparator />
 
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Help </span>
 				</DropdownMenuItem>
-				<DropdownMenuItem class="ml-[-1.6rem]">
+				<DropdownMenuItem
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
+				>
 					<span class="w-full pl-4 cursor-pointer"> Shortcuts </span>
 				</DropdownMenuItem>
 
 				<DropdownMenuSeparator />
 
 				<DropdownMenuItem
-					class="ml-[-1.6rem]"
+					class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none"
 					@click="logout"
 				>
 					<span class="w-full pl-4 cursor-pointer"> Log out </span>
@@ -109,5 +148,6 @@
 </template>
 
 <script lang="ts" setup>
+const colorMode = useColorMode();
 const { user, isLoggedIn, logout } = useMyUserStore();
 </script>

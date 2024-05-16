@@ -21,7 +21,8 @@ export default defineNuxtConfig({
     "vue3-carousel-nuxt",
     '@formkit/nuxt',
     '@pinia/nuxt',
-    "shadcn-nuxt"
+    "shadcn-nuxt",
+    '@nuxtjs/color-mode'
   ],
   formkit: {
     autoImport: true

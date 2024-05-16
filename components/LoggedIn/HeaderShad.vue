@@ -275,6 +275,92 @@
 								class="text-white text-lg"
 							/>
 						</DropdownMenuTrigger>
+						<DropdownMenuContent class="w-[432px] p-3">
+							<div class="flex justify-between mb-4">
+								<h1 class="font-bold text-xl">Notifications</h1>
+
+								<div class="items-center flex">
+									<span
+										for="only-unread"
+										class="font-light text-xs text-gray-600"
+										>Only show unread</span
+									>
+									<Switch
+										id="only-unread"
+										class="w-[28px] h-[15px] ml-2 mr-4"
+									/>
+									<DropdownMenu>
+										<DropdownMenuTrigger>
+											<Icon name="mdi:dots-vertical" />
+										</DropdownMenuTrigger>
+										<DropdownMenuContent class="w-[310px]">
+											<DropdownMenuLabel
+												class="text-gray-900 text-center w-full mt-0 mb-3"
+											>
+												Notification settings
+											</DropdownMenuLabel>
+											<DropdownMenuLabel
+												class="font-normal text-xs text-gray-900"
+											>
+												Notification email frequency
+											</DropdownMenuLabel>
+											<DropdownMenuItem>
+												<Select>
+													<SelectTrigger>
+														<SelectValue placeholder="Periodically" />
+													</SelectTrigger>
+													<SelectContent>
+														<SelectGroup>
+															<SelectItem
+																value="never"
+																class="focus:bg-blue-300 rounded-none"
+															>
+																Never
+															</SelectItem>
+															<SelectItem
+																value="periodically"
+																class="focus:bg-blue-300 rounded-none"
+															>
+																Periodically
+															</SelectItem>
+															<SelectItem
+																value="instantly"
+																class="focus:bg-blue-300 rounded-none"
+															>
+																Instantly
+															</SelectItem>
+														</SelectGroup>
+													</SelectContent>
+												</Select>
+											</DropdownMenuItem>
+											<DropdownMenuItem class="flex justify-between">
+												<p>How to disable desktop notifications</p>
+												<Icon
+													name="heroicons-solid:arrow-sm-up"
+													class="rotate-45"
+												/>
+											</DropdownMenuItem>
+											<DropdownMenuItem class="flex justify-between">
+												<p>All notification settings</p>
+												<Icon
+													name="heroicons-solid:arrow-sm-up"
+													class="rotate-45"
+												/>
+											</DropdownMenuItem>
+										</DropdownMenuContent>
+									</DropdownMenu>
+								</div>
+							</div>
+							<NotificationListItem
+								:title="notificationItems[0].title"
+								:body="notificationItems[0].body"
+								:additional="notificationItems[0].additional"
+							/>
+
+							<DropdownMenuSeparator class="bg-gray-300" />
+
+							<div></div>
+						</DropdownMenuContent>
 					</DropdownMenu>
 
 					<DropdownMenu>
@@ -286,8 +372,62 @@
 								class="text-black text-xl"
 							/>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent>
-							<NuxtImg src="/tip1.png" />
+
+						<DropdownMenuContent class="w-[384px] px-5">
+							<div class="group py-2 w-full">
+								<div class="group-hover:bg-gray-100 m-auto rounded-md">
+									<NuxtImg
+										src="/tip1.png"
+										class="mb-2 rounded-sm"
+									/>
+
+									<p
+										class="group-hover:bg-gray-100 font-semibold text-center mx-8 pb-2"
+									>
+										It’s easy to get your team up and running with Trello
+										playbooks
+									</p>
+								</div>
+							</div>
+							<NuxtLink
+								to="/"
+								class="text-blue-600 text-center w-full block mb-2 hover:underline text-sm"
+								>Get a new tip</NuxtLink
+							>
+							<DropdownMenuSeparator class="bg-gray-300" />
+
+							<div class="mx-10 flex flex-wrap justify-center items-center">
+								<Button
+									variant="ghost"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									>Pricing</Button
+								>
+								<Button
+									variant="ghost"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									>Apps</Button
+								>
+								<Button
+									variant="ghost"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									>Blog</Button
+								>
+								<Button
+									variant="ghost"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									>Privacy</Button
+								>
+								<Button
+									variant="ghost"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									>Notice at Collection</Button
+								>
+								<Button
+									variant="ghost"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									>More...</Button
+								>
+							</div>
 						</DropdownMenuContent>
 					</DropdownMenu>
 
@@ -307,9 +447,23 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/shadComponents/ui/dropdown-menu";
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+} from "@/shadComponents/ui/select";
 import { Input } from "@/shadComponents/ui/input";
 import { Button } from "@/shadComponents/ui/button";
+import { Label } from "@/shadComponents/ui/label";
+import { Switch } from "@/shadComponents/ui/switch";
 import { ConfigProvider } from "radix-vue";
+import SignUpInput from "../UI/SignUpInput.vue";
+import NotificationListItem from "../UI/NotificationListItem.vue";
+import AdditionalComponent from "~/components/UI/AdditionalComponent.vue";
 
 const useIdFunction = () => useId();
 
@@ -317,51 +471,6 @@ const isHovered = ref(false);
 const staticGif = "logoBeforeAfter";
 var currentGif = ref("logoBeforeAfter");
 const animatedGif = "logoBeforeAfterAnimated";
-
-
-const items = [
-	{
-		label: "Switch accounts",
-	},
-	{
-		label: "Manage account",
-		icon: "formkit:linkexternal",
-		click: () => {
-			console.log("Edit");
-		},
-	},
-	{
-		label: "TRELLO",
-		disabled: true,
-	},
-	{
-		label: "Profile and visibility",
-	},
-	{
-		label: "Activity",
-	},
-	{
-		label: "Cards",
-	},
-	{
-		label: "Settings",
-	},
-	{
-		label: "Theme",
-		icon: "material-symbols:arrow-forward-ios-rounded",
-	},
-
-	{
-		label: "Help",
-	},
-	{
-		label: "Shortcuts",
-	},
-
-	{
-		label: "Log out",
-	},
-];
 
 const createItems = [
 	{
@@ -427,6 +536,14 @@ const workspaceItems = [
 	},
 ];
 
+const notificationItems = [
+	{
+		title: "Hey there!",
+		body: "Trello and Atlassian (Trello’s parent company) would love to keep in touch. Can we send occasional marketing emails?",
+		additional: AdditionalComponent,
+	},
+];
+
 function addHoverClass() {
 	isHovered.value = true;
 	currentGif.value = animatedGif;
@@ -469,5 +586,12 @@ function removeHoverClass() {
 .logoBeforeAfter {
 	filter: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%)
 		hue-rotate(179deg) brightness(91%) contrast(88%);
+}
+
+div[data-radix-select-viewport] > div {
+	padding: 0px;
+}
+div[data-radix-select-viewport] {
+	padding: 0px;
 }
 </style>

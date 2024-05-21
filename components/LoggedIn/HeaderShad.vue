@@ -263,7 +263,7 @@
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="h-8 w-8 rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-inherit"
+							class="h-8 w-8 rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-inherit dark:hover:bg-gray-600 dark:hover:brightness-110"
 						>
 							<Icon
 								name="tabler:school-bell"
@@ -381,7 +381,7 @@
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="h-8 w-8 bg-transparent rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-inherit"
+							class="h-8 w-8 bg-transparent rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-gray-600 dark:hover:brightness-110"
 						>
 							<Icon
 								name="ph:question"
@@ -392,7 +392,7 @@
 						<DropdownMenuContent class="w-[384px] px-5">
 							<div class="group py-2 w-full">
 								<div
-									class="group-hover:bg-gray-100 m-auto rounded-md min-h-[15rem]"
+									class="group-hover:bg-gray-100 m-auto rounded-md min-h-[15rem] dark:group-hover:bg-opacity-10"
 								>
 									<NuxtImg
 										:src="tipItems[tipItem].imgSrc"
@@ -400,16 +400,15 @@
 									/>
 
 									<p
-										class="group-hover:bg-gray-100 font-semibold text-center mx-8 pb-2"
+										class="group-hover:bg-gray-100 font-semibold text-center mx-8 pb-2 dark:group-hover:bg-opacity-0"
 									>
 										{{ tipItems[tipItem].body }}
 									</p>
 								</div>
 							</div>
 							<NuxtLink
-								to="/"
 								:onclick="changeTipItem"
-								class="text-blue-600 text-center w-full block mb-2 hover:underline text-sm"
+								class="text-blue-600 text-center w-full block mb-2 hover:underline text-sm cursor-pointer"
 								>Get a new tip</NuxtLink
 							>
 							<DropdownMenuSeparator class="bg-gray-300" />
@@ -417,32 +416,32 @@
 							<div class="mx-10 flex flex-wrap justify-center items-center">
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm dark:hover:bg-opacity-5"
 									>Pricing</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm dark:hover:bg-opacity-5"
 									>Apps</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm dark:hover:bg-opacity-5"
 									>Blog</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm dark:hover:bg-opacity-5"
 									>Privacy</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm dark:hover:bg-opacity-5"
 									>Notice at Collection</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm dark:hover:bg-opacity-5"
 									>More...</Button
 								>
 							</div>

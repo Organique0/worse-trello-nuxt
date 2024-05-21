@@ -3,11 +3,11 @@
 		<DropdownMenu>
 			<DropdownMenuTrigger as-child>
 				<Button
-					class="bg-transparent hover:bg-slate-300 border-none block h-8 p-1 relative w-8 rounded-full dark:hover:bg-inherit"
+					class="bg-transparent hover:bg-slate-300 border-none block h-8 p-1 relative w-8 rounded-full dark:hover:bg-gray-600 dark:hover:brightness-110"
 				>
 					<div class="flex items-center justify-center h-full w-full">
 						<span
-							class="bg-orange-300 h-6 w-6 rounded-full flex items-center justify-center font-bold text-xs text-slate-700"
+							class="bg-orange-400 h-6 w-6 rounded-full flex items-center justify-center font-bold text-xs text-slate-700"
 							>LG</span
 						>
 					</div>
@@ -98,7 +98,7 @@
 
 				<DropdownMenuSub>
 					<DropdownMenuSubTrigger
-						class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none data-[state=open]:bg-lightBlueBg data-[state=open]:text-primary data-[state=open]:shadow-blueLeft focus:shadow-blueLeft focus:bg-lightBlueBg focus:text-primary"
+						class="relative w-[calc(100%+2.1rem)] left-[-1rem] rounded-none data-[state=open]:bg-lightBlueBg dark:data-[state=open]:bg-accent data-[state=open]:text-primary data-[state=open]:shadow-blueLeft focus:shadow-blueLeft focus:bg-lightBlueBg focus:bg-accent focus:text-primary"
 					>
 						<span
 							class="w-full pl-2 cursor-pointer"

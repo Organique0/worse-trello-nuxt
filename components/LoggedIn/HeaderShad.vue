@@ -551,6 +551,10 @@ const workspaceItems = [
 		src: "/templatesExample.jpg",
 		title: "Trello Workspace",
 	},
+	{
+		src: "/templatesExample.jpg",
+		title: "Trello Workspace",
+	},
 ];
 
 const notificationItems = [

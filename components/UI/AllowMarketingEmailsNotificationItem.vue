@@ -1,4 +1,3 @@
-<!-- AdditionalComponent.vue -->
 <template>
 	<div class="space-x-4 pt-4">
 		<Button @click="handleButtonClick('Button 1')">Button 1</Button>

@@ -1,10 +1,15 @@
 import { defineStore } from 'pinia'
 
 export type User = {
-  username: string;
-  first_name: string;
-  last_name: string;
-  email?: string;
+  id: number,
+  username: string,
+  first_name: string,
+  last_name: string,
+  avatar_url: string | null,
+  email: string,
+  email_verified_at: string | null,
+  created_at: string,
+  updated_at: string
 };
 
 export type LoginCredentials = {
@@ -31,7 +36,7 @@ export type ResetPasswordCredentials = {
 export const useMyUserStore = defineStore({
   id: 'myUserStore',
   state: () => ({
-    user: null,
+    user: null as User | null,
   }),
   getters: {
     isLoggedIn: (state) => !!state.user,

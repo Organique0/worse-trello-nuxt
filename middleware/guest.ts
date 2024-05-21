@@ -1,4 +1,5 @@
 export default defineNuxtRouteMiddleware(async () => {
     const { user } = useMyUserStore();
-    if (user) return navigateTo("/", { replace: true });
+    // @ts-ignore
+    if (user && user.username) return navigateTo(`/u/${user.username}/boards`, { replace: true });
 });

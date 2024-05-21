@@ -28,6 +28,9 @@ module.exports = {
 			},
 		},
 		extend: {
+			boxShadow: {
+				blueLeft: "inset 2px 0 0 0 #0c66e4",
+			},
 			backgroundImage: {
 				whiteCurves: "url('/public/white-wave-bg.svg')",
 				download: "url('/public/download.svg')",
@@ -42,19 +45,8 @@ module.exports = {
 				wierdGreen: "#e6fcff",
 				surveyPink: "#f99cdb",
 				surveyPurple: "#6554C0",
-				"cerulean-blue": {
-					50: "#ecf9ff",
-					100: "#d4f0ff",
-					200: "#b2e7ff",
-					300: "#7ddaff",
-					400: "#40c2ff",
-					500: "#14a0ff",
-					600: "#007fff",
-					700: "#0067ff",
-					800: "#0052cc",
-					900: "#0848a0",
-					950: "#0a2d61",
-				},
+				lightBlueBg: "#e9f2ff",
+				darkBlueBg: "#0c66e4",
 				border: "hsl(var(--border))",
 				input: "hsl(var(--input))",
 				ring: "hsl(var(--ring))",

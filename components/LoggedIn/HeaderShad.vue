@@ -2,13 +2,13 @@
 	<div class="min-h-[48px] max-h-[48px]">
 		<ConfigProvider :use-id="useIdFunction">
 			<div
-				class="p-[8px] max-h-12 overflow-hidden flex box-border border-b-[1px] transition-colors bg-white"
+				class="p-[8px] max-h-12 overflow-hidden flex box-border border-b-[1px] transition-colors"
 			>
 				<div class="flex w-full space-x-1">
 					<!---more button-->
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="block relative mt-0 flex-shrink-0 py-2 h-[32px] w-[32px] rounded-sm hover:bg-slate-200"
+							class="block relative mt-0 flex-shrink-0 py-2 h-[32px] w-[32px] rounded-sm hover:bg-slate-200 dark:hover:bg-opacity-20"
 						>
 							<Icon
 								name="gravity-ui:dots-9"
@@ -28,10 +28,10 @@
 					</DropdownMenu>
 
 					<!--gif logo-->
-					<nuxt-link
+					<div
 						@mouseenter="addHoverClass"
 						@mouseleave="removeHoverClass"
-						class="block relative mt-0 flex-shrink-0 py-2 px-2 h-[32px] rounded-sm hover:bg-slate-200"
+						class="block relative mt-0 flex-shrink-0 py-2 px-2 h-[32px] rounded-sm hover:bg-slate-200 dark:hover:bg-opacity-20"
 					>
 						<div
 							:class="currentGif"
@@ -39,7 +39,7 @@
 						>
 							<div class="h-[16px] w-[75px] py-[8px] px-0 opacity-100 m-0" />
 						</div>
-					</nuxt-link>
+					</div>
 
 					<!--workspaces-->
 					<DropdownMenu>
@@ -48,7 +48,7 @@
 							as-child
 						>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0"
+								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
 								variant="ghost"
 							>
 								Workspaces
@@ -56,8 +56,7 @@
 								<Icon
 									name="tabler:chevron-down"
 									:ssr="true"
-									style="color: black"
-									class="inline-flex"
+									class="inline-flex dark:text-white text-opacity-65"
 								/>
 							</Button>
 						</DropdownMenuTrigger>
@@ -88,15 +87,14 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0"
+								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
 								variant="ghost"
 							>
 								Recent
 								<Icon
 									name="tabler:chevron-down"
 									:ssr="true"
-									style="color: black"
-									class="inline-flex"
+									class="inline-flex dark:text-white text-opacity-65"
 								/>
 							</Button>
 						</DropdownMenuTrigger>
@@ -129,15 +127,14 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0"
+								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
 								variant="ghost"
 							>
 								Starred
 								<Icon
 									name="tabler:chevron-down"
 									:ssr="true"
-									style="color: black"
-									class="inline-flex"
+									class="inline-flex dark:text-white text-opacity-65"
 								/>
 							</Button>
 						</DropdownMenuTrigger>
@@ -167,15 +164,14 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0"
+								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
 								variant="ghost"
 							>
 								Templates
 								<Icon
 									name="tabler:chevron-down"
 									:ssr="true"
-									style="color: black"
-									class="inline-flex"
+									class="inline-flex dark:text-white text-opacity-65"
 								/>
 							</Button>
 						</DropdownMenuTrigger>
@@ -199,10 +195,7 @@
 
 							<div class="inline-flex w-full py-1">
 								<span class="pl-5 content-end">
-									<Icon
-										name="icon-park:page-template"
-										class="text-lg mb-1"
-									/>
+									<LogosTrelloIcon class="text-primary" />
 								</span>
 								<p class="font-normal text-sm ml-3 align-middle">
 									See hundreds of templates from the Trello comunity
@@ -210,7 +203,7 @@
 							</div>
 
 							<Button
-								class="mt-2 rounded-sm bg-gray-300 w-full hover:bg-gray-400 h-8"
+								class="mt-2 rounded-sm bg-gray-200 w-full hover:bg-gray-400 h-8 text-black dark:text-white dark:bg-gray-700 dark:hover:brightness-125"
 								>Explore templates</Button
 							>
 						</DropdownMenuContent>
@@ -219,7 +212,9 @@
 					<!--create-->
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
-							<Button class="rounded-sm block relative mt-0 px-2 h-[32px] py-0">
+							<Button
+								class="rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:text-[#1d2125] hover:brightness-110 hover:bg-primary"
+							>
 								Create
 							</Button>
 						</DropdownMenuTrigger>
@@ -261,28 +256,28 @@
 							<Icon
 								name="tabler:search"
 								:ssr="true"
-								style="color: black"
+								class="text-black dark:text-slate-400"
 							/>
 						</span>
 					</div>
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="h-8 w-8 bg-primary rounded-full flex items-center justify-center hover:bg-blue-600"
+							class="h-8 w-8 rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-inherit"
 						>
 							<Icon
 								name="tabler:school-bell"
-								class="text-white text-lg"
+								class="text-slate-600 text-lg dark:text-slate-200"
 							/>
 						</DropdownMenuTrigger>
-						<DropdownMenuContent class="w-[432px] p-3">
-							<div class="flex justify-between mb-4">
+						<DropdownMenuContent class="w-[432px] h-[25rem] p-3">
+							<div class="flex justify-between h-[3rem] items-center">
 								<h1 class="font-bold text-xl">Notifications</h1>
 
 								<div class="items-center flex">
 									<span
 										for="only-unread"
-										class="font-light text-xs text-gray-600"
+										class="font-light text-xs text-gray-600 dark:text-slate-200"
 										>Only show unread</span
 									>
 									<Switch
@@ -351,13 +346,34 @@
 									</DropdownMenu>
 								</div>
 							</div>
-							<NotificationListItem
-								:title="notificationItems[0].title"
-								:body="notificationItems[0].body"
-								:additional="notificationItems[0].additional"
-							/>
 
 							<DropdownMenuSeparator class="bg-gray-300" />
+
+							<div
+								v-for="notification in notificationItems"
+								v-if="notificationItems.length > 0"
+								class="h-[calc(100%-3rem)]"
+							>
+								<NotificationListItem
+									:title="notification.title"
+									:body="notification.body"
+									:additional="notification.additional"
+								/>
+								<DropdownMenuSeparator class="bg-gray-300" />
+							</div>
+
+							<div
+								class="h-[calc(100%-3rem)] pt-11"
+								v-else
+							>
+								<img
+									src="../../public/sleepyWolf.svg"
+									class="m-auto"
+								/>
+								<h1 class="text-center pt-5 font-medium text-md">
+									No unread notifications
+								</h1>
+							</div>
 
 							<div></div>
 						</DropdownMenuContent>
@@ -365,32 +381,34 @@
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="h-8 w-8 bg-transparent rounded-full flex items-center justify-center hover:bg-slate-300"
+							class="h-8 w-8 bg-transparent rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-inherit"
 						>
 							<Icon
 								name="ph:question"
-								class="text-black text-xl"
+								class="text-slate-700 text-xl dark:text-slate-200"
 							/>
 						</DropdownMenuTrigger>
 
 						<DropdownMenuContent class="w-[384px] px-5">
 							<div class="group py-2 w-full">
-								<div class="group-hover:bg-gray-100 m-auto rounded-md">
+								<div
+									class="group-hover:bg-gray-100 m-auto rounded-md min-h-[15rem]"
+								>
 									<NuxtImg
-										src="/tip1.png"
-										class="mb-2 rounded-sm"
+										:src="tipItems[tipItem].imgSrc"
+										class="mb-2 rounded-sm w-full"
 									/>
 
 									<p
 										class="group-hover:bg-gray-100 font-semibold text-center mx-8 pb-2"
 									>
-										It’s easy to get your team up and running with Trello
-										playbooks
+										{{ tipItems[tipItem].body }}
 									</p>
 								</div>
 							</div>
 							<NuxtLink
 								to="/"
+								:onclick="changeTipItem"
 								class="text-blue-600 text-center w-full block mb-2 hover:underline text-sm"
 								>Get a new tip</NuxtLink
 							>
@@ -399,32 +417,32 @@
 							<div class="mx-10 flex flex-wrap justify-center items-center">
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
 									>Pricing</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
 									>Apps</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
 									>Blog</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
 									>Privacy</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
 									>Notice at Collection</Button
 								>
 								<Button
 									variant="ghost"
-									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300"
+									class="text-sm font-light py-0 px-2 h-[2rem] hover:bg-gray-300 rounded-sm"
 									>More...</Button
 								>
 							</div>
@@ -463,7 +481,7 @@ import { Switch } from "@/shadComponents/ui/switch";
 import { ConfigProvider } from "radix-vue";
 import SignUpInput from "../UI/SignUpInput.vue";
 import NotificationListItem from "../UI/NotificationListItem.vue";
-import AdditionalComponent from "~/components/UI/AdditionalComponent.vue";
+import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
 
 const useIdFunction = () => useId();
 
@@ -537,10 +555,43 @@ const workspaceItems = [
 ];
 
 const notificationItems = [
-	{
+	/* 	{
 		title: "Hey there!",
 		body: "Trello and Atlassian (Trello’s parent company) would love to keep in touch. Can we send occasional marketing emails?",
-		additional: AdditionalComponent,
+		additional: AllowMarketingEmailsNotificationItem,
+	},
+	{
+		title: "Normal notification",
+		body: "This is a regular text notification",
+		additional: undefined,
+	}, */
+];
+
+const tipItem = ref(0);
+const changeTipItem = () => {
+	if (tipItem.value >= tipItems.length - 1) {
+		tipItem.value = 0;
+	} else {
+		tipItem.value = tipItem.value + 1;
+	}
+};
+
+const tipItems = [
+	{
+		imgSrc: "/tip1.png",
+		body: "It’s easy to get your team up and running with Trello playbooks",
+	},
+	{
+		imgSrc: "/tip4.png",
+		body: "Make boards more powerful with Trello Power-Ups",
+	},
+	{
+		imgSrc: "/tip2.png",
+		body: "New to Trello? Check out the guide",
+	},
+	{
+		imgSrc: "/tip3.png",
+		body: "Get inspired by dozens of different Trello workflows",
 	},
 ];
 
@@ -584,8 +635,8 @@ function removeHoverClass() {
 }
 
 .logoBeforeAfter {
-	filter: brightness(0) saturate(100%) invert(30%) sepia(53%) saturate(323%)
-		hue-rotate(179deg) brightness(91%) contrast(88%);
+	filter: invert(49%) sepia(8%) saturate(866%) hue-rotate(180deg)
+		brightness(84%) contrast(97%);
 }
 
 div[data-radix-select-viewport] > div {

@@ -20,7 +20,7 @@ const props = defineProps({
 	},
 	additional: {
 		type: Object,
-		required: true,
+		required: false,
 	},
 });
 </script>

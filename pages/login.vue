@@ -134,6 +134,7 @@ const { submit, succeeded, validationErrors, error, inProgress } = useSubmit(
 	{
 		onSuccess: (res) => {
 			//reset('loginForm', { username: null, password: null });
+			console.log(res);
 			router.push("/");
 		},
 

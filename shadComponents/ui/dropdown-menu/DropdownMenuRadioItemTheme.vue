@@ -30,14 +30,19 @@ const forwarded = useForwardPropsEmits(delegatedProps, emits);
 		v-bind="forwarded"
 		:class="
 			cn(
-				'relative flex cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+				'relative flex cursor-default select-none items-center py-1.5 pl-8 pr-2 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 h-[33%]  rounded-none font-medium hover:shadow-blueLeft hover:bg-gray-300 data-[state=checked]:bg-lightBlueBg data-[state=checked]:shadow-blueLeft dark:data-[state=checked]:bg-darkBlueBg',
 				props.class
 			)
 		"
 	>
 		<span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-			<DropdownMenuItemIndicator>
-				<Circle class="h-2 w-2 fill-current" />
+			<DropdownMenuItemIndicator
+				class="border border-green-700 rounded-full dark:border-white"
+			>
+				<Circle
+					class="h-3 w-3 fill-green-700"
+					color="transparent"
+				/>
 			</DropdownMenuItemIndicator>
 		</span>
 		<slot />

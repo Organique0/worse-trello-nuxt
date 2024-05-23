@@ -1,6 +1,6 @@
 <template>
 	<NuxtLink
-		class="relative w-full group overflow-hidden"
+		class="relative group overflow-hidden"
 		:to="link"
 	>
 		<NuxtImg

@@ -135,3 +135,7 @@
 .hoverButton {
   @apply  hover:bg-slate-200 hover:text-accent-foreground dark:hover:bg-opacity-10 rounded-md
 }
+
+.hoverButtonWithBg{
+  @apply  h-8 p-2 bg-slate-200 bg-opacity-10 text-opacity-70 hover:bg-opacity-20 hover:bg-slate-200
+}

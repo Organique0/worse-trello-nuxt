@@ -2,14 +2,14 @@
 	<div class="w-[75rem] m-auto flex mt-8">
 		<LoggedInSideBar />
 
-		<div class="bg-blue-600/10 w-full ml-12">
+		<div class="w-full ml-12">
 			<div class="flex gap-x-3">
 				<Icon
 					name="mdi:clock-outline"
 					width="25"
 					height="25"
 				/>
-				<h1>Recently viewed</h1>
+				<h1 class="mb-3">Recently viewed</h1>
 			</div>
 			<div class="inline-flex gap-6">
 				<BoardPreview
@@ -21,9 +21,12 @@
 				/>
 			</div>
 
-			<h1>YOUR WORKSPACES</h1>
+			<h1 class="mt-16 font-bold mb-6">YOUR WORKSPACES</h1>
 
-			<div v-for="workspace in workspaces">
+			<div
+				v-for="workspace in workspaces"
+				class="mb-5"
+			>
 				<div class="flex justify-between">
 					<div class="flex">
 						<NuxtImg
@@ -32,15 +35,45 @@
 							height="40"
 							class="rounded-sm"
 						/>
-						<h1>{{ workspace.title }}</h1>
+						<h1 class="font-semibold ml-3">{{ workspace.title }}</h1>
 					</div>
 
-					<div class="flex">
-						<Button class="hoverButton">Boards</Button>
-						<Button>Views</Button>
-						<Button>Members</Button>
-						<Button>Settings</Button>
+					<div class="flex gap-x-2">
+						<Button class="hoverButtonWithBg"
+							><Icon
+								name="i-mingcute:trello-board-fill"
+								class="mr-1"
+							/>Boards</Button
+						>
+						<Button class="hoverButtonWithBg"
+							><Icon
+								name="LogoViews"
+								class="mr-1"
+							/>Views</Button
+						>
+						<Button class="hoverButtonWithBg"
+							><Icon
+								name="LogoMembers"
+								class="mr-1"
+							/>Members</Button
+						>
+						<Button class="hoverButtonWithBg"
+							><Icon
+								name="LogoSettings"
+								class="mr-1"
+							/>Settings</Button
+						>
 					</div>
+				</div>
+				<div class="inline-flex gap-6 mt-5">
+					<BoardPreview
+						:src="board.src"
+						:starred="board.starred"
+						:link="board.link"
+						:title="board.title"
+						v-for="board in boards"
+					/>
+					<LoggedInEmptyBoard />
 				</div>
 			</div>
 		</div>

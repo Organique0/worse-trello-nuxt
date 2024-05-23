@@ -8,7 +8,7 @@
 					<!---more button-->
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="block relative mt-0 flex-shrink-0 py-2 h-[32px] w-[32px] rounded-sm hover:bg-slate-200 dark:hover:bg-opacity-20"
+							class="block relative mt-0 flex-shrink-0 py-2 h-[32px] w-[32px] rounded-sm hover:bg-slate-200 dark:hover:bg-opacity-10"
 						>
 							<Icon
 								name="gravity-ui:dots-9"
@@ -31,7 +31,7 @@
 					<div
 						@mouseenter="addHoverClass"
 						@mouseleave="removeHoverClass"
-						class="block relative mt-0 flex-shrink-0 py-2 px-2 h-[32px] rounded-sm hover:bg-slate-200 dark:hover:bg-opacity-20"
+						class="block relative mt-0 flex-shrink-0 py-2 px-2 h-[32px] rounded-sm hover:bg-slate-200 dark:hover:bg-opacity-10"
 					>
 						<div
 							:class="currentGif"
@@ -43,12 +43,9 @@
 
 					<!--workspaces-->
 					<DropdownMenu>
-						<DropdownMenuTrigger
-							class="hover:bg-slate-200 text-opacity-65 rounded-sm"
-							as-child
-						>
+						<DropdownMenuTrigger as-child>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
+								class="rounded-sm block relative mt-0 px-2 py-0 h-[32px]"
 								variant="ghost"
 							>
 								Workspaces
@@ -68,7 +65,7 @@
 
 							<DropdownMenuItem
 								v-for="item in workspaceItems"
-								class="h-[3rem]"
+								class="h-[4rem]"
 							>
 								<div class="inline-flex w-full">
 									<NuxtImg
@@ -87,7 +84,7 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
+								class="rounded-sm block relative mt-0 px-2 py-0 h-[32px]"
 								variant="ghost"
 							>
 								Recent
@@ -127,7 +124,7 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
+								class="rounded-sm block relative mt-0 px-2 py-0 h-[32px]"
 								variant="ghost"
 							>
 								Starred
@@ -164,7 +161,7 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="hover:bg-slate-200 text-opacity-65 rounded-sm block relative mt-0 px-2 h-[32px] py-0 dark:hover:bg-opacity-20"
+								class="rounded-sm block relative mt-0 px-2 py-0 h-[32px]"
 								variant="ghost"
 							>
 								Templates
@@ -197,7 +194,7 @@
 								<span class="pl-5 content-end">
 									<LogosTrelloIcon class="text-primary" />
 								</span>
-								<p class="font-normal text-sm ml-3 align-middle">
+								<p class="font-normal text-sm ml-3 align-end">
 									See hundreds of templates from the Trello comunity
 								</p>
 							</div>
@@ -263,7 +260,7 @@
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="h-8 w-8 rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-inherit dark:hover:bg-gray-600 dark:hover:brightness-110"
+							class="h-8 w-8 bg-transparent rounded-full flex items-center justify-center hover:bg-slate-300 dark:hover:bg-gray-600"
 						>
 							<Icon
 								name="tabler:school-bell"

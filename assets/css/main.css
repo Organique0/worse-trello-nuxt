@@ -131,3 +131,7 @@
     background-image: none;
   }
 }
+
+.hoverButton {
+  @apply  hover:bg-slate-200 hover:text-accent-foreground dark:hover:bg-opacity-10 rounded-md
+}

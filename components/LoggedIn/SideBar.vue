@@ -37,7 +37,6 @@
 
 		<Accordion
 			type="single"
-			collapsible
 			v-for="workspace in workspaces"
 		>
 			<AccordionItem

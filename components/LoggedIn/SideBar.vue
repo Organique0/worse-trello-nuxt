@@ -37,6 +37,7 @@
 
 		<Accordion
 			type="single"
+			collapsible
 			v-for="workspace in workspaces"
 		>
 			<AccordionItem
@@ -59,6 +60,7 @@
 				<AccordionContent
 					v-for="item in workspaceItems"
 					class="py-0 hoverButton"
+					asChild
 				>
 					<button
 						class="text-left h-8 rounded-md flex w-full justify-start gap-3 pl-12 relative group items-center"

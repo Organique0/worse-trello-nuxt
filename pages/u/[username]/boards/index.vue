@@ -25,10 +25,10 @@
 
 			<div
 				v-for="workspace in workspaces"
-				class="mb-5"
+				class="mb-14"
 			>
 				<div class="flex justify-between">
-					<div class="flex">
+					<div class="flex items-center">
 						<NuxtImg
 							:src="workspace.src"
 							width="40"

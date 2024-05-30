@@ -19,6 +19,7 @@ export const buttonVariants = cva(
         ghost: 'hover:bg-slate-200 hover:text-accent-foreground dark:hover:bg-opacity-10 rounded-sm ',
         link: 'text-primary underline-offset-4 hover:underline',
         homeMenu: 'h-full rounded-none bg-transparent color-black text-lg font-normal'
+
       },
       size: {
         default: 'h-10 px-4 py-2',

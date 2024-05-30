@@ -31,7 +31,7 @@
 			><Icon name="fluent:pulse-24-regular" /> Home</Button
 		>
 
-		<Separator class="my-4 dark:bg-red-600" />
+		<Separator class="my-4 h-[2px]" />
 
 		<h1 class="font-bold text-xs p-3">Workspaces</h1>
 

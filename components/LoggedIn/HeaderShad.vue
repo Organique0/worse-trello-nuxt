@@ -200,7 +200,7 @@
 							</div>
 
 							<Button
-								class="mt-2 rounded-sm bg-gray-200 w-full hover:bg-gray-400 h-8 text-black dark:text-white dark:bg-gray-700 dark:hover:brightness-125"
+								class="mt-2 rounded-sm bg-gray-200 w-full hover:bg-gray-300 h-8 text-black dark:text-white dark:bg-gray-700 dark:hover:brightness-125"
 								>Explore templates</Button
 							>
 						</DropdownMenuContent>

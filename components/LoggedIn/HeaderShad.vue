@@ -143,16 +143,16 @@
           </DropdownMenu>
 
           <!--create-->
-          <DropdownMenu>
+          <DropdownMenu @update:open="updateCreateInHeaderOpen" v-model:open="createDropdownOpen">
             <DropdownMenuTrigger as-child>
-              <Button
-                class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-primary hover:brightness-110 dark:text-[#1d2125]">
+              <Button class=" relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-primary hover:brightness-110
+            dark:text-[#1d2125]">
                 Create
               </Button>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent class="w-[20rem] p-3" v-if="createInHeaderOpen">
-              <DropdownMenuItem class="max-w-72">
+            <DropdownMenuContent class="w-[20rem] p-3" v-if="!createInHeaderOpen">
+              <DropdownMenuItem class="max-w-72" @click="toggleCreateInHeaderOpen" @select="(e) => e.preventDefault()">
                 <div class="block">
                   <div class="inline-flex w-full">
                     <Icon name="lucide:trello" class="inline-flex h-4 w-4" />
@@ -206,7 +206,7 @@
                 justify-center 
                 rounded-md 
                 outline-none 
-                " aria-label="Close" @click="createInHeaderOpen.value = !createInHeaderOpen.value">
+                " aria-label="Close" @click="toggleCreateInHeaderOpen">
                 <Icon name="tabler:chevron-left" class="w-5 h-5" />
               </Button>
               <Button size="icon" variant="ghost" class="
@@ -222,7 +222,7 @@
                 justify-center 
                 rounded-md 
                 outline-none 
-                " aria-label="Close">
+                " aria-label="Close" @click="closeDropdown">
                 <Icon name="bitcoin-icons:cross-filled" class="h-5 w-5" />
               </Button>
               <LoggedInNewBoard />
@@ -395,6 +395,22 @@
   const animatedGif = "logoBeforeAfterAnimated";
 
   const createInHeaderOpen = ref(false);
+  const updateCreateInHeaderOpen = (payload: Boolean) => {
+    if (payload == false) {
+      createInHeaderOpen.value = false;
+    }
+  };
+  const toggleCreateInHeaderOpen = () => {
+    createInHeaderOpen.value = !createInHeaderOpen.value
+  };
+
+
+  const createDropdownOpen = ref(false);
+  const closeDropdown = () => {
+    createDropdownOpen.value = false;
+    createInHeaderOpen.value = false;
+  };
+
 
   async function create(action: string) {
     const data = await $larafetch(action, {

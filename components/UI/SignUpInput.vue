@@ -1,24 +1,21 @@
 <template>
-	<div
-		class="block w-full homeCenterContainer"
-		:id="id"
-	>
-		<div
-			class="mx-auto w-full md:w-full md:flex md:items-center md:justify-center md:gap-6"
-		>
-			<UInput
-				size="xl"
-				class="w-64 hidden md:block lg:w-[70%] text-center"
-				placeholder="Email"
-			/>
-			<UButton
-				size="xl"
-				class="w-full md:w-44 mt-5 lg:w-[10rem] md:mt-0 justify-center"
-				color="primary"
-				>Sign up - it's free
-			</UButton>
-		</div>
-	</div>
+  <div class="homeCenterContainer block w-full" :id="id">
+    <div
+      class="mx-auto w-full md:flex md:w-full md:items-center md:justify-center md:gap-6"
+    >
+      <UInput
+        size="xl"
+        class="hidden w-64 text-center md:block lg:w-[70%]"
+        placeholder="Email"
+      />
+      <UButton
+        size="xl"
+        class="mt-5 w-full justify-center md:mt-0 md:w-44 lg:w-[10rem]"
+        color="primary"
+        >Sign up - it's free
+      </UButton>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>

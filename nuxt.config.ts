@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   pages: true,
   devtools: { enabled: true },
   colorMode: {
-    preference: 'light',
+    preference: "light",
   },
   runtimeConfig: {
     public: {
@@ -11,21 +11,21 @@ export default defineNuxtConfig({
       frontendUrl: "http://localhost:3000",
     },
   },
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
   modules: [
-    'nuxt-icon',
-    '@pinia/nuxt',
-    '@pinia-plugin-persistedstate/nuxt',
+    "nuxt-icon",
+    "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
     "@nuxt/ui",
     "@nuxt/image",
     "vue3-carousel-nuxt",
-    '@formkit/nuxt',
-    '@pinia/nuxt',
+    "@formkit/nuxt",
+    "@pinia/nuxt",
     "shadcn-nuxt",
-    '@nuxtjs/color-mode'
+    "@nuxtjs/color-mode",
   ],
   formkit: {
-    autoImport: true
+    autoImport: true,
   },
   imports: {
     dirs: ["./utils"],
@@ -44,12 +44,11 @@ export default defineNuxtConfig({
     /**
      * Prefix for all the imported component
      */
-    prefix: '',
+    prefix: "",
     /**
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: './shadComponents/ui'
-  }
-
-})
+    componentDir: "./shadComponents/ui",
+  },
+});

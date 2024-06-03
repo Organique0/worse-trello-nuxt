@@ -10,7 +10,8 @@
   },
   "framework": "nuxt",
   "aliases": {
-    "components": "@/shadComponents",
-    "utils": "@/lib/utils"
+    "components": "@/worse-trello-nuxt/shadComponents",
+    "utils": "@/worse-trello-nuxt/lib/utils.ts",
+    "ui": "@/worse-trello-nuxt/shadComponents/ui"
   }
 }

@@ -7,7 +7,7 @@ export type UseSubmitOptions = {
 
 export function useSubmit<T>(
   fetchable: () => Promise<T>,
-  options: UseSubmitOptions = {}
+  options: UseSubmitOptions = {},
 ) {
   const validationErrors = ref<ValidationErrors>({});
   const error = ref<Error | null>(null);

@@ -1,6 +1,6 @@
 export const useForm = () => {
-  const useLoginModal = () => useState('login_modal', () => false);
-  const useRegisterModal = () => useState('register_modal', () => false);
+  const useLoginModal = () => useState("login_modal", () => false);
+  const useRegisterModal = () => useState("register_modal", () => false);
 
   const closeAuthModal = () => {
     const loginModal = useLoginModal();
@@ -19,4 +19,4 @@ export const useForm = () => {
     }
   };
   return { closeAuthModal, openAuthModal, useLoginModal, useRegisterModal };
-}
+};

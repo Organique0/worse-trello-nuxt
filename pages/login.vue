@@ -1,5 +1,5 @@
 <template>
-	<!--   <div class="flex flex-col justify-center min-h-[calc(100%-100px)]">
+  <!--   <div class="flex flex-col justify-center min-h-[calc(100%-100px)]">
     <UCard
       class="flex flex-col my-0 mx-auto w-[400px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl  transition-all duration-200">
       <template #header>
@@ -27,74 +27,69 @@
 </UCard>
 </div> -->
 
-	<div class="bgImage">
-		<div class="flex flex-col justify-center h-[100vh]">
-			<UCard
-				class="flex flex-col my-0 mx-auto w-[400px] px-[32px] py-[40px] bg-white rounded-sm shadow-lg box-border hover:shadow-xl transition-all duration-200"
-			>
-				<FormKit
-					id="loginForm"
-					type="form"
-					submit-label="Login"
-					@submit="submit"
-					:actions="false"
-				>
-					<FormKit
-						v-model="data.username"
-						type="text"
-						name="username"
-						label="Username"
-						placeholder="username"
-						validation="required"
-					/>
+  <div class="bgImage">
+    <div class="flex h-[100vh] flex-col justify-center">
+      <UCard
+        class="mx-auto my-0 box-border flex w-[400px] flex-col rounded-sm bg-white px-[32px] py-[40px] shadow-lg transition-all duration-200 hover:shadow-xl"
+      >
+        <FormKit
+          id="loginForm"
+          type="form"
+          submit-label="Login"
+          @submit="submit"
+          :actions="false"
+        >
+          <FormKit
+            v-model="data.username"
+            type="text"
+            name="username"
+            label="Username"
+            placeholder="username"
+            validation="required"
+          />
 
-					<FormKit
-						v-model="data.password"
-						type="password"
-						name="password"
-						label="Password"
-						placeholder="password"
-						validation="required"
-					/>
+          <FormKit
+            v-model="data.password"
+            type="password"
+            name="password"
+            label="Password"
+            placeholder="password"
+            validation="required"
+          />
 
-					<UAlert
-						v-if="validationErrors.error"
-						title="Incorrect credentials"
-						variant="outline"
-						color="red"
-					/>
+          <UAlert
+            v-if="validationErrors.error"
+            title="Incorrect credentials"
+            variant="outline"
+            color="red"
+            :ui="{ padding: 'p-3', wrapper: 'mb-2' }"
+          />
 
-					<UButton
-						type="submit"
-						class="mb-2 h-10"
-						block
-						variant="solid"
-						color="primary"
-					>
-						Login
-					</UButton>
+          <UButton
+            type="submit"
+            class="mb-2 h-10"
+            block
+            variant="solid"
+            color="primary"
+          >
+            Login
+          </UButton>
 
-					<SocialAuth
-						class="mt-12"
-						:for="'google'"
-					/>
-					<SocialAuth
-						class="mt-[12px]"
-						:for="'github'"
-					/>
-				</FormKit>
+          <SocialAuth class="mt-12" :for="'google'" />
+          <SocialAuth class="mt-[12px]" :for="'github'" />
+        </FormKit>
 
-				<nuxt-link
-					to="/forgot-password"
-					class="text-gray-400 font-light text-sm w-[100%] text-right block"
-					>Don't remember your password?</nuxt-link
-				>
-			</UCard>
+        <nuxt-link
+          to="/forgot-password"
+          class="block w-[100%] text-right text-sm font-light text-gray-400"
+          >Don't remember your password?</nuxt-link
+        >
+      </UCard>
 
-			<!--     <NuxtImg src="trello-left.svg" sizes="" />
+      <!--     <NuxtImg src="trello-left.svg" sizes="" />
     <NuxtImg src="trello-right.svg" /> -->
-		</div>
-	</div>
+    </div>
+  </div>
 </template>
 <script setup lang="ts">
 //import { z } from 'zod';
@@ -110,7 +105,7 @@
 import { reset } from "@formkit/core";
 definePageMeta({ middleware: ["guest"] });
 definePageMeta({
-	layout: "no-header",
+  layout: "no-header",
 });
 
 const router = useRouter();
@@ -118,30 +113,30 @@ const route = useRoute();
 const { login } = useMyUserStore();
 
 const data = reactive({
-	username: "",
-	password: "",
+  username: "",
+  password: "",
 });
 
 const status = ref(
-	(route.query.reset ?? "").length > 0 ? atob(route.query.reset as string) : ""
+  (route.query.reset ?? "").length > 0 ? atob(route.query.reset as string) : "",
 );
 
 const { submit, succeeded, validationErrors, error, inProgress } = useSubmit(
-	() => {
-		status.value = "";
-		return login(data);
-	},
-	{
-		onSuccess: (res) => {
-			//reset('loginForm', { username: null, password: null });
-			console.log(res);
-			router.push("/");
-		},
+  () => {
+    status.value = "";
+    return login(data);
+  },
+  {
+    onSuccess: (res) => {
+      //reset('loginForm', { username: null, password: null });
+      console.log(res);
+      router.push("/");
+    },
 
-		onError: (res) => {
-			console.log(res);
-		},
-	}
+    onError: (res) => {
+      console.log(res);
+    },
+  },
 );
 
 // { "username": [ "Incorrect username" ], "password": [ "Incorrect password" ] }

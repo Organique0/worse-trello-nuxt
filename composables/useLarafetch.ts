@@ -2,7 +2,7 @@ import type { UseFetchOptions } from "nuxt/app";
 
 export function useLarafetch<T>(
   url: string | (() => string),
-  options: UseFetchOptions<T> = {}
+  options: UseFetchOptions<T> = {},
 ) {
   return useFetch(url, {
     $fetch: $larafetch,

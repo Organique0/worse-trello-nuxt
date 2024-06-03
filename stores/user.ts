@@ -1,15 +1,15 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
 export type User = {
-  id: number,
-  username: string,
-  first_name: string,
-  last_name: string,
-  avatar_url: string | null,
-  email: string,
-  email_verified_at: string | null,
-  created_at: string,
-  updated_at: string
+  id: number;
+  username: string;
+  first_name: string;
+  last_name: string;
+  avatar_url: string | null;
+  email: string;
+  email_verified_at: string | null;
+  created_at: string;
+  updated_at: string;
 };
 
 export type LoginCredentials = {
@@ -34,7 +34,7 @@ export type ResetPasswordCredentials = {
 };
 
 export const useMyUserStore = defineStore({
-  id: 'myUserStore',
+  id: "myUserStore",
   state: () => ({
     user: null as User | null,
   }),
@@ -42,7 +42,6 @@ export const useMyUserStore = defineStore({
     isLoggedIn: (state) => !!state.user,
   },
   actions: {
-
     async refresh() {
       try {
         this.user = await fetchCurrentUser();
@@ -70,7 +69,6 @@ export const useMyUserStore = defineStore({
       await this.refresh();
     },
 
-
     async logout() {
       const router = useRouter();
       if (!this.isLoggedIn) console.log("not logged");
@@ -85,10 +83,9 @@ export const useMyUserStore = defineStore({
         "/email/verification-notification",
         {
           method: "post",
-        }
+        },
       );
     },
-
 
     async forgotPassword(email: string) {
       return await $larafetch<{ status: string }>("/forgot-password", {
@@ -102,7 +99,6 @@ export const useMyUserStore = defineStore({
         method: "post",
         body: credentials,
       });
-    }
-
-  }
-})
+    },
+  },
+});

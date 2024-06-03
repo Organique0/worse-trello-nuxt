@@ -115,6 +115,7 @@ module.exports = {
 	},
 	plugins: [
 		animate,
+		"prettier-plugin-tailwindcss",
 		iconsPlugin({
 			// Select the icon collections you want to use
 			// You can also ignore this option to automatically discover all individual icon packages you have installed

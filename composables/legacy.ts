@@ -34,7 +34,7 @@ export const useAuth = <T = User>() => {
       "/email/verification-notification",
       {
         method: "post",
-      }
+      },
     );
   }
 

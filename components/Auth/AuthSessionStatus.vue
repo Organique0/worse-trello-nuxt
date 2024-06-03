@@ -5,7 +5,7 @@ defineProps<{
 </script>
 
 <template>
-  <div v-if="status" class="font-medium text-sm text-green-600">
+  <div v-if="status" class="text-sm font-medium text-green-600">
     {{ status }}
   </div>
 </template>

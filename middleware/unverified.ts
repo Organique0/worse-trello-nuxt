@@ -1,9 +1,9 @@
 export default defineNuxtRouteMiddleware(() => {
-    const { user } = useMyUserStore();
+  const { user } = useMyUserStore();
 
-    if (!user) return navigateTo("/login");
+  if (!user) return navigateTo("/login");
 
-    // @ts-ignore
-    if (user.value.email_verified_at || user.value.is_verified)
-        return navigateTo("/dashboard");
+  // @ts-ignore
+  if (user.value.email_verified_at || user.value.is_verified)
+    return navigateTo("/dashboard");
 });

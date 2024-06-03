@@ -17,7 +17,7 @@ export const $larafetch = $fetch.create({
     if (
       process.client &&
       ["post", "delete", "put", "patch"].includes(
-        options?.method?.toLowerCase() ?? ""
+        options?.method?.toLowerCase() ?? "",
       )
     ) {
       token = await initCsrf();

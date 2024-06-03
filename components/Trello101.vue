@@ -1,57 +1,87 @@
 <template>
-  <div class="bg-gradient-to-b from-white to-[#b7f3ff87] mx-auto md:px-[2rem] w-full pb-20">
+  <div
+    class="mx-auto w-full bg-gradient-to-b from-white to-[#b7f3ff87] pb-20 md:px-[2rem]"
+  >
     <div class="homeCenterContainer">
       <div class="mt-[3rem]">
         <div class="homeSectionIntro">
           <h3 class="">TRELLO 101</h3>
           <h1 class="customTitle my-8">A productivity powerhouse</h1>
-          <p class="text-wierdBlue text-lg leading-9 font-medium">
-            Simple, flexible, and powerful. All it takes are boards, lists, and cards to get a clear view of who’s
-            doing
-            what and what needs to get done.
+          <p class="text-lg font-medium leading-9 text-wierdBlue">
+            Simple, flexible, and powerful. All it takes are boards, lists, and
+            cards to get a clear view of who’s doing what and what needs to get
+            done.
           </p>
         </div>
-        <div class="w-full mt-12 flex flex-col md:flex-row gap-y-4">
-
-
-
+        <div class="mt-12 flex w-full flex-col gap-y-4 md:flex-row">
           <!-- Buttons Column -->
-          <div class="hidden md:w-[40%] md:order-1 md:flex flex-col justify-between md:mr-8">
-            <button class="homeTabButton" :class="{ 'homeTabButtonActive': item === 0 }" @click="navigateToItem(0)">
+          <div
+            class="hidden flex-col justify-between md:order-1 md:mr-8 md:flex md:w-[40%]"
+          >
+            <button
+              class="homeTabButton"
+              :class="{ homeTabButtonActive: item === 0 }"
+              @click="navigateToItem(0)"
+            >
               <div>
                 <h3>Boards</h3>
-                <p>Trello boards keep tasks organized and work moving forward. In a glance, see everything from “things
-                  to do” to “aww yeah, we did it!”</p>
+                <p>
+                  Trello boards keep tasks organized and work moving forward. In
+                  a glance, see everything from “things to do” to “aww yeah, we
+                  did it!”
+                </p>
               </div>
             </button>
-            <button class="homeTabButton" :class="{ 'homeTabButtonActive': item === 1 }" @click="navigateToItem(1)">
+            <button
+              class="homeTabButton"
+              :class="{ homeTabButtonActive: item === 1 }"
+              @click="navigateToItem(1)"
+            >
               <div>
                 <h3>Lists</h3>
-                <p>The different stages of a task. Start as simple as To Do, Doing or Done—or build a workflow custom
-                  fit to your team’s needs. There’s no wrong way to Trello.</p>
+                <p>
+                  The different stages of a task. Start as simple as To Do,
+                  Doing or Done—or build a workflow custom fit to your team’s
+                  needs. There’s no wrong way to Trello.
+                </p>
               </div>
             </button>
-            <button class="homeTabButton" :class="{ 'homeTabButtonActive': item === 2 }" @click="navigateToItem(2)">
+            <button
+              class="homeTabButton"
+              :class="{ homeTabButtonActive: item === 2 }"
+              @click="navigateToItem(2)"
+            >
               <div>
                 <h3>Cards</h3>
-                <p>Cards represent tasks and ideas and hold all the information to get the job done. As you make
-                  progress, move cards across lists to show their status.</p>
+                <p>
+                  Cards represent tasks and ideas and hold all the information
+                  to get the job done. As you make progress, move cards across
+                  lists to show their status.
+                </p>
               </div>
             </button>
           </div>
 
           <!-- Image Carousel -->
-          <div class="md:w-full md:order-2">
-            <carousel ref="myImagesCarousel" @slide-end="handleSlideEnd" transition=100>
+          <div class="md:order-2 md:w-full">
+            <carousel
+              ref="myImagesCarousel"
+              @slide-end="handleSlideEnd"
+              transition="100"
+            >
               <slide v-for="(slide, index) in slides" :key="index">
-                <NuxtImg :src="slide" class="w-full h-auto" />
+                <NuxtImg :src="slide" class="h-auto w-full" />
               </slide>
             </carousel>
           </div>
 
           <!-- Buttons Carousel -->
           <div class="w-full md:hidden">
-            <carousel ref="myButtonsCarousel" @slide-end="handleSlideEnd" transition=100>
+            <carousel
+              ref="myButtonsCarousel"
+              @slide-end="handleSlideEnd"
+              transition="100"
+            >
               <slide v-for="(slide, index) in slideDesc" :key="index + 5">
                 <div class="homeTabButton homeTabButtonActive">
                   <h3>{{ slide.title }}</h3>
@@ -64,61 +94,58 @@
             </carousel>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-  import { ref } from 'vue';
+import { ref } from "vue";
 
-  const myButtonsCarousel = ref(null);
-  const myImagesCarousel = ref(null);
-  const item = ref(0);
+const myButtonsCarousel = ref(null);
+const myImagesCarousel = ref(null);
+const item = ref(0);
 
-  const slides = [
-    '/Carousel_Image_Boards.webp',
-    '/Carousel_Image_Lists.webp',
-    '/Carousel_Image_Cards.webp',
-  ];
+const slides = [
+  "/Carousel_Image_Boards.webp",
+  "/Carousel_Image_Lists.webp",
+  "/Carousel_Image_Cards.webp",
+];
 
-  const slideDesc = [
-    {
-      'title': 'Boards',
-      'body': 'Trello boards keep tasks organized and work moving forward. In a glance, see everything from “things to do” to “aww yeah, we did it!”',
-    },
-    {
-      'title': 'Lists',
-      'body': 'The different stages of a task. Start as simple as To Do, Doing or Done—or build a workflow custom fit to your teams needs.Theres no wrong way to Trello.',
-    },
-    {
-      'title': 'Cards',
-      'body': "Cards represent tasks and ideas and hold all the information to get the job done. As you make progress, move cards across lists to show their status."
-    },
-  ];
+const slideDesc = [
+  {
+    title: "Boards",
+    body: "Trello boards keep tasks organized and work moving forward. In a glance, see everything from “things to do” to “aww yeah, we did it!”",
+  },
+  {
+    title: "Lists",
+    body: "The different stages of a task. Start as simple as To Do, Doing or Done—or build a workflow custom fit to your teams needs.Theres no wrong way to Trello.",
+  },
+  {
+    title: "Cards",
+    body: "Cards represent tasks and ideas and hold all the information to get the job done. As you make progress, move cards across lists to show their status.",
+  },
+];
 
-  function navigateToItem(index) {
-    myButtonsCarousel.value.slideTo(index);
-    myImagesCarousel.value.slideTo(index);
-    item.value = index;
-  }
+function navigateToItem(index) {
+  myButtonsCarousel.value.slideTo(index);
+  myImagesCarousel.value.slideTo(index);
+  item.value = index;
+}
 
-  function updateActiveItem(index) {
-    item.value = index;
-    navigateToItem(index);
+function updateActiveItem(index) {
+  item.value = index;
+  navigateToItem(index);
+}
 
-  }
+function handleSlideStart(data) {
+  updateActiveItem(data.currentSlideIndex);
+}
 
-  function handleSlideStart(data) {
-    updateActiveItem(data.currentSlideIndex);
-  }
-
-  function handleSlideEnd(data) {
-    updateActiveItem(data.currentSlideIndex);
-  }
+function handleSlideEnd(data) {
+  updateActiveItem(data.currentSlideIndex);
+}
 </script>
-
 
 <style>
 :root {
@@ -138,7 +165,6 @@
   --vc-pgn-background-color: var(--vc-clr-secondary);
   --vc-pgn-active-color: var(--vc-clr-primary);
 }
-
 
 .carousel {
   position: relative;
@@ -230,7 +256,6 @@
 }
 
 @media (hover: hover) {
-
   .carousel__prev:hover,
   .carousel__next:hover {
     color: var(--vc-nav-color-hover);
@@ -257,7 +282,7 @@
 
 .carousel__pagination-button::after {
   display: block;
-  content: '';
+  content: "";
   width: var(--vc-pgn-width);
   height: var(--vc-pgn-height);
   border-radius: var(--vc-pgn-border-radius);
@@ -269,7 +294,7 @@
   width: 60px;
 }
 
-@media(hover: hover) {
+@media (hover: hover) {
   .carousel__pagination-button:hover::after {
     background-color: var(--vc-pgn-active-color);
   }

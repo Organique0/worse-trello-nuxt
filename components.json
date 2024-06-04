@@ -1,17 +1,17 @@
 {
-  "$schema": "https://shadcn-vue.com/schema.json",
-  "style": "default",
-  "typescript": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "assets/css/tailwind.css",
-    "baseColor": "slate",
-    "cssVariables": true
-  },
-  "framework": "nuxt",
-  "aliases": {
-    "components": "@/worse-trello-nuxt/shadComponents",
-    "utils": "@/worse-trello-nuxt/lib/utils.ts",
-    "ui": "@/worse-trello-nuxt/shadComponents/ui"
-  }
+	"$schema": "https://shadcn-vue.com/schema.json",
+	"style": "default",
+	"typescript": true,
+	"tailwind": {
+		"config": "tailwind.config.js",
+		"css": "assets/css/tailwind.css",
+		"baseColor": "slate",
+		"cssVariables": true
+	},
+	"framework": "nuxt",
+	"aliases": {
+		"components": "@/worse-trello-nuxt/shadComponents",
+		"utils": "@/lib/utils",
+		"ui": "@/worse-trello-nuxt/shadComponents/ui"
+	}
 }

@@ -39,6 +39,7 @@ module.exports = {
 				viewsBgRight: "url('/public/ViewsBackground_Right_Narrow.svg')",
 				viewsBgLeft: "url('/public/ViewsBackground_Left_Narrow.svg')",
 				logoGif: "url('/public/logoGif.gif')",
+				createWorkspaceFormBg: "url('/public/createWorkspaceFormBg.svg')",
 			},
 			colors: {
 				wierdBlue: "#091E42",
@@ -86,6 +87,7 @@ module.exports = {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
 				sm: "calc(var(--radius) - 4px)",
+				xs: "calc(var(--radius) - 8px)",
 			},
 			keyframes: {
 				"accordion-down": {

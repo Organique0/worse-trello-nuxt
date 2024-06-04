@@ -5,7 +5,7 @@ import {
   type DialogDescriptionProps,
   useForwardProps,
 } from "radix-vue";
-import { cn } from "@/worse-trello-nuxt/lib/utils.ts";
+  import { cn } from "@/lib/utils";
 
 const props = defineProps<
   DialogDescriptionProps & { class?: HTMLAttributes["class"] }

@@ -105,95 +105,79 @@
           </DropdownMenu>
 
           <!--Templates-->
-          <DropdownMenu>
-            <DropdownMenuTrigger as-child>
-              <Button class="relative mt-0 block h-[32px] rounded-sm px-2 py-0" variant="ghost">
-                Templates
-                <Icon name="tabler:chevron-down" :ssr="true" class="inline-flex text-opacity-65 dark:text-white" />
-              </Button>
-            </DropdownMenuTrigger>
+          <Dialog>
+            <DropdownMenu>
+              <DropdownMenuTrigger as-child>
+                <Button class="relative mt-0 block h-[32px] rounded-sm px-2 py-0" variant="ghost">
+                  Templates
+                  <Icon name="tabler:chevron-down" :ssr="true" class="inline-flex text-opacity-65 dark:text-white" />
+                </Button>
+              </DropdownMenuTrigger>
 
-            <DropdownMenuContent class="w-[20rem] p-3">
-              <p class="px-2 py-1 text-xs">Top templates</p>
-              <DropdownMenuItem v-for="item in templatesItems">
-                <div class="inline-flex w-full">
-                  <NuxtImg :src="item.src" class="h-8 w-10 rounded-sm" />
+              <DropdownMenuContent class="w-[20rem] p-3">
+                <LoggedInStartTemplate />
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-                  <p class="ml-3 align-middle font-semibold">
-                    {{ item.title }}
-                  </p>
-                </div>
-              </DropdownMenuItem>
-
-              <DropdownMenuSeparator />
-
-              <div class="inline-flex w-full py-1">
-                <span class="content-end pl-5">
-                  <LogosTrelloIcon class="text-primary" />
-                </span>
-                <p class="align-end ml-3 text-sm font-normal">
-                  See hundreds of templates from the Trello comunity
-                </p>
-              </div>
-
-              <Button
-                class="mt-2 h-8 w-full rounded-sm bg-gray-200 text-black hover:bg-gray-300 dark:bg-gray-700 dark:text-white dark:hover:brightness-125">Explore
-                templates</Button>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <!--create-->
-          <DropdownMenu @update:open="updateCreateInHeaderOpen" v-model:open="createDropdownOpen">
-            <DropdownMenuTrigger as-child>
-              <Button class=" relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-primary hover:brightness-110
+            <!--create-->
+            <DropdownMenu @update:open="updateCreateInHeaderOpen" v-model:open="createDropdownOpen">
+              <DropdownMenuTrigger as-child>
+                <Button class=" relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-primary hover:brightness-110
             dark:text-[#1d2125]">
-                Create
-              </Button>
-            </DropdownMenuTrigger>
+                  Create
+                </Button>
+              </DropdownMenuTrigger>
 
-            <DropdownMenuContent class="w-[20rem] p-3" v-if="!createInHeaderOpen">
-              <DropdownMenuItem class="max-w-72" @click="toggleCreateInHeaderOpen" @select="(e) => e.preventDefault()">
-                <div class="block">
-                  <div class="inline-flex w-full">
-                    <Icon name="lucide:trello" class="inline-flex h-4 w-4" />
-                    <p class="ml-1 font-semibold">Create board</p>
+              <DropdownMenuContent class="w-[20rem] p-3" v-if="!createInHeaderOpen && !templatesInHeaderOpen">
+                <DropdownMenuItem class="max-w-72" @click="toggleCreateInHeaderOpen"
+                  @select="(e) => e.preventDefault()">
+                  <div class="block">
+                    <div class="inline-flex w-full">
+                      <Icon name="lucide:trello" class="inline-flex h-4 w-4" />
+                      <p class="ml-1 font-semibold">Create board</p>
+                    </div>
+                    <div class="text-left text-xs leading-4">
+                      <p>
+                        A board made up of cards ordered on lists. Use it to
+                        manage projects, track information, or organize anything.
+                      </p>
+                    </div>
                   </div>
-                  <div class="text-left text-xs leading-4">
-                    <p>
-                      A board made up of cards ordered on lists. Use it to
-                      manage projects, track information, or organize anything.
-                    </p>
+                </DropdownMenuItem>
+                <DropdownMenuItem class="max-w-72" @click="toggleTemplatesInHeaderOpen"
+                  @select="(e) => e.preventDefault()">
+                  <div class="block">
+                    <div class="inline-flex w-full">
+                      <Icon name="lucide:layout-template" class="inline-flex h-4 w-4" />
+                      <p class="ml-1 font-semibold">Start with a template</p>
+                    </div>
+                    <div class="text-left text-xs leading-4">
+                      <p>Get started with a bord template.</p>
+                    </div>
                   </div>
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem class="max-w-72">
-                <div class="block">
-                  <div class="inline-flex w-full">
-                    <Icon name="lucide:layout-template" class="inline-flex h-4 w-4" />
-                    <p class="ml-1 font-semibold">Start with a template</p>
-                  </div>
-                  <div class="text-left text-xs leading-4">
-                    <p>Get started with a bord template.</p>
-                  </div>
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem class="max-w-72">
-                <div class="block">
-                  <div class="inline-flex w-full">
-                    <Icon name="lucide:users-round" class="inline-flex h-4 w-4" />
-                    <p class="ml-1 font-semibold">Create workspace</p>
-                  </div>
-                  <div class="text-left text-xs leading-4">
-                    <p>
-                      A workspace is a group of boards and people. Use it to
-                      organize your company, side hustle, family, or friends.
-                    </p>
-                  </div>
-                </div>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-            <DropdownMenuContent class="w-[304px] p-4" v-else>
-              <Button size="icon" variant="ghost" class="
+                </DropdownMenuItem>
+
+                <DropdownMenuItem class="max-w-72" @select="(e) => e.preventDefault()">
+                  <DialogTrigger>
+                    <div class="block">
+                      <div class="inline-flex w-full">
+                        <Icon name="lucide:users-round" class="inline-flex h-4 w-4" />
+                        <p class="ml-1 font-semibold">Create workspace</p>
+                      </div>
+                      <div class="text-left text-xs leading-4">
+                        <p>
+                          A workspace is a group of boards and people. Use it to
+                          organize your company, side hustle, family, or friends.
+                        </p>
+                      </div>
+                    </div>
+                  </DialogTrigger>
+                  <LoggedInCreateWorkspaceDialog />
+                </DropdownMenuItem>
+
+              </DropdownMenuContent>
+              <DropdownMenuContent class="w-[304px] p-4" v-if="createInHeaderOpen">
+                <Button size="icon" variant="ghost" class="
                 hoverButton
                 absolute 
                 left-[15px] 
@@ -207,9 +191,9 @@
                 rounded-md 
                 outline-none 
                 " aria-label="Close" @click="toggleCreateInHeaderOpen">
-                <Icon name="tabler:chevron-left" class="w-5 h-5" />
-              </Button>
-              <Button size="icon" variant="ghost" class="
+                  <Icon name="tabler:chevron-left" class="w-5 h-5" />
+                </Button>
+                <Button size="icon" variant="ghost" class="
                 hoverButton
                 absolute 
                 right-[15px] 
@@ -223,11 +207,85 @@
                 rounded-md 
                 outline-none 
                 " aria-label="Close" @click="closeDropdown">
-                <Icon name="bitcoin-icons:cross-filled" class="h-5 w-5" />
-              </Button>
-              <LoggedInNewBoard />
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  <Icon name="bitcoin-icons:cross-filled" class="h-5 w-5" />
+                </Button>
+                <LoggedInNewBoard />
+              </DropdownMenuContent>
+
+              <DropdownMenuContent class="w-[304px] p-4" v-if="templatesInHeaderOpen">
+                <Button size="icon" variant="ghost" class="
+                hoverButton
+                absolute 
+                left-[15px] 
+                top-[15px] 
+                inline-flex 
+                h-[30px] 
+                w-[30px] 
+                cursor-pointer 
+                items-center 
+                justify-center 
+                rounded-md 
+                outline-none 
+                " aria-label="Close" @click="toggleTemplatesInHeaderOpen">
+                  <Icon name="tabler:chevron-left" class="w-5 h-5" />
+                </Button>
+                <Button size="icon" variant="ghost" class="
+                hoverButton
+                absolute 
+                right-[15px] 
+                top-[15px] 
+                inline-flex 
+                h-[30px] 
+                w-[30px] 
+                cursor-pointer 
+                items-center 
+                justify-center 
+                rounded-md 
+                outline-none 
+                " aria-label="Close" @click="closeDropdown">
+                  <Icon name="bitcoin-icons:cross-filled" class="h-5 w-5" />
+                </Button>
+                <h1 class="w-full text-center text-sm font-bold">Create from template</h1>
+                <LoggedInStartTemplate class="pt-3" />
+              </DropdownMenuContent>
+
+              <DropdownMenuContent class="w-[304px] p-4" v-if="createInHeaderOpen">
+                <Button size="icon" variant="ghost" class="
+                hoverButton
+                absolute 
+                left-[15px] 
+                top-[15px] 
+                inline-flex 
+                h-[30px] 
+                w-[30px] 
+                cursor-pointer 
+                items-center 
+                justify-center 
+                rounded-md 
+                outline-none 
+                " aria-label="Close" @click="toggleCreateInHeaderOpen">
+                  <Icon name="tabler:chevron-left" class="w-5 h-5" />
+                </Button>
+                <Button size="icon" variant="ghost" class="
+                hoverButton
+                absolute 
+                right-[15px] 
+                top-[15px] 
+                inline-flex 
+                h-[30px] 
+                w-[30px] 
+                cursor-pointer 
+                items-center 
+                justify-center 
+                rounded-md 
+                outline-none 
+                " aria-label="Close" @click="closeDropdown">
+                  <Icon name="bitcoin-icons:cross-filled" class="h-5 w-5" />
+                </Button>
+                <LoggedInNewBoard />
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </Dialog>
         </div>
 
         <!--user-->
@@ -380,6 +438,17 @@
     SelectTrigger,
     SelectValue,
   } from "@/shadComponents/ui/select";
+  import {
+    Dialog,
+    DialogClose,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogScrollContent,
+    DialogTitle,
+    DialogTrigger
+  } from "@/shadComponents/ui/dialog";
   import { Input } from "@/shadComponents/ui/input";
   import { Button } from "@/shadComponents/ui/button";
   import { Switch } from "@/shadComponents/ui/switch";
@@ -398,17 +467,24 @@
   const updateCreateInHeaderOpen = (payload: Boolean) => {
     if (payload == false) {
       createInHeaderOpen.value = false;
+      templatesInHeaderOpen.value = false;
+
     }
   };
   const toggleCreateInHeaderOpen = () => {
     createInHeaderOpen.value = !createInHeaderOpen.value
   };
 
+  const templatesInHeaderOpen = ref(false);
+  const toggleTemplatesInHeaderOpen = () => {
+    templatesInHeaderOpen.value = !templatesInHeaderOpen.value
+  };
 
   const createDropdownOpen = ref(false);
   const closeDropdown = () => {
     createDropdownOpen.value = false;
     createInHeaderOpen.value = false;
+    templatesInHeaderOpen.value = false;
   };
 
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from "vue";
-import { cn } from "@/worse-trello-nuxt/lib/utils.ts";
+  import { cn } from "@/lib/utils";
 
 const props = defineProps<{ class?: HTMLAttributes["class"] }>();
 </script>

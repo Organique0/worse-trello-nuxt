@@ -158,7 +158,7 @@
                 </DropdownMenuItem>
 
                 <DropdownMenuItem class="max-w-72" @select="(e) => e.preventDefault()">
-                  <DialogTrigger>
+                  <DialogTrigger asChild>
                     <div class="block">
                       <div class="inline-flex w-full">
                         <Icon name="lucide:users-round" class="inline-flex h-4 w-4" />
@@ -172,7 +172,14 @@
                       </div>
                     </div>
                   </DialogTrigger>
-                  <LoggedInCreateWorkspaceDialog />
+                  <DialogContent
+                    class="bg-white dark:bg-[#22272B] !p-0 border-none flex lg:!max-w-[1200px] !min-h-[700px] flex-col-reverse lg:flex-row !max-w-[475px]  overflow-hidden top-[43%] lg:top-[33%] rounded-[2px]">
+                    <VisuallyHidden>
+                      <DialogTitle>create a workspace</DialogTitle>
+                      <DialogDescription>a form to create a new workspace</DialogDescription>
+                    </VisuallyHidden>
+                    <LoggedInCreateWorkspaceDialog />
+                  </DialogContent>
                 </DropdownMenuItem>
 
               </DropdownMenuContent>
@@ -455,7 +462,7 @@
   import { ConfigProvider } from "radix-vue";
   import NotificationListItem from "../UI/NotificationListItem.vue";
   import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
-
+  import { VisuallyHidden } from 'radix-vue';
   const useIdFunction = () => useId();
 
   const isHovered = ref(false);

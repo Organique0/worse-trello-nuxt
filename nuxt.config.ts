@@ -23,6 +23,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
+    "@nuxt/eslint"
   ],
   formkit: {
     autoImport: true,

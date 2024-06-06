@@ -34,9 +34,9 @@ onBeforeMount(async () => {
 
       <div class="mt-14 flex justify-end">
         <UButton
-          @click="handleResendVerification"
           :disabled="verificationIsSent"
           size="xs"
+          @click="handleResendVerification"
         >
           Resend Verification Email
         </UButton>

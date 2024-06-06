@@ -46,7 +46,7 @@ type Schema = z.output<typeof schema>;
   <AuthCard>
     <template #logo>
       <NuxtLink to="/">
-        <img src="/icon-green.svg" class="h-16 w-16" />
+        <img src="/icon-green.svg" class="h-16 w-16" >
       </NuxtLink>
     </template>
 

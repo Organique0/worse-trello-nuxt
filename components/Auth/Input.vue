@@ -24,12 +24,12 @@ const renderedErrors = computed(() =>
   <div>
     <input
       :value="modelValue"
+      class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+      v-bind="$attrs"
       @input="
         $emit('update:modelValue', ($event.target as HTMLInputElement).value)
       "
-      class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-      v-bind="$attrs"
-    />
+    >
 
     <!-- Validation Errors -->
     <ul v-if="renderedErrors?.length > 0" class="mt-3 text-sm text-red-600">

@@ -36,8 +36,8 @@
           id="loginForm"
           type="form"
           submit-label="Login"
-          @submit="submit"
           :actions="false"
+          @submit="submit"
         >
           <FormKit
             v-model="data.username"

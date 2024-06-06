@@ -44,7 +44,7 @@ const schema = object({
     </template>
 
     <template #form>
-      <UForm @submit="submit" :state="state" :schema="schema" class="space-y-4">
+      <UForm :state="state" :schema="schema" class="space-y-4" @submit="submit">
         <UFormGroup label="We'll send a recovery link to" name="email">
           <UInput v-model="state.email" placeholder="Enter email" />
         </UFormGroup>

@@ -30,20 +30,20 @@
 
           <div class="leading-4">
             <!--username-->
-            <p class="text-gray-900 dark:text-muted-foreground" v-if="user">
+            <p v-if="user" class="text-gray-900 dark:text-muted-foreground">
               {{ user.first_name }}
             </p>
-            <p class="text-gray-900 dark:text-muted-foreground" v-else>
+            <p v-else class="text-gray-900 dark:text-muted-foreground">
               Luka Grabnar
             </p>
             <!--email-->
             <p
-              class="text-xs text-gray-900 dark:text-muted-foreground"
               v-if="user"
+              class="text-xs text-gray-900 dark:text-muted-foreground"
             >
               {{ user.email }}
             </p>
-            <p class="text-xs text-gray-900 dark:text-muted-foreground" v-else>
+            <p v-else class="text-xs text-gray-900 dark:text-muted-foreground">
               grabnar.luka@gmail.com
             </p>
           </div>

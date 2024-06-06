@@ -1,5 +1,5 @@
 <template>
-  <div class="homeCenterContainer block w-full" :id="id">
+  <div :id="id" class="homeCenterContainer block w-full">
     <div
       class="mx-auto w-full md:flex md:w-full md:items-center md:justify-center md:gap-6"
     >

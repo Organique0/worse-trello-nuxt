@@ -66,8 +66,8 @@
           <div class="md:order-2 md:w-full">
             <carousel
               ref="myImagesCarousel"
-              @slide-end="handleSlideEnd"
               transition="100"
+              @slide-end="handleSlideEnd"
             >
               <slide v-for="(slide, index) in slides" :key="index">
                 <NuxtImg :src="slide" class="h-auto w-full" />
@@ -79,8 +79,8 @@
           <div class="w-full md:hidden">
             <carousel
               ref="myButtonsCarousel"
-              @slide-end="handleSlideEnd"
               transition="100"
+              @slide-end="handleSlideEnd"
             >
               <slide v-for="(slide, index) in slideDesc" :key="index + 5">
                 <div class="homeTabButton homeTabButtonActive">

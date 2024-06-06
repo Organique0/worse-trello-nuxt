@@ -2,12 +2,13 @@
   <Popover>
     <PopoverTrigger
       class="hoverButtonWithBg flex !h-[100px] !w-[200px] cursor-pointer items-center justify-center rounded-sm"
-      asChild>
+      as-child>
       <p>Create new board</p>
     </PopoverTrigger>
     <PopoverContent class="w-[304px]" side="right">
       <LoggedInNewBoard />
-      <PopoverClose class="
+      <PopoverClose
+class="
         hoverButton
         absolute 
         right-[15px] 

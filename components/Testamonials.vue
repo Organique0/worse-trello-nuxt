@@ -2,8 +2,8 @@
   <!--SLIDER BUTTONS-->
   <div class="homeCenterContainer hidden justify-end md:flex">
     <div
-      @click="goBackwardReview"
       class="mr-7 h-9 w-9 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300"
+      @click="goBackwardReview"
     >
       <Icon
         name="material-symbols:arrow-back-ios-rounded"
@@ -12,8 +12,8 @@
       />
     </div>
     <div
-      @click="goForwardReview"
       class="h-9 w-9 rounded-full bg-gray-200 text-gray-800 hover:bg-gray-300"
+      @click="goForwardReview"
     >
       <Icon
         name="material-symbols:arrow-forward-ios-rounded"
@@ -42,22 +42,22 @@
         <template #default="{ item }">
           <!-- Render carousel items here -->
           <UIHomeReviewItem
-            :reviewBody="item.reviewBody"
-            :reviewFooter="item.reviewFooter"
-            :surveyBody="item.surveyBody"
-            :surveyFooter="item.surveyFooter"
+            :review-body="item.reviewBody"
+            :review-footer="item.reviewFooter"
+            :survey-body="item.surveyBody"
+            :survey-footer="item.surveyFooter"
           />
         </template>
 
         <template #indicator="{ onClick, page, active }">
           <UButton
             class="m-0 block justify-center !bg-transparent p-0 after:block after:h-[var(--vc-pgn-height)] after:w-[var(--vc-pgn-width)] after:rounded-full after:bg-[var(--vc-pgn-background-color)]"
-            @click="onClick(page)"
             :class="
               active &&
               'after:w-[60px] after:rounded-full after:!bg-[var(--vc-pgn-active-color)]'
             "
             disabled
+            @click="onClick(page)"
           />
         </template>
       </UCarousel>

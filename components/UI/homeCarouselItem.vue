@@ -3,7 +3,7 @@
     class="homeCarouselItem relative my-4 ml-1 overflow-hidden text-left"
     style="border-radius: 1em"
   >
-    <div class="block h-12 text-left" :class="headerClass"></div>
+    <div class="block h-12 text-left" :class="headerClass"/>
 
     <div
       class="absolute left-4 top-5 flex w-12 items-center justify-center rounded-md bg-white"

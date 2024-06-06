@@ -15,7 +15,7 @@ export const $larafetch = $fetch.create({
 
     // on client initiate a csrf request and get it from the cookie set by laravel
     if (
-      process.client &&
+      import.meta.client &&
       ["post", "delete", "put", "patch"].includes(
         options?.method?.toLowerCase() ?? "",
       )
@@ -29,7 +29,7 @@ export const $larafetch = $fetch.create({
       ...(token && { [CSRF_HEADER]: token }),
     };
 
-    if (process.server) {
+    if (import.meta.server) {
       const cookieString = event
         ? event.headers.get("cookie")
         : useRequestHeaders(["cookie"]).cookie;

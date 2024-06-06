@@ -12,7 +12,7 @@ export function useSubmit<T>(
   const validationErrors = ref<ValidationErrors>({});
   const error = ref<Error | null>(null);
   const inProgress = ref(false);
-  const succeeded = ref<Boolean | null>(null);
+  const succeeded = ref<boolean | null>(null);
 
   async function submit() {
     validationErrors.value = {};

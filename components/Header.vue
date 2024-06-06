@@ -6,7 +6,7 @@
       src="public/icon-green.svg"
       class="group hover:cursor-pointer"
       @click="handleHomeClick"
-    />
+    >
     <div class="flex flex-grow items-center justify-end">
       <div class="flex h-[calc(100%+3px)] items-center gap-4">
         <Button

@@ -71,7 +71,6 @@
 					<LoggedInBoardPreview
 						v-for="board in boards"
 						:key="board.title"
-              :"
 						:src="board.src"
 						:starred="board.starred"
 						:link="board.link"
@@ -85,6 +84,7 @@
 </template>
 
 <script setup lang="ts">
+	import { onMounted } from "vue";
 	definePageMeta({
 		layout: "logged-in-home",
 	});
@@ -92,7 +92,7 @@
 	const router = useRouter();
 	router.currentRoute.value;
 
-	const workspaces = [
+	/* 	var workspaces = [
 		{
 			src: "/templatesExample.jpg",
 			title: "Trello Workspace",
@@ -101,7 +101,16 @@
 			src: "/templatesExample.jpg",
 			title: "Trello Workspace",
 		},
-	];
+	]; */
+	const workspaces = ref([]);
+
+	onMounted(async () => {
+		const response = await $larafetch("api/workspaces", {
+			method: "get",
+		});
+		console.log(response.workspaces);
+		workspaces.value = response.workspaces;
+	});
 
 	const boards = [
 		{

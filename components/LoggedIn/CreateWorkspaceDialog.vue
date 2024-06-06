@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="w-full lg:w-[50%] mt-[64px] mx-auto flex flex-1 items-center flex-col px-[24px] pb-6"
+		class="w-full lg:w-[50%] mt-0 lg:mt-[64px] mx-auto flex flex-1 items-center flex-col px-[24px] pb-6"
 	>
 		<div class="lg:w-[388px]">
 			<span class="block text-[#172B4D] text-[24px] font-bold mb-3"
@@ -14,7 +14,7 @@
 			<form @submit="onSubmit">
 				<FormField
 					v-slot="{ componentField }"
-					name="name"
+					name="title"
 				>
 					<FormItem>
 						<FormLabel class="text-[12px] font-semibold mt-5 block"
@@ -34,48 +34,50 @@
 						<FormMessage />
 					</FormItem>
 				</FormField>
-				<hello />
 
-				<FormField name="type">
+				<FormField
+					name="type"
+					v-slot="{ componentField }"
+				>
 					<FormItem>
 						<FormLabel class="text-[12px] font-semibold mt-5 block"
 							>Workspace type</FormLabel
 						>
-						<FormControl>
-							<Select>
+						<Select v-bind="componentField">
+							<FormControl>
 								<SelectTrigger class="">
 									<SelectValue placeholder="Choose.." />
 								</SelectTrigger>
-								<SelectContent>
-									<SelectGroup>
-										<SelectItemCreateBoard value="education">
-											Education
-										</SelectItemCreateBoard>
-										<SelectItemCreateBoard value="it">
-											Engineering-IT
-										</SelectItemCreateBoard>
-										<SelectItemCreateBoard value="hr">
-											Human Resources
-										</SelectItemCreateBoard>
-										<SelectItemCreateBoard value="sales">
-											Sales CRM
-										</SelectItemCreateBoard>
-										<SelectItemCreateBoard value="business">
-											Small Business
-										</SelectItemCreateBoard>
-										<SelectItemCreateBoard value="marketing">
-											Marketing
-										</SelectItemCreateBoard>
-										<SelectItemCreateBoard value="operations">
-											Operations
-										</SelectItemCreateBoard>
-										<SelectItemCreateBoard value="other">
-											Other
-										</SelectItemCreateBoard>
-									</SelectGroup>
-								</SelectContent>
-							</Select>
-						</FormControl>
+							</FormControl>
+							<SelectContent>
+								<SelectGroup>
+									<SelectItemCreateBoard value="education">
+										Education
+									</SelectItemCreateBoard>
+									<SelectItemCreateBoard value="it">
+										Engineering-IT
+									</SelectItemCreateBoard>
+									<SelectItemCreateBoard value="hr">
+										Human Resources
+									</SelectItemCreateBoard>
+									<SelectItemCreateBoard value="sales">
+										Sales CRM
+									</SelectItemCreateBoard>
+									<SelectItemCreateBoard value="business">
+										Small Business
+									</SelectItemCreateBoard>
+									<SelectItemCreateBoard value="marketing">
+										Marketing
+									</SelectItemCreateBoard>
+									<SelectItemCreateBoard value="operations">
+										Operations
+									</SelectItemCreateBoard>
+									<SelectItemCreateBoard value="other">
+										Other
+									</SelectItemCreateBoard>
+								</SelectGroup>
+							</SelectContent>
+						</Select>
 						<FormMessage />
 					</FormItem>
 				</FormField>
@@ -145,14 +147,17 @@
 		SelectTrigger,
 		SelectValue,
 	} from "@/shadComponents/ui/select";
-	import { Textarea } from "@/shadComponents/ui/textarea";
 	import { useForm } from "vee-validate";
 	import { toTypedSchema } from "@vee-validate/zod";
 	import * as z from "zod";
+	import Textarea from "~/shadComponents/ui/textarea/Textarea.vue";
+	import SelectItemCreateBoard from "~/shadComponents/ui/select/SelectItemCreateBoard.vue";
 
 	const formSchema = toTypedSchema(
 		z.object({
-			name: z.string().min(2).max(50),
+			title: z.string().min(2).max(50),
+			type: z.string().min(1, { message: "Type is required" }),
+			description: z.string().optional(),
 		})
 	);
 
@@ -160,7 +165,11 @@
 		validationSchema: formSchema,
 	});
 
-	const onSubmit = form.handleSubmit((values) => {
+	const onSubmit = form.handleSubmit(async (values) => {
+		await $larafetch("api/workspaces/create", {
+			method: "post",
+			body: values,
+		});
 		console.log("Form submitted!", values);
 	});
 </script>

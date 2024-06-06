@@ -264,19 +264,21 @@
 											</div>
 										</div>
 									</DialogTrigger>
-									<DialogContent
-										class="bg-white dark:bg-[#22272B] !p-0 border-none flex lg:!max-w-[1200px] !min-h-[700px] flex-col-reverse lg:flex-row !max-w-[475px] overflow-hidden top-[43%] lg:top-[33%] rounded-[2px]"
-									>
-										<VisuallyHidden>
-											<dialogHeader>
-												<DialogTitle>create a workspace</DialogTitle>
-												<DialogDescription
-													>a form to create a new workspace</DialogDescription
-												>
-											</dialogHeader>
-										</VisuallyHidden>
-										<LoggedInCreateWorkspaceDialog />
-									</DialogContent>
+									<div class="mt-24 relative bg-red-300 h-full w-full">
+										<DialogContent
+											class="bg-white dark:bg-[#22272B] !p-0 border-none flex lg:!max-w-[1200px] flex-col-reverse lg:flex-row !max-w-[475px] overflow-hidden top-[58%] lg:top-[45%] rounded-[2px]"
+										>
+											<VisuallyHidden>
+												<dialogHeader>
+													<DialogTitle>create a workspace</DialogTitle>
+													<DialogDescription
+														>a form to create a new workspace</DialogDescription
+													>
+												</dialogHeader>
+											</VisuallyHidden>
+											<LoggedInCreateWorkspaceDialog />
+										</DialogContent>
+									</div>
 								</DropdownMenuItem>
 							</DropdownMenuContent>
 							<DropdownMenuContent

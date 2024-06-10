@@ -6,7 +6,17 @@ const {
 /** @type {import('tailwindcss').Config} */
 module.exports = {
 	darkMode: ["class"],
-	safelist: ["dark"],
+	safelist: [
+		"dark",
+		"bg-orange",
+		"bg-blue",
+		"bg-red",
+		"bg-pink",
+		"bg-purple",
+		"bg-green",
+		"bg-violet",
+		"bg-default",
+	],
 	prefix: "",
 	content: [
 		"./components/**/*.{js,vue,ts}",

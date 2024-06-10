@@ -25,18 +25,19 @@
 			<h1 class="mb-6 mt-16 font-bold">YOUR WORKSPACES</h1>
 
 			<div
-				v-for="workspace in workspaces"
+				v-for="workspace in myWorkspaceStore.workspaces"
 				:key="workspace.title"
 				class="mb-14"
 			>
 				<div class="flex justify-between">
 					<div class="flex items-center">
-						<NuxtImg
-							:src="workspace.src"
-							width="40"
-							height="40"
-							class="rounded-sm"
-						/>
+						<div
+							class="rounded-sm h-[32px] w-[32px] text-white text-xl font-bold flex items-center justify-center"
+							:class="getWorkspaceTypeColor(workspace.type)"
+						>
+							{{ workspace.title.charAt(0).toUpperCase() }}
+						</div>
+
 						<h1 class="ml-3 font-semibold">{{ workspace.title }}</h1>
 					</div>
 
@@ -85,32 +86,34 @@
 
 <script setup lang="ts">
 	import { onMounted } from "vue";
-	definePageMeta({
-		layout: "logged-in-home",
-	});
+	import type { Workspace } from "~/lib/types";
+	const myWorkspaceStore = useMyWorkspaceStore();
 
 	const router = useRouter();
 	router.currentRoute.value;
 
-	/* 	var workspaces = [
-		{
-			src: "/templatesExample.jpg",
-			title: "Trello Workspace",
-		},
-		{
-			src: "/templatesExample.jpg",
-			title: "Trello Workspace",
-		},
-	]; */
-	const workspaces = ref([]);
-
-	onMounted(async () => {
-		const response = await $larafetch("api/workspaces", {
-			method: "get",
-		});
-		console.log(response.workspaces);
-		workspaces.value = response.workspaces;
+	definePageMeta({
+		layout: "logged-in-home",
 	});
+
+	onBeforeMount(async () => {
+		await myWorkspaceStore.loadWorkspaces();
+	});
+
+	const workspaceTypeColors = {
+		education: "bg-gradient-to-t from-orange-400 to-orange-600",
+		it: "bg-gradient-to-t from-blue-400 to-blue-600",
+		hr: "bg-gradient-to-t from-red-400 to-red-600",
+		sales: "bg-gradient-to-t from-pink-400 to-pink-600",
+		business: "bg-gradient-to-t from-purple-400 to-purple-600",
+		marketing: "bg-gradient-to-t from-green-400 to-green-600",
+		operations: "bg-gradient-to-t from-violet-400 to-violet-600",
+		other: "bg-gradient-to-t from-pink-400 to-pink-600",
+	};
+
+	function getWorkspaceTypeColor(type: string) {
+		return workspaceTypeColors[type as keyof typeof workspaceTypeColors];
+	}
 
 	const boards = [
 		{
@@ -153,4 +156,15 @@
 			starred: false,
 		},
 	];
+
+	/* 	var workspaces = [
+		{
+			src: "/templatesExample.jpg",
+			title: "Trello Workspace",
+		},
+		{
+			src: "/templatesExample.jpg",
+			title: "Trello Workspace",
+		},
+	]; */
 </script>

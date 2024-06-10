@@ -153,6 +153,8 @@
 	import Textarea from "~/shadComponents/ui/textarea/Textarea.vue";
 	import SelectItemCreateBoard from "~/shadComponents/ui/select/SelectItemCreateBoard.vue";
 
+	const { createWorkspace } = useMyWorkspaceStore();
+
 	const formSchema = toTypedSchema(
 		z.object({
 			title: z.string().min(2).max(50),
@@ -166,10 +168,7 @@
 	});
 
 	const onSubmit = form.handleSubmit(async (values) => {
-		await $larafetch("api/workspaces/create", {
-			method: "post",
-			body: values,
-		});
 		console.log("Form submitted!", values);
+		await createWorkspace(values);
 	});
 </script>

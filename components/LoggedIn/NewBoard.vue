@@ -1,34 +1,95 @@
 <template>
 	<div :class="props.class">
 		<h1 class="mb-3 text-center font-medium text-sm mt-[2px]">Create board</h1>
-		<NuxtImg
-			src="/boardExample.jpg"
-			width="200"
-			height="120"
-			class="m-auto rounded-sm"
-		/>
+
+		<div
+			:style="
+				giveBackgroundImage(
+					selectedPhoto != null ? selectedPhoto : selectedColor
+				)
+			"
+			class="m-auto rounded-sm w-[200px] h-[120px] bg-center bg-cover items-center flex justify-center"
+		>
+			<img src="/boardSkeleton.svg" />
+		</div>
 
 		<p class="mb-2 mt-6 text-xs font-medium">Background</p>
-		<div class="mb-2 flex justify-between">
-			<NuxtImg
-				v-for="image in bgImages"
-				:key="image"
-				:src="image"
+		<div class="mb-2">
+			<!-- 			<NuxtImg
+				v-for="image in boardPhotos?.slice(0, 4)"
+				:key="image.id"
+				:src="image.urls.thumb"
 				width="64"
 				height="40"
-				class="rounded-sm"
-			/>
+				class="rounded-sm w-[64px] h-[40px]"
+			/> -->
+			<ul class="flex gap-2">
+				<li
+					v-for="image in boardPhotos?.slice(0, 4)"
+					class="w-[64px] h-[40px] relative rounded-sm group"
+				>
+					<button
+						:style="giveBackgroundImage(image.urls.thumb)"
+						class="w-full h-full rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
+						:class="
+							image.urls.thumb == selectedPhoto && 'before:bg-[#00000029] '
+						"
+						@click="
+							() => {
+								selectedPhoto = image.urls.thumb;
+								selectedColor = null;
+							}
+						"
+					></button>
+					<Icon
+						v-if="image.urls.thumb == selectedPhoto"
+						name="material-symbols:check"
+						class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+					/>
+				</li>
+			</ul>
 		</div>
 		<div class="mb-4 flex justify-between">
-			<img
+			<!-- 			<img
 				v-for="bg in bgColors"
 				:key="bg"
 				:src="bg"
-				class="h-[32px] w-[40px] rounded-sm"
-			/>
-			<Button class="h-[32px] w-[40px] rounded-sm">
-				<Icon name="mdi:dots-horizontal" />
-			</Button>
+				class="h-[32px] w-[40px] rounded-sm cursor-pointer"
+				@click="
+					() => {
+						selectedPhoto = null;
+						selectedColor = bg;
+					}
+				"
+			/> -->
+			<ul class="flex gap-2 max-w-full">
+				<li
+					v-for="bg in bgColors.slice(0, 5)"
+					class="h-[32px] w-[40px] relative rounded-sm group"
+				>
+					<button
+						:style="giveBackgroundImage(bg)"
+						class="w-full h-full p-0 m-0 rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
+						:class="bg == selectedColor && 'before:bg-[#00000029] '"
+						@click="
+							() => {
+								selectedPhoto = null;
+								selectedColor = bg;
+							}
+						"
+					></button>
+					<Icon
+						v-if="bg == selectedColor"
+						name="material-symbols:check"
+						class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+					/>
+				</li>
+				<li>
+					<Button class="h-[32px] w-[40px] rounded-sm">
+						<Icon name="mdi:dots-horizontal" />
+					</Button>
+				</li>
+			</ul>
 		</div>
 
 		<form @submit="onSubmit">
@@ -52,11 +113,14 @@
 				</FormItem>
 			</FormField>
 
-			<FormField name="workspace">
+			<FormField
+				name="workspace"
+				v-slot="{ componentField }"
+			>
 				<FormItem class="mt-4">
 					<FormLabel class="text-xs font-semibold">Workspace</FormLabel>
 					<FormControl>
-						<Select>
+						<Select v-bind="componentField">
 							<SelectTrigger class="rounded-sm border-black focus:ring-0">
 								<SelectValue :placeholder="workspaceItems[0].label" />
 							</SelectTrigger>
@@ -75,11 +139,14 @@
 				</FormItem>
 			</FormField>
 
-			<FormField name="visibility">
+			<FormField
+				name="visibility"
+				v-slot="{ componentField }"
+			>
 				<FormItem class="mt-2">
 					<FormLabel class="text-xs font-semibold">Visibility</FormLabel>
 					<FormControl>
-						<Select>
+						<Select v-bind="componentField">
 							<SelectTrigger class="rounded-sm border-black focus:ring-0">
 								<SelectValue :placeholder="visibilityItems[0].label" />
 							</SelectTrigger>
@@ -124,20 +191,17 @@
 		FormField,
 		FormItem,
 		FormLabel,
-		FormMessage,
 	} from "@/shadComponents/ui/form";
 
 	import {
 		Select,
 		SelectContent,
-		SelectGroup,
-		SelectItem,
-		SelectLabel,
 		SelectTrigger,
 		SelectValue,
 		SelectItemCreateBoard,
 	} from "@/shadComponents/ui/select";
-	import { PopoverClose } from "radix-vue";
+	import { _backgroundImage } from "#tailwind-config/theme";
+	import type { Icon } from "lucide-vue-next";
 
 	const props = defineProps({
 		class: {
@@ -163,6 +227,34 @@
 		console.log("Form submitted!", values);
 	});
 
+	const unsplash = useUnsplash();
+	const boardPhotos = ref<any[] | undefined>();
+	const selectedPhoto = ref();
+	const selectedColor = ref();
+
+	onMounted(async () => {
+		await unsplash.collections
+			.getPhotos({
+				collectionId: "317099",
+			})
+			.then((result) => {
+				selectedPhoto.value = result.response?.results[0].urls.thumb;
+				boardPhotos.value = result.response?.results;
+			});
+	});
+
+	const giveBackgroundImage = (imageUrl: string) => {
+		return "background-image:url(" + imageUrl + ")";
+	};
+
+	const bgColors = [
+		"/BgColorBlue.svg",
+		"/BgColorOrange.svg",
+		"/BgColorPink.svg",
+		"/BgColorPurple.svg",
+		"/BgColorBlueDark.svg",
+	];
+
 	const workspaceItems = [
 		{
 			label: "asdf",
@@ -185,20 +277,5 @@
 			label: "public",
 			icon: "i-heroicons-signal",
 		},
-	];
-
-	const bgImages = [
-		"/boardExample.jpg",
-		"/boardExample2.jpg",
-		"/boardExample3.jpg",
-		"/boardExample4.jpg",
-	];
-
-	const bgColors = [
-		"/BgColorBlue.svg",
-		"/BgColorOrange.svg",
-		"/BgColorPink.svg",
-		"/BgColorPurple.svg",
-		"/BgColorBlueDark.svg",
 	];
 </script>

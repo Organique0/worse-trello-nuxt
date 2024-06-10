@@ -7,8 +7,10 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
-      backendUrl: "http://localhost:8000",
-      frontendUrl: "http://localhost:3000",
+      backendUrl: process.env.NUXT_PUBLIC_BACKEND_URL,
+      frontendUrl: process.env.NUXT_PUBLIC_FRONTEND_URL,
+      unsplashAccessKey: process.env.UNSPLASH_ACCESS_KEY,
+      unsplashSecretKey: process.env.UNSPLASH_SECRET_KEY
     },
   },
   css: ["~/assets/css/main.css"],

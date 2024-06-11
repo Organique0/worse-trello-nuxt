@@ -1,7 +1,7 @@
 export interface Workspace {
     created_at: string;
     description: string;
-    id: number;
+    id_str: string;
     title: string;
     type: string;
     updated_at: string;

@@ -128,8 +128,8 @@
 						<SelectContent class="rounded-none py-1">
 							<SelectItemCreateBoard
 								v-for="item in workspaceItems"
-								:key="item.id"
-								:value="item.id.toString()"
+								:key="item.id_str"
+								:value="item.id_str"
 								class="rounded-none p-3"
 							>
 								{{ item.title }}
@@ -178,7 +178,6 @@
 		>
 			Start with a template
 		</Button>
-		<div>{{ workspaceItems[0].id.toString() }}</div>
 	</div>
 </template>
 
@@ -237,7 +236,7 @@
 	const formSchema = toTypedSchema(
 		z.object({
 			title: z.string().min(1, { message: "Board title is required" }).max(20),
-			workspace_id: z.string().default(workspaceItems[0].id.toString()),
+			workspace_id_str: z.string().default(workspaceItems[0].id_str),
 			visibility: z.string().default(visibilityItems[0].label),
 			prefs_background_url: z.string().nullable().default(selectedPhoto.value),
 			prefs_background: z.string().nullable().default(selectedColor.value),

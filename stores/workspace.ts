@@ -14,6 +14,7 @@ export const useMyWorkspaceStore = defineStore({
         method: "get",
       });
 
+      console.log(response);
       this.workspaces = await response;
     },
 

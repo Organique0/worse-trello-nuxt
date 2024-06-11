@@ -69,7 +69,7 @@
 				>
 					<button
 						:style="giveBackgroundImage(bg)"
-						class="w-full h-full p-0 m-0 rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
+						class="w-full h-full absolute top-0 right-0 rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
 						:class="bg == selectedColor && 'before:bg-[#00000029] '"
 						@click="
 							() => {
@@ -114,28 +114,28 @@
 			</FormField>
 
 			<FormField
-				name="workspace"
+				name="workspace_id"
 				v-slot="{ componentField }"
 			>
 				<FormItem class="mt-4">
 					<FormLabel class="text-xs font-semibold">Workspace</FormLabel>
-					<FormControl>
-						<Select v-bind="componentField">
+					<Select v-bind="componentField">
+						<FormControl>
 							<SelectTrigger class="rounded-sm border-black focus:ring-0">
-								<SelectValue :placeholder="workspaceItems[0].label" />
+								<span>{{ workspaceItems[0].title }}</span>
 							</SelectTrigger>
-							<SelectContent class="rounded-none py-1">
-								<SelectItemCreateBoard
-									v-for="item in workspaceItems"
-									:key="item.label"
-									:value="item.label"
-									class="rounded-none p-3"
-								>
-									{{ item.label }}
-								</SelectItemCreateBoard>
-							</SelectContent>
-						</Select>
-					</FormControl>
+						</FormControl>
+						<SelectContent class="rounded-none py-1">
+							<SelectItemCreateBoard
+								v-for="item in workspaceItems"
+								:key="item.id"
+								:value="item.id.toString()"
+								class="rounded-none p-3"
+							>
+								{{ item.title }}
+							</SelectItemCreateBoard>
+						</SelectContent>
+					</Select>
 				</FormItem>
 			</FormField>
 
@@ -145,23 +145,23 @@
 			>
 				<FormItem class="mt-2">
 					<FormLabel class="text-xs font-semibold">Visibility</FormLabel>
-					<FormControl>
-						<Select v-bind="componentField">
+					<Select v-bind="componentField">
+						<FormControl>
 							<SelectTrigger class="rounded-sm border-black focus:ring-0">
-								<SelectValue :placeholder="visibilityItems[0].label" />
+								<span>{{ form.values.visibility }}</span>
 							</SelectTrigger>
-							<SelectContent class="rounded-none py-1">
-								<SelectItemCreateBoard
-									v-for="item in visibilityItems"
-									:key="item.label"
-									:value="item.label"
-									class="rounded-none"
-								>
-									<span class="">{{ item.label }}</span>
-								</SelectItemCreateBoard>
-							</SelectContent>
-						</Select>
-					</FormControl>
+						</FormControl>
+						<SelectContent class="rounded-none py-1">
+							<SelectItemCreateBoard
+								v-for="item in visibilityItems"
+								:key="item.label"
+								:value="item.label"
+								class="rounded-none"
+							>
+								<span class="">{{ item.label }}</span>
+							</SelectItemCreateBoard>
+						</SelectContent>
+					</Select>
 				</FormItem>
 			</FormField>
 			<Button
@@ -178,6 +178,7 @@
 		>
 			Start with a template
 		</Button>
+		<div>{{ workspaceItems[0].id.toString() }}</div>
 	</div>
 </template>
 
@@ -211,58 +212,12 @@
 		},
 	});
 
-	const formSchema = toTypedSchema(
-		z.object({
-			title: z.string().min(1, { message: "Board title is required" }).max(20),
-			workspace: z.string(),
-			visibility: z.string(),
-		})
-	);
-
-	const form = useForm({
-		validationSchema: formSchema,
-	});
-
-	const onSubmit = form.handleSubmit((values) => {
-		console.log("Form submitted!", values);
-	});
-
+	const myWorkspaceStore = useMyWorkspaceStore();
+	const workspaceItems = myWorkspaceStore.workspaces;
 	const unsplash = useUnsplash();
 	const boardPhotos = ref<any[] | undefined>();
-	const selectedPhoto = ref();
-	const selectedColor = ref();
-
-	onMounted(async () => {
-		await unsplash.collections
-			.getPhotos({
-				collectionId: "317099",
-			})
-			.then((result) => {
-				selectedPhoto.value = result.response?.results[0].urls.thumb;
-				boardPhotos.value = result.response?.results;
-			});
-	});
-
-	const giveBackgroundImage = (imageUrl: string) => {
-		return "background-image:url(" + imageUrl + ")";
-	};
-
-	const bgColors = [
-		"/BgColorBlue.svg",
-		"/BgColorOrange.svg",
-		"/BgColorPink.svg",
-		"/BgColorPurple.svg",
-		"/BgColorBlueDark.svg",
-	];
-
-	const workspaceItems = [
-		{
-			label: "asdf",
-		},
-		{
-			label: "Trello workspace",
-		},
-	];
+	const selectedPhoto = ref<null | string>(null);
+	const selectedColor = ref<null | string>(null);
 
 	const visibilityItems = [
 		{
@@ -277,5 +232,53 @@
 			label: "public",
 			icon: "i-heroicons-signal",
 		},
+	];
+
+	const formSchema = toTypedSchema(
+		z.object({
+			title: z.string().min(1, { message: "Board title is required" }).max(20),
+			workspace_id: z.string().default(workspaceItems[0].id.toString()),
+			visibility: z.string().default(visibilityItems[0].label),
+			prefs_background_url: z.string().nullable().default(selectedPhoto.value),
+			prefs_background: z.string().nullable().default(selectedColor.value),
+		})
+	);
+
+	const form = useForm({
+		validationSchema: formSchema,
+	});
+
+	const onSubmit = form.handleSubmit(async (values) => {
+		values.prefs_background_url = selectedPhoto.value;
+		values.prefs_background = selectedColor.value;
+		await $larafetch("api/boards/create", {
+			method: "post",
+			body: values,
+		});
+		//await this.loadWorkspaces();
+		console.log("Form submitted!", values);
+	});
+
+	onMounted(async () => {
+		await unsplash.collections
+			.getPhotos({
+				collectionId: "317099",
+			})
+			.then((result) => {
+				selectedPhoto.value = result.response?.results[0].urls.thumb;
+				boardPhotos.value = result.response?.results;
+			});
+	});
+
+	const giveBackgroundImage = (imageUrl: string | null) => {
+		return "background-image:url(" + imageUrl + ")";
+	};
+
+	const bgColors = [
+		"/BgColorBlue.svg",
+		"/BgColorOrange.svg",
+		"/BgColorPink.svg",
+		"/BgColorPurple.svg",
+		"/BgColorBlueDark.svg",
 	];
 </script>

@@ -68,16 +68,16 @@
 						>
 					</div>
 				</div>
-				<div class="mt-5 inline-flex gap-6">
+				<div class="mt-5 grid grid-cols-4 gap-4">
 					<LoggedInBoardPreview
-						v-for="board in boards"
+						v-for="board in workspace.workspace_boards"
 						:key="board.title"
-						:src="board.src"
-						:starred="board.starred"
-						:link="board.link"
+						:src="board.prefs_background || board.prefs_background_url"
+						:starred="false"
+						link=""
 						:title="board.title"
 					/>
-					<LoggedInEmptyBoard />
+					<LoggedInEmptyBoard :selectedWorkspaceId_str="workspace.id_str" />
 				</div>
 			</div>
 		</div>

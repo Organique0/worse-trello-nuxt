@@ -119,10 +119,13 @@
 			>
 				<FormItem class="mt-4">
 					<FormLabel class="text-xs font-semibold">Workspace</FormLabel>
-					<Select v-bind="componentField">
+					<Select
+						v-bind="componentField"
+						:default-value="selectedWorkspaceId_str"
+					>
 						<FormControl>
 							<SelectTrigger class="rounded-sm border-black focus:ring-0">
-								<span>{{ workspaceItems[0].title }}</span>
+								<span>{{ selectedWorkspaceTitle }}</span>
 							</SelectTrigger>
 						</FormControl>
 						<SelectContent class="rounded-none py-1">
@@ -202,12 +205,17 @@
 	} from "@/shadComponents/ui/select";
 	import { _backgroundImage } from "#tailwind-config/theme";
 	import type { Icon } from "lucide-vue-next";
+	import { giveBackgroundImage } from "~/lib/utils";
 
 	const props = defineProps({
 		class: {
 			type: String,
 			required: false,
 			default: "",
+		},
+		selectedWorkspaceId_str: {
+			type: String,
+			required: false,
 		},
 	});
 
@@ -236,7 +244,9 @@
 	const formSchema = toTypedSchema(
 		z.object({
 			title: z.string().min(1, { message: "Board title is required" }).max(20),
-			workspace_id_str: z.string().default(workspaceItems[0].id_str),
+			workspace_id_str: z
+				.string()
+				.default(props.selectedWorkspaceId_str || workspaceItems[0].id_str),
 			visibility: z.string().default(visibilityItems[0].label),
 			prefs_background_url: z.string().nullable().default(selectedPhoto.value),
 			prefs_background: z.string().nullable().default(selectedColor.value),
@@ -254,6 +264,7 @@
 			method: "post",
 			body: values,
 		});
+		reloadNuxtApp();
 		//await this.loadWorkspaces();
 		console.log("Form submitted!", values);
 	});
@@ -269,9 +280,14 @@
 			});
 	});
 
-	const giveBackgroundImage = (imageUrl: string | null) => {
-		return "background-image:url(" + imageUrl + ")";
-	};
+	const selectedWorkspaceTitle = computed(() => {
+		const selectedWorkspace = workspaceItems.find(
+			(workspace) => workspace.id_str === props.selectedWorkspaceId_str
+		);
+		return selectedWorkspace
+			? selectedWorkspace.title
+			: workspaceItems[0].title;
+	});
 
 	const bgColors = [
 		"/BgColorBlue.svg",

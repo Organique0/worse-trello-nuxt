@@ -35,6 +35,8 @@
 
 		<Separator class="my-4 h-[2px]" />
 
+		<!--DROPDOWN START-->
+
 		<h1 class="p-3 text-xs font-bold">Workspaces</h1>
 		<Accordion
 			type="single"
@@ -42,21 +44,29 @@
 		>
 			<ConfigProvider :use-id="useIdFunction">
 				<AccordionItem
-					v-for="workspace in workspaces"
-					:key="workspace.title"
+					v-for="workspace in myWorkspaceStore.workspaces"
+					:key="workspace.id_str"
 					class="mb-4 border-b-0"
-					:value="workspace.title"
+					:value="workspace.id_str"
 				>
 					<AccordionTrigger
 						class="hoverButton h-10 rounded-md p-3 text-left hover:no-underline inline-flex gap-x-3"
 					>
-						<NuxtImg
+						<!-- 						<NuxtImg
 							:src="workspace.src"
 							width="24"
 							height="24"
 							class="rounded-sm"
-						/>
-						<p class="text-sm">{{ workspace.title }}</p>
+						/> -->
+						<div class="flex gap-2">
+							<div
+								class="rounded-sm h-[24px] w-[24px] text-white text-base font-bold flex justify-center"
+								:class="getWorkspaceTypeColor(workspace.type)"
+							>
+								{{ workspace.title.charAt(0).toUpperCase() }}
+							</div>
+							<p class="text-sm">{{ workspace.title }}</p>
+						</div>
 					</AccordionTrigger>
 
 					<AccordionContent
@@ -66,6 +76,7 @@
 						as-child
 					>
 						<button
+							@click="() => router.push(`/w/${workspace.id_str}/home`)"
 							class="group relative flex h-8 w-full items-center justify-start gap-3 rounded-md pl-12 text-left"
 						>
 							<Icon
@@ -99,20 +110,12 @@
 		AccordionTrigger,
 	} from "@/shadComponents/ui/accordion";
 	import { ConfigProvider } from "radix-vue";
+	import { getWorkspaceTypeColor } from "~/lib/utils";
 	const useIdFunction = () => useId();
 	const router = useRouter();
 	router.currentRoute.value;
 
-	const workspaces = [
-		{
-			src: "/templatesExample.jpg",
-			title: "Trello Workspace",
-		},
-		{
-			src: "/templatesExample.jpg",
-			title: "Trello Workspace2",
-		},
-	];
+	const myWorkspaceStore = useMyWorkspaceStore();
 
 	const workspaceItems = [
 		{

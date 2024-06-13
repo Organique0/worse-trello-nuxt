@@ -153,6 +153,9 @@
 	import Textarea from "~/shadComponents/ui/textarea/Textarea.vue";
 	import SelectItemCreateBoard from "~/shadComponents/ui/select/SelectItemCreateBoard.vue";
 
+	const emit = defineEmits(["dialog-close"]);
+	const sendCloseEvent = () => emit("dialog-close");
+
 	const { createWorkspace } = useMyWorkspaceStore();
 
 	const formSchema = toTypedSchema(
@@ -170,5 +173,6 @@
 	const onSubmit = form.handleSubmit(async (values) => {
 		console.log("Form submitted!", values);
 		await createWorkspace(values);
+		sendCloseEvent();
 	});
 </script>

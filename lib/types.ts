@@ -17,6 +17,7 @@ export interface Board {
     updated_at: string;
     id_str: string;
     workspace_id_str: string;
+    is_favorited: boolean;
 };
 
 export interface CreateWorkspaceValues {

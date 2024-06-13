@@ -163,7 +163,7 @@
 					</DropdownMenu>
 
 					<!--Templates-->
-					<Dialog>
+					<Dialog v-model:open="open">
 						<DropdownMenu>
 							<DropdownMenuTrigger as-child>
 								<Button
@@ -276,7 +276,9 @@
 													>
 												</dialogHeader>
 											</VisuallyHidden>
-											<LoggedInCreateWorkspaceDialog />
+											<LoggedInCreateWorkspaceDialog
+												@dialog-close="closeCreateWorkspaceDialog"
+											/>
 										</DialogContent>
 									</div>
 								</DropdownMenuItem>
@@ -659,6 +661,11 @@
 		createDropdownOpen.value = false;
 		createInHeaderOpen.value = false;
 		templatesInHeaderOpen.value = false;
+	};
+
+	const open = ref(true);
+	const closeCreateWorkspaceDialog = () => {
+		open.value = false;
 	};
 
 	async function create(action: string) {

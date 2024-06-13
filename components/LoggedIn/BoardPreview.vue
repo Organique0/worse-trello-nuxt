@@ -24,10 +24,11 @@
 			viewBox="0 0 24 24"
 			class="absolute bottom-2 right-2 w-[15px] cursor-pointer hover:scale-125"
 			:class="
-				starred
+				starredRef
 					? 'fill-yellow-600 stroke-yellow-600 stroke-2 hover:fill-none'
 					: 'ease translate-x-[150%] transform fill-transparent stroke-white stroke-2 transition-transform duration-300 group-hover:translate-x-0'
 			"
+			@click="favorite"
 		>
 			<path
 				stroke-linecap="round"
@@ -56,5 +57,18 @@
 		starred: {
 			type: Boolean,
 		},
+		id_str: {
+			type: String,
+		},
 	});
+
+	const starredRef = ref(props.starred);
+
+	async function favorite() {
+		starredRef.value = !starredRef.value;
+		await $larafetch("api/boards/favorite", {
+			method: "post",
+			body: { id_str: props.id_str },
+		});
+	}
 </script>

@@ -1,18 +1,19 @@
 <template>
 	<div class="w-[25%] bg-inherit">
 		<Button
-			class="mb-1 block h-10 w-full rounded-md text-left"
+			class="hoverButton mb-1 block h-9 w-full rounded-md text-left"
 			:class="
 				$router.currentRoute.value.path.includes('boards') &&
 				'bg-lightBlueBg text-primary hover:bg-lightBlueBg hover:text-primary dark:bg-accent dark:hover:bg-accent'
 			"
 			variant="ghost"
+			@click="() => router.push(`/u/${myUserStore.user!.username}/boards`)"
 		>
 			<Icon name="i-mingcute:trello-board-fill" />
 			Boards
 		</Button>
 		<Button
-			class="mb-1 block h-10 w-full rounded-md text-left"
+			class="hoverButton mb-1 block h-9 w-full rounded-md text-left"
 			:class="
 				$router.currentRoute.value.path.includes('templates') &&
 				'bg-lightBlueBg text-primary hover:bg-lightBlueBg hover:text-primary dark:bg-accent dark:hover:bg-accent'
@@ -23,7 +24,7 @@
 			Templates
 		</Button>
 		<Button
-			class="mb-1 block h-10 w-full rounded-md text-left"
+			class="hoverButton mb-1 block h-9 w-full rounded-md text-left"
 			:class="
 				$router.currentRoute.value.path == '/' &&
 				'bg-lightBlueBg text-primary hover:bg-lightBlueBg hover:text-primary dark:bg-accent dark:hover:bg-accent'
@@ -50,7 +51,7 @@
 					:value="workspace.id_str"
 				>
 					<AccordionTrigger
-						class="hoverButton h-10 rounded-md p-3 text-left hover:no-underline inline-flex gap-x-3"
+						class="hoverButton h-9 rounded-md p-3 text-left hover:no-underline inline-flex gap-x-3"
 					>
 						<!-- 						<NuxtImg
 							:src="workspace.src"
@@ -116,6 +117,7 @@
 	router.currentRoute.value;
 
 	const myWorkspaceStore = useMyWorkspaceStore();
+	const myUserStore = useMyUserStore();
 
 	const workspaceItems = [
 		{

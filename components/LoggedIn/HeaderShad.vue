@@ -191,7 +191,7 @@
 						>
 							<DropdownMenuTrigger as-child>
 								<Button
-									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-primary hover:brightness-110 dark:text-[#1d2125]"
+									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-darkBlueBg dark:text-[#1d2125]"
 								>
 									Create
 								</Button>

@@ -1,142 +1,146 @@
 .customHeader {
-  @apply text-center text-3xl font-bold leading-tight md:text-left md:text-3xl md:leading-relaxed lg:text-5xl;
+	@apply text-center text-3xl font-bold leading-tight md:text-left md:text-3xl md:leading-relaxed lg:text-5xl;
 }
 .customTitle {
-  @apply text-2xl font-bold leading-tight md:text-2xl md:leading-relaxed lg:text-4xl;
+	@apply text-2xl font-bold leading-tight md:text-2xl md:leading-relaxed lg:text-4xl;
 }
 
 .homeTabButton {
-  @apply relative h-40 w-full rounded-lg border-0 bg-transparent p-3 pl-5 text-left text-wierdBlue;
+	@apply relative h-40 w-full rounded-lg border-0 bg-transparent p-3 pl-5 text-left text-wierdBlue;
 }
 
 .homeTabButtonActive {
-  @apply bg-white text-wierdBlue shadow-2xl;
+	@apply bg-white text-wierdBlue shadow-2xl;
 }
 
 .homeTabButtonActive::after {
-  background-color: rgb(0, 199, 229);
-  border-radius: 0.3rem 0px 0px 0.3rem;
-  bottom: 0px;
-  content: "";
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 0.5rem;
+	background-color: rgb(0, 199, 229);
+	border-radius: 0.3rem 0px 0px 0.3rem;
+	bottom: 0px;
+	content: "";
+	left: 0px;
+	position: absolute;
+	top: 0px;
+	width: 0.5rem;
 }
 
 .homeTabButton > div > h3 {
-  @apply pb-[4px] font-bold text-wierdBlue;
+	@apply pb-[4px] font-bold text-wierdBlue;
 }
 .homeTabButton > div > p {
-  @apply py-1 text-sm leading-6 text-wierdBlue;
+	@apply py-1 text-sm leading-6 text-wierdBlue;
 }
 
 .homeCarouselItem {
-  @apply rounded-sm shadow-md hover:shadow-lg;
+	@apply rounded-sm shadow-md hover:shadow-lg;
 }
 
 .homeCenterContainer {
-  @apply mx-auto max-w-[1140px] px-10 md:px-[5rem] md:pl-[0rem] md:pr-[0rem];
+	@apply mx-auto max-w-[1140px] px-10 md:px-[5rem] md:pl-[0rem] md:pr-[0rem];
 }
 
 .verticalCardsHome {
-  @apply z-10 my-7 block rounded-md bg-white p-6 shadow-xl md:my-16 md:grid md:grid-cols-2 md:p-8;
+	@apply z-10 my-7 block rounded-md bg-white p-6 shadow-xl md:my-16 md:grid md:grid-cols-2 md:p-8;
 }
 
 .verticalCardsHomeSidetextTitle {
-  @apply mb-6 mt-4 block gap-3 md:flex;
+	@apply mb-6 mt-4 block gap-3 md:flex;
 }
 
 .verticalCardsHomeSidetextBody {
-  @apply mb-6 text-xl leading-8 text-[#091e42];
+	@apply mb-6 text-xl leading-8 text-[#091e42];
 }
 
 .learnMoreLink {
-  @apply text-blue-500;
+	@apply text-blue-500;
 }
 
 .homeSectionIntro {
-  @apply relative order-1 block w-full text-left md:w-[58%];
+	@apply relative order-1 block w-full text-left md:w-[58%];
 }
 
 .doMoreCard {
-  @apply mb-8 bg-slate-100 p-4;
+	@apply mb-8 bg-slate-100 p-4;
 }
 
 .doMoreCard > div > h2 {
-  @apply my-5 text-xl font-bold text-wierdBlue;
+	@apply my-5 text-xl font-bold text-wierdBlue;
 }
 
 .doMoreCard > div > p {
-  @apply text-sm font-medium leading-7 text-wierdBlue;
+	@apply text-sm font-medium leading-7 text-wierdBlue;
 }
 
 .doMoreCard > div {
-  @apply relative h-52;
+	@apply relative h-52;
 }
 
 .doMoreCard > div > button {
-  @apply absolute;
+	@apply absolute;
 }
 
 .priceCompareItem {
-  @apply mb-11 flex w-full flex-1 flex-col border-2 bg-white px-4 py-6 md:h-[30rem];
+	@apply mb-11 flex w-full flex-1 flex-col border-2 bg-white px-4 py-6 md:h-[30rem];
 }
 
 .priceCompareItem > :first-child {
-  @apply h-[10%] pb-5 text-[1rem] font-semibold;
+	@apply h-[10%] pb-5 text-[1rem] font-semibold;
 }
 
 .priceCompareItem > :nth-child(2) {
-  @apply h-[10%] text-[1rem] font-semibold;
+	@apply h-[10%] text-[1rem] font-semibold;
 }
 
 .priceCompareItem > :nth-child(3) {
-  @apply h-[3.5rem] text-[0.75rem] font-thin;
+	@apply h-[3.5rem] text-[0.75rem] font-thin;
 }
 
 .priceCompareItem > :nth-child(4) {
-  @apply mb-auto font-medium text-wierdBlue;
+	@apply mb-auto font-medium text-wierdBlue;
 }
 
 .priceCompareItem > :nth-child(6) {
-  @apply font-medium text-blue-500 underline md:py-3;
+	@apply font-medium text-blue-500 underline md:py-3;
 }
 
 #fakeLink {
-  @apply h-12;
+	@apply h-12;
 }
 
 .priceCompateItemButton {
-  @apply my-6 mr-auto border border-cyan-400 text-wierdBlue;
+	@apply my-6 mr-auto border border-cyan-400 text-wierdBlue;
 }
 
 .bgImage {
-  background-image: url("trello-left.svg"), url("trello-right.svg");
-  background-size: 368px, 368px;
-  background-position:
-    left bottom,
-    right bottom;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+	background-image: url("trello-left.svg"), url("trello-right.svg");
+	background-size: 368px, 368px;
+	background-position:
+		left bottom,
+		right bottom;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 
 @media (max-width: 1200px) {
-  .bgImage {
-    background-size: calc(-232px + 50vw), calc(-232px + 50vw), cover;
-  }
+	.bgImage {
+		background-size: calc(-232px + 50vw), calc(-232px + 50vw), cover;
+	}
 }
 
 @media (max-width: 800px) {
-  .bgImage {
-    background-image: none;
-  }
+	.bgImage {
+		background-image: none;
+	}
 }
 
 .hoverButton {
-  @apply rounded-md hover:bg-gray-200 hover:text-accent-foreground dark:hover:bg-opacity-10;
+	@apply rounded-md hover:bg-gray-200 hover:text-accent-foreground dark:hover:bg-opacity-10;
 }
 
 .hoverButtonWithBg {
-  @apply hoverButton h-8 rounded-sm bg-gray-100 p-2 text-black dark:bg-gray-500 dark:bg-opacity-10 dark:text-muted-foreground dark:hover:bg-gray-200 dark:hover:bg-opacity-10;
+	@apply hoverButton h-8 rounded-sm bg-gray-100 p-2 text-gray-700 dark:bg-gray-500 dark:bg-opacity-10 dark:text-muted-foreground dark:hover:bg-gray-200 dark:hover:bg-opacity-10;
+}
+
+.editWorkspaceForm {
+	@apply hover:brightness-0;
 }

@@ -5,19 +5,21 @@ export interface Workspace {
     title: string;
     type: string;
     updated_at: string;
+    visibility: string;
     workspace_boards: Board[] | [];
 
 };
 
 export interface Board {
     title: string;
-    prefs_background_url: string;
-    prefs_background: string;
+    prefs_background_url: string | null;
+    prefs_background: string | null;
     created_at: string;
     updated_at: string;
     id_str: string;
     workspace_id_str: string;
     is_favorited: boolean;
+    visibility: string;
 };
 
 export interface CreateWorkspaceValues {

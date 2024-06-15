@@ -39,7 +39,9 @@
 				</div>
 
 				<div class="flex gap-x-2">
-					<Button class="hoverButtonWithBg"
+					<Button
+						class="hoverButtonWithBg"
+						@click="() => router.push(`/w/${workspace.id_str}`)"
 						><Icon
 							name="i-mingcute:trello-board-fill"
 							class="mr-1"
@@ -69,7 +71,7 @@
 				<LoggedInBoardPreview
 					v-for="board in workspace.workspace_boards"
 					:key="board.id_str"
-					:src="board.prefs_background || board.prefs_background_url"
+					:src="board.prefs_background || board.prefs_background_url || ''"
 					:starred="board.is_favorited"
 					link=""
 					:title="board.title"
@@ -85,6 +87,7 @@
 	import { getWorkspaceTypeColor } from "~/lib/utils";
 
 	const myWorkspaceStore = useMyWorkspaceStore();
+	const router = useRouter();
 
 	definePageMeta({
 		layout: "logged-in-home",

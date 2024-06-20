@@ -1,8 +1,5 @@
 <template>
-	<div
-		v-if="workspaceData"
-		class="mx-12"
-	>
+	<div v-if="workspaceData">
 		<WorkspaceInfoHeader :workspaceData="workspaceData" />
 		<hr class="w-full p-0 my-[16px]" />
 
@@ -44,13 +41,6 @@
 
 	onBeforeMount(async () => {
 		await myWorkspaceStore.loadWorkspaces();
-		/* 		workspaceData.value = await $larafetch(
-				`api/workspaces/${route.params.wid}`,
-				{
-					method: "get",
-				}
-			); */
-
 		workspaceData.value = myWorkspaceStore.workspaces.find(
 			(workspace) => workspace.id_str == route.params.wid
 		);

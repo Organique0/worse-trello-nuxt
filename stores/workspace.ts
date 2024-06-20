@@ -5,7 +5,12 @@ export const useMyWorkspaceStore = defineStore({
   id: 'myWorkspaceStore',
   state: () => {
     return {
-      workspaces: [] as Workspace[] | []
+      workspaces: [] as Workspace[] | [],
+    }
+  },
+  getters: {
+    getWorkspace: (state) => {
+      return (paramId: String) => state.workspaces.find((workspace: Workspace) => workspace.id_str == paramId) as Workspace
     }
   },
   actions: {
@@ -14,7 +19,6 @@ export const useMyWorkspaceStore = defineStore({
         method: "get",
       });
 
-      console.log(response);
       this.workspaces = await response;
     },
 
@@ -24,6 +28,6 @@ export const useMyWorkspaceStore = defineStore({
         body: values,
       });
       await this.loadWorkspaces();
-    }
+    },
   }
 })

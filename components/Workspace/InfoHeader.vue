@@ -95,7 +95,7 @@
 	import type { Workspace } from "~/lib/types";
 
 	const props = defineProps<{
-		workspaceData: Workspace;
+		workspaceData: Workspace | undefined;
 	}>();
 
 	const route = useRoute();

@@ -144,3 +144,15 @@
 .editWorkspaceForm {
 	@apply hover:brightness-0;
 }
+
+.opacityGray {
+	@apply hover:!bg-gray-400/[.4];
+}
+
+.workspaceSidemenuButton {
+	@apply w-full hoverButton bg-transparent text-gray-600 hover:!text-gray-600 !rounded-none h-[32px] p-0 pl-[16px] flex flex-row font-normal justify-start;
+}
+
+.workspaceSidemenuButtonIcon {
+	@apply ml-auto mr-2 hoverButton bg-transparent h-[25px] w-[25px] opacityGray !rounded-sm;
+}

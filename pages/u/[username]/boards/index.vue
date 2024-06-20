@@ -41,7 +41,7 @@
 				<div class="flex gap-x-2">
 					<Button
 						class="hoverButtonWithBg"
-						@click="() => router.push(`/w/${workspace.id_str}`)"
+						@click="() => router.push(`/w/${workspace.id_str}/home`)"
 						><Icon
 							name="i-mingcute:trello-board-fill"
 							class="mr-1"

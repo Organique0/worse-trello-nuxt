@@ -9,7 +9,7 @@ export const giveBackgroundImage = (imageUrl: string | null) => {
   return "background-image:url(" + imageUrl + ")";
 };
 
-const workspaceTypeColors = {
+export const workspaceTypeColors = {
   education: "bg-gradient-to-t from-orange-400 to-orange-600",
   it: "bg-gradient-to-t from-blue-400 to-blue-600",
   hr: "bg-gradient-to-t from-red-400 to-red-600",

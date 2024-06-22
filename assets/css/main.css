@@ -156,3 +156,7 @@
 .workspaceSidemenuButtonIcon {
 	@apply ml-auto mr-2 hoverButton bg-transparent h-[25px] w-[25px] opacityGray !rounded-sm;
 }
+
+.userDropdownThemeSubTrigger {
+	@apply relative left-[-1rem] w-[calc(100%+2.1rem)] rounded-none focus:bg-accent focus:bg-lightBlueBg focus:text-primary focus:shadow-blueLeft data-[state=open]:bg-lightBlueBg data-[state=open]:text-primary data-[state=open]:shadow-blueLeft dark:data-[state=open]:bg-accent;
+}

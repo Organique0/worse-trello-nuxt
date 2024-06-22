@@ -1,7 +1,7 @@
 <template>
 	<NuxtLink
 		class="group relative overflow-hidden h-[100px] w-[200px] rounded-md mb-5"
-		:to="link"
+		:to="resolvedUrl"
 	>
 		<!-- 		<NuxtImg
 			:src="src"
@@ -16,7 +16,7 @@
 		<p
 			class="text-medium absolute left-3 top-2 w-[170px] cursor-pointer select-none font-bold text-white"
 		>
-			{{ title }}
+			{{ board.title }}
 		</p>
 
 		<svg
@@ -40,35 +40,26 @@
 </template>
 
 <script lang="ts" setup>
+	import type { Board } from "~/lib/types";
 	import { giveBackgroundImage } from "~/lib/utils";
 
-	const props = defineProps({
-		title: {
-			type: String,
-			required: true,
-		},
-		src: {
-			type: String,
-			required: true,
-		},
-		link: {
-			type: String,
-		},
-		starred: {
-			type: Boolean,
-		},
-		id_str: {
-			type: String,
-		},
-	});
+	const router = useRouter();
 
-	const starredRef = ref(props.starred);
+	const props = defineProps<{
+		board: Board;
+	}>();
+
+	const resolvedUrl = router.resolve({ path: `/b/${props.board.id_str}` }).href;
+
+	const src = props.board.prefs_background || props.board.prefs_background_url;
+
+	const starredRef = ref(props.board.is_favorited);
 
 	async function favorite() {
 		starredRef.value = !starredRef.value;
 		await $larafetch("api/boards/favorite", {
 			method: "post",
-			body: { id_str: props.id_str },
+			body: { id_str: props.board.id_str },
 		});
 	}
 </script>

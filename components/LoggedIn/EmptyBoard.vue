@@ -28,7 +28,7 @@
 	const props = defineProps({
 		selectedWorkspaceId_str: {
 			type: String,
-			required: false,
+			required: true,
 		},
 	});
 </script>

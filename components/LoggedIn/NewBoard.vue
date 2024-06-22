@@ -206,6 +206,7 @@
 	import { _backgroundImage } from "#tailwind-config/theme";
 	import type { Icon } from "lucide-vue-next";
 	import { giveBackgroundImage } from "~/lib/utils";
+	import type { Board } from "~/lib/types";
 
 	const props = defineProps({
 		class: {
@@ -218,6 +219,8 @@
 			required: false,
 		},
 	});
+
+	const router = useRouter();
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const workspaceItems = myWorkspaceStore.workspaces;
@@ -260,16 +263,25 @@
 	const onSubmit = form.handleSubmit(async (values) => {
 		values.prefs_background_url = selectedPhoto.value;
 		values.prefs_background = selectedColor.value;
-		await $larafetch("api/boards/create", {
-			method: "post",
-			body: values,
-		});
-		reloadNuxtApp();
-		//await this.loadWorkspaces();
-		console.log("Form submitted!", values);
+
+		try {
+			const response = await $larafetch("api/boards/create", {
+				method: "post",
+				body: values,
+			});
+
+			if (response.success && response.board) {
+				console.log(response);
+				router.push(`/b/${response.board.id_str}`);
+			} else {
+				console.error("Error creating board:", response);
+			}
+		} catch (error) {
+			console.error("Error creating board:", error);
+		}
 	});
 
-	onMounted(async () => {
+	onBeforeMount(async () => {
 		await unsplash.collections
 			.getPhotos({
 				collectionId: "317099",

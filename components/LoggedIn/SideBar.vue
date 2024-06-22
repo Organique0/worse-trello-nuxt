@@ -7,7 +7,7 @@
 				'bg-lightBlueBg text-primary hover:bg-lightBlueBg hover:text-primary dark:bg-accent dark:hover:bg-accent'
 			"
 			variant="ghost"
-			@click="() => router.push(`/u/${myUserStore.user!.username}/boards`)"
+			@click="() => router.push(`/u/${myUserStore.user!.id}/boards`)"
 		>
 			<Icon name="i-mingcute:trello-board-fill" />
 			Boards

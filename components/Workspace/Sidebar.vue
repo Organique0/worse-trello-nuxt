@@ -143,7 +143,6 @@
 	import { useRoute } from "vue-router";
 	import type { Workspace } from "../../lib/types";
 	import { getWorkspaceTypeColor } from "../../lib/utils";
-	import { useMyWorkspaceStore } from "/home/lukag/Documents/WEB_DEVELOPMENT/worse-trello-nuxt/stores/workspace";
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 

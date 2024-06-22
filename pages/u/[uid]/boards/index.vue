@@ -11,11 +11,8 @@
 		<div class="inline-flex gap-6">
 			<LoggedInBoardPreview
 				v-for="board in recentBoards"
-				:key="board.title"
-				:title="board.title"
-				:link="board.link"
-				:src="board.src"
-				:starred="board.starred"
+				:key="board.id_str"
+				:board="board"
 			/>
 		</div>
 
@@ -41,7 +38,7 @@
 				<div class="flex gap-x-2">
 					<Button
 						class="hoverButtonWithBg"
-						@click="() => router.push(`/w/${workspace.id_str}/home`)"
+						@click="() => router.push(`/w/${workspace.id_str}`)"
 						><Icon
 							name="i-mingcute:trello-board-fill"
 							class="mr-1"
@@ -71,11 +68,7 @@
 				<LoggedInBoardPreview
 					v-for="board in workspace.workspace_boards"
 					:key="board.id_str"
-					:src="board.prefs_background || board.prefs_background_url || ''"
-					:starred="board.is_favorited"
-					link=""
-					:title="board.title"
-					:id_str="board.id_str"
+					:board="board"
 				/>
 				<LoggedInEmptyBoard :selectedWorkspaceId_str="workspace.id_str" />
 			</div>
@@ -84,43 +77,26 @@
 </template>
 
 <script setup lang="ts">
+	import type { Board, Workspace } from "~/lib/types";
 	import { getWorkspaceTypeColor } from "~/lib/utils";
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const router = useRouter();
+	const recentBoards = ref();
 
 	definePageMeta({
 		layout: "logged-in-home",
+	});
+
+	watch(router.currentRoute, async () => {
+		await myWorkspaceStore.loadWorkspaces();
 	});
 
 	onBeforeMount(async () => {
 		await myWorkspaceStore.loadWorkspaces();
 	});
 
-	const recentBoards = [
-		{
-			src: "/boardExample.jpg",
-			link: "",
-			title: "1-on-1 Meeting Agenda",
-			starred: true,
-		},
-		{
-			src: "/boardExample2.jpg",
-			link: "",
-			title: "2-on-1 Meeting Agenda",
-			starred: false,
-		},
-		{
-			src: "/boardExample3.jpg",
-			link: "",
-			title: "3-on-1 Meeting Agenda",
-			starred: true,
-		},
-		{
-			src: "/boardExample4.jpg",
-			link: "",
-			title: "4-on-1 Meeting Agenda",
-			starred: false,
-		},
-	];
+	watchEffect(async () => {
+		recentBoards.value = myWorkspaceStore.getRecentBoards();
+	});
 </script>

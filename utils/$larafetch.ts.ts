@@ -16,7 +16,7 @@ export const $larafetch = $fetch.create({
     // on client initiate a csrf request and get it from the cookie set by laravel
     if (
       import.meta.client &&
-      ["post", "delete", "put", "patch"].includes(
+      ["post", "delete", "put", "patch", "get"].includes(
         options?.method?.toLowerCase() ?? "",
       )
     ) {

@@ -8,7 +8,4 @@
 	</div>
 </template>
 
-<script lang="ts" setup>
-	const myWorkspaceStore = useMyWorkspaceStore();
-	await myWorkspaceStore.loadWorkspaces();
-</script>
+<script lang="ts" setup></script>

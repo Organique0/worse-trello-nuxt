@@ -16,11 +16,7 @@
 				<LoggedInBoardPreview
 					v-for="board in workspaceData.workspace_boards"
 					:key="board.id_str"
-					:src="board.prefs_background || board.prefs_background_url || ''"
-					:starred="board.is_favorited"
-					link=""
-					:title="board.title"
-					:id_str="board.id_str"
+					:board="board"
 				/>
 				<LoggedInEmptyBoard :selectedWorkspaceId_str="workspaceData.id_str" />
 			</div>

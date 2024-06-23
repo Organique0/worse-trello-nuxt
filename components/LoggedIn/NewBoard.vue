@@ -18,7 +18,7 @@
 			<!-- 			<NuxtImg
 				v-for="image in boardPhotos?.slice(0, 4)"
 				:key="image.id"
-				:src="image.urls.thumb"
+				:src="image.urls.regular"
 				width="64"
 				height="40"
 				class="rounded-sm w-[64px] h-[40px]"
@@ -29,20 +29,20 @@
 					class="w-[64px] h-[40px] relative rounded-sm group"
 				>
 					<button
-						:style="giveBackgroundImage(image.urls.thumb)"
+						:style="giveBackgroundImage(image.urls.regular)"
 						class="w-full h-full rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
 						:class="
-							image.urls.thumb == selectedPhoto && 'before:bg-[#00000029] '
+							image.urls.regular == selectedPhoto && 'before:bg-[#00000029] '
 						"
 						@click="
 							() => {
-								selectedPhoto = image.urls.thumb;
+								selectedPhoto = image.urls.regular;
 								selectedColor = null;
 							}
 						"
 					></button>
 					<Icon
-						v-if="image.urls.thumb == selectedPhoto"
+						v-if="image.urls.regular == selectedPhoto"
 						name="material-symbols:check"
 						class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
 					/>
@@ -287,7 +287,8 @@
 				collectionId: "317099",
 			})
 			.then((result) => {
-				selectedPhoto.value = result.response?.results[0].urls.thumb;
+				console.log(result);
+				selectedPhoto.value = result.response?.results[0].urls.regular;
 				boardPhotos.value = result.response?.results;
 			});
 	});

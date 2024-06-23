@@ -32,6 +32,7 @@
 						class="relative mt-0 block h-[32px] flex-shrink-0 rounded-sm px-2 py-2 hover:bg-slate-200 dark:hover:bg-opacity-10"
 						@mouseenter="addHoverClass"
 						@mouseleave="removeHoverClass"
+						@click="() => router.push('/')"
 					>
 						<div
 							:class="currentGif"
@@ -634,6 +635,8 @@
 	import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
 	const useIdFunction = () => useId();
 
+	const router = useRouter();
+
 	const isHovered = ref(false);
 	const staticGif = "logoBeforeAfter";
 	const currentGif = ref("logoBeforeAfter");
@@ -663,7 +666,7 @@
 		templatesInHeaderOpen.value = false;
 	};
 
-	const open = ref(true);
+	const open = ref(false);
 	const closeCreateWorkspaceDialog = () => {
 		open.value = false;
 	};

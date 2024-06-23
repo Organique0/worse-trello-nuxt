@@ -1,22 +1,27 @@
 <template>
 	<div class="ml-12 w-full">
-		<div class="flex gap-x-3">
-			<Icon
-				name="mdi:clock-outline"
-				width="25"
-				height="25"
-			/>
-			<h1 class="mb-3">Recently viewed</h1>
-		</div>
-		<div class="inline-flex gap-6">
-			<LoggedInBoardPreview
-				v-for="board in recentBoards"
-				:key="board.id_str"
-				:board="board"
-			/>
+		<div
+			v-if="recentBoards && recentBoards.length > 0"
+			class="mb-16"
+		>
+			<div class="flex gap-x-3">
+				<Icon
+					name="mdi:clock-outline"
+					width="25"
+					height="25"
+				/>
+				<h1 class="mb-3">Recently viewed</h1>
+			</div>
+			<div class="grid grid-cols-4 gap-4">
+				<LoggedInBoardPreview
+					v-for="board in recentBoards"
+					:key="board.id_str"
+					:board="board"
+				/>
+			</div>
 		</div>
 
-		<h1 class="mb-6 mt-16 font-bold">YOUR WORKSPACES</h1>
+		<h1 class="mb-6 font-bold">YOUR WORKSPACES</h1>
 
 		<div
 			v-for="workspace in myWorkspaceStore.workspaces"
@@ -77,26 +82,15 @@
 </template>
 
 <script setup lang="ts">
-	import type { Board, Workspace } from "~/lib/types";
 	import { getWorkspaceTypeColor } from "~/lib/utils";
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const router = useRouter();
-	const recentBoards = ref();
+
+	myWorkspaceStore.loadRecentBoards();
+	const recentBoards = ref(myWorkspaceStore.recentBoards);
 
 	definePageMeta({
 		layout: "logged-in-home",
-	});
-
-	watch(router.currentRoute, async () => {
-		await myWorkspaceStore.loadWorkspaces();
-	});
-
-	onBeforeMount(async () => {
-		await myWorkspaceStore.loadWorkspaces();
-	});
-
-	watchEffect(async () => {
-		recentBoards.value = myWorkspaceStore.getRecentBoards();
 	});
 </script>

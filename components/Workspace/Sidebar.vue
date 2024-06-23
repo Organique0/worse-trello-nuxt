@@ -34,7 +34,10 @@
 
 		<div class="mt-2">
 			<!--BOARDS-->
-			<Button class="workspaceSidemenuButton !bg-gray-300">
+			<Button
+				class="workspaceSidemenuButton !bg-gray-300"
+				@click="() => router.replace('/w/' + workspaceData?.id_str)"
+			>
 				<Icon
 					name="mdi:trello"
 					class="h-[16px] w-[16px] mr-2"
@@ -135,25 +138,51 @@
 		</div>
 
 		<!--BOARD ITEMS-->
+
+		<Button
+			class="group workspaceSidemenuButton"
+			v-for="board in workspaceData.workspace_boards"
+			@click="() => router.replace(`/b/${board.id_str}`)"
+		>
+			{{ board.title }}
+		</Button>
 	</div>
 </template>
 
 <script lang="ts" setup>
 	import { onBeforeMount, ref } from "vue";
 	import { useRoute } from "vue-router";
-	import type { Workspace } from "../../lib/types";
+	import type { Board, Workspace } from "../../lib/types";
 	import { getWorkspaceTypeColor } from "../../lib/utils";
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 
 	const route = useRoute();
+	const router = useRouter();
 	const workspaceData = ref<Workspace>();
 
 	onBeforeMount(async () => {
-		workspaceData.value = await myWorkspaceStore.getWorkspace(
-			route.params.wid as String
-		);
+		if (route.params.wid != undefined) {
+			if (myWorkspaceStore.$state.workspaces.length == 0) {
+				await myWorkspaceStore.loadWorkspace(route.params.wid as string);
+			}
+			workspaceData.value = myWorkspaceStore.getWorkspace(
+				route.params.wid as string
+			);
+		}
 
-		console.log(workspaceData.value);
+		/* 		if (route.params.bid != undefined) {
+			const response = await myWorkspaceStore.getBoardById(
+				route.params.bid as string
+			);
+
+			const boardsWorkspaceId = response.workspace_id_str;
+
+			if (myWorkspaceStore.$state.workspaces.length == 0) {
+				await myWorkspaceStore.loadWorkspace(boardsWorkspaceId);
+			}
+
+			workspaceData.value = myWorkspaceStore.getWorkspace(boardsWorkspaceId);
+		} */
 	});
 </script>

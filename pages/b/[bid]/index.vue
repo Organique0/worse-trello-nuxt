@@ -1,11 +1,15 @@
 <template>
-	<div>boardId : {{ url }}</div>
+	<div>boardId : {{ route.params.bid }}</div>
 </template>
 
 <script lang="ts" setup>
 	import type { Board, Workspace } from "~/lib/types";
 
+	definePageMeta({
+		layout: "workspace",
+	});
 	const route = useRoute();
+	const myWorkspaceStore = useMyWorkspaceStore();
 	const url = ref(route.params.bid as String);
 
 	const recentBoardsCookie = useCookie<String[]>("recentBoards", {
@@ -13,9 +17,7 @@
 		sameSite: true,
 	});
 
-	const myWorkspaceStore = useMyWorkspaceStore();
-
-	const updateRecentBoards = () => {
+	/* 	const updateRecentBoards = () => {
 		const rbc = recentBoardsCookie.value;
 		const index = rbc.indexOf(url.value);
 
@@ -29,15 +31,15 @@
 			rbc.pop();
 		}
 
-		myWorkspaceStore.getBoardsByIds();
+		//myWorkspaceStore.loadRecentBoards();
 	};
 
 	watchEffect(() => {
 		url.value = route.params.bid as String;
 		updateRecentBoards();
-	});
+	}); */
 
 	onMounted(() => {
-		myWorkspaceStore.getBoardsByIds();
+		myWorkspaceStore.addRecentId(route.params.bid as string);
 	});
 </script>

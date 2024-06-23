@@ -1,7 +1,8 @@
 <template>
 	<Popover>
 		<PopoverTrigger
-			class="hoverButtonWithBg flex !h-[100px] !w-[200px] cursor-pointer items-center justify-center rounded-sm"
+			class="hoverButtonWithBg flex !h-[100px] w-[200px] cursor-pointer items-center justify-center rounded-sm"
+			:class="class"
 			as-child
 		>
 			<p>Create new board</p>
@@ -29,6 +30,10 @@
 		selectedWorkspaceId_str: {
 			type: String,
 			required: true,
+		},
+		class: {
+			type: String,
+			required: false,
 		},
 	});
 </script>

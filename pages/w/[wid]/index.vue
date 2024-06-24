@@ -86,6 +86,7 @@
 	import type { Board, Workspace } from "~/lib/types";
 	definePageMeta({
 		layout: "workspace",
+		middleware: ["auth"],
 	});
 
 	const route = useRoute();

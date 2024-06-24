@@ -42,6 +42,7 @@
 
 	definePageMeta({
 		layout: "logged-in-home",
+		middleware: ["auth"],
 	});
 	const route = useRoute();
 	const workspaceData = ref<Workspace>();

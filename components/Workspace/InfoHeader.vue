@@ -1,35 +1,37 @@
 <template>
 	<div
-		class="p-[32px]"
+		class="p-[32px] my-0 mx-auto max-w-[850px] justify-between items-start relative flex"
 		v-if="props.workspaceData && !editOpen"
 	>
-		<div class="flex gap-2">
-			<div
-				class="rounded-sm h-[60px] w-[60px] text-white font-bold text-[35px] flex justify-center items-center"
-				:class="getWorkspaceTypeColor(props.workspaceData.type)"
-			>
-				{{ props.workspaceData.title.charAt(0).toLocaleUpperCase() }}
-			</div>
+		<div>
+			<div class="flex gap-2">
+				<div
+					class="rounded-sm h-[60px] w-[60px] text-white font-bold text-[35px] flex justify-center items-center"
+					:class="getWorkspaceTypeColor(props.workspaceData.type)"
+				>
+					{{ props.workspaceData.title.charAt(0).toLocaleUpperCase() }}
+				</div>
 
-			<div class="flex items-center">
-				<div class="h-fit">
-					<h2 class="text-[20px] font-bold leading-6">
-						{{ props.workspaceData.title }}
-						<Button
-							class="bg-transparent hoverButton text-black h-[24px] w-[24px] p-0 m-0 !rounded-[4px]"
-							@click="editOpen = !editOpen"
-						>
-							<Icon name="clarity:edit-line" />
-						</Button>
-					</h2>
-					<span class="text-xs font-light">{{
-						props.workspaceData.visibility.charAt(0).toUpperCase() +
-						props.workspaceData.visibility.substring(1)
-					}}</span>
+				<div class="flex items-center">
+					<div class="h-fit">
+						<h2 class="text-[20px] font-bold leading-6">
+							{{ props.workspaceData.title }}
+							<Button
+								class="bg-transparent hoverButton text-black h-[24px] w-[24px] p-0 m-0 !rounded-[4px]"
+								@click="editOpen = !editOpen"
+							>
+								<Icon name="clarity:edit-line" />
+							</Button>
+						</h2>
+						<span class="text-xs font-light">{{
+							props.workspaceData.visibility.charAt(0).toUpperCase() +
+							props.workspaceData.visibility.substring(1)
+						}}</span>
+					</div>
 				</div>
 			</div>
+			<p class="text-xs font-light">{{ props.workspaceData.description }}</p>
 		</div>
-		<p class="text-xs font-light">{{ props.workspaceData.description }}</p>
 	</div>
 
 	<div

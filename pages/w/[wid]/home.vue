@@ -15,19 +15,14 @@
 				<h1>Your boards</h1>
 			</div>
 
-			<div class="mt-5">
-				<ul class="flex flex-wrap justify-start gap-[2%]">
+			<div class="mt-6">
+				<ul class="flex flex-wrap justify-start">
 					<li
 						v-for="board in workspaceData.workspace_boards"
 						:key="board.id_str"
-						class="p-0 lg:w-[23.5%] mb-[2%] sm:w-[32%] w-[calc(50%-6px)]"
+						class="boardsList"
 					>
 						<LoggedInBoardPreview :board="board" />
-					</li>
-					<li class="p-0 w-[23.5%] mb-[2%]">
-						<LoggedInEmptyBoard
-							:selectedWorkspaceId_str="workspaceData.id_str"
-						/>
 					</li>
 				</ul>
 			</div>

@@ -191,4 +191,7 @@
 	.boardsList:nth-child(3n) {
 		margin-right: 0px;
 	}
+	.boardsList:nth-child(4n) {
+		margin-right: 8px;
+	}
 }

@@ -11,7 +11,7 @@
 		<div
 			class="flex flex-row flex-wrap justify-between max-w-[1250px] pt-[20px] pr-0 pb-[8px] pl-0 relative"
 		>
-			<div class="flex flex-row flex-wrap">
+			<div class="flex flex-row">
 				<Select
 					defaultValue="mostRecent"
 					v-model="sortBy"
@@ -43,7 +43,7 @@
 			</div>
 
 			<div class="relative flex flex-col min-w-60">
-				<Label for="searchBoards">Email</Label>
+				<Label for="searchBoards">Search</Label>
 				<Input
 					id="searchBoards"
 					type="search"
@@ -62,15 +62,15 @@
 		</div>
 
 		<!--SHOW BOARDS-->
-		<div class="mx-[-8px]">
+		<div class="mt-6">
 			<ul class="flex flex-wrap justify-start">
-				<li class="w-1/4 py-[4px] px-[8px]">
+				<li class="boardsList">
 					<LoggedInEmptyBoard :selectedWorkspaceId_str="workspaceData.id_str" />
 				</li>
 				<li
 					v-for="board in sortedBoards"
 					:key="board.id_str"
-					class="w-[23.5%] mb-[2%] mr-[2%] last:mr-0"
+					class="boardsList"
 				>
 					<LoggedInBoardPreview
 						:key="board.id_str"

@@ -45,7 +45,6 @@ export const $larafetch = $fetch.create({
     options.baseURL = backendUrl;
   },
   async onResponseError({ response }) {
-    //console.log(response);
     const status = response.status;
     if ([500].includes(status)) {
       console.error("[Laravel Error]", response.statusText, response._data);

@@ -116,7 +116,6 @@
 										name="material-symbols-light:star-outline"
 										:ssr="true"
 										class="group-hover:color-blue-400 ml-auto hidden h-6 w-6 hover:text-orange-400 group-hover:block"
-										@click="() => console.log('star clicked')"
 									/>
 								</div>
 							</DropdownMenuItem>

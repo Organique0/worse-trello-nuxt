@@ -171,7 +171,6 @@
 	});
 
 	const onSubmit = form.handleSubmit(async (values) => {
-		console.log("Form submitted!", values);
 		await createWorkspace(values);
 		sendCloseEvent();
 	});

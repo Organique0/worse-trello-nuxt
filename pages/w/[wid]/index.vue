@@ -3,7 +3,6 @@
 		class="w-[100%-4vw] mx-[3vw]"
 		v-if="workspaceData"
 	>
-		<WorkspaceInfoHeader :workspaceData="workspaceData" />
 		<hr class="w-full p-0 my-[16px]" />
 
 		<h1>Boards</h1>
@@ -93,6 +92,7 @@
 	const workspaceData = ref<Workspace | null>(null);
 	const boards = ref<Board[]>([]);
 	const sortBy = ref("az");
+	const myWorkspaceStore = useMyWorkspaceStore();
 
 	const sortedBoards = computed(() => {
 		const sorted = [...boards.value];
@@ -115,8 +115,6 @@
 				return sorted;
 		}
 	});
-
-	const myWorkspaceStore = useMyWorkspaceStore();
 
 	onMounted(() => {
 		const workspaceId = route.params.wid as string;

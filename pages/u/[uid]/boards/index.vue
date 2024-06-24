@@ -1,5 +1,5 @@
 <template>
-	<div class="ml-12 w-full">
+	<div class="ml-12 w-full mt-[40px]">
 		<div
 			v-if="recentBoards && recentBoards.length > 0"
 			class="mb-16"
@@ -85,6 +85,7 @@
 	import { getWorkspaceTypeColor } from "~/lib/utils";
 	definePageMeta({
 		layout: "logged-in-home",
+		middleware: ["auth"],
 	});
 
 	const myWorkspaceStore = useMyWorkspaceStore();

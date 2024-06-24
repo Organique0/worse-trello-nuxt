@@ -16,6 +16,9 @@ export const useMyWorkspaceStore = defineStore({
     getRecentBoards: (state) => {
       return () => state.recentBoards
     },
+    getBoardById: (state) => {
+      return (bid: string) => state.workspaces.flatMap(workspace => workspace.workspace_boards).find(board => board.id_str === bid) as Board
+    }
   },
   actions: {
     async loadWorkspaces() {

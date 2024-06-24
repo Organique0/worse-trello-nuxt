@@ -69,7 +69,8 @@
 				</li>
 				<li
 					v-for="board in sortedBoards"
-					class="w-1/4"
+					:key="board.id_str"
+					class="w-[23.5%] mb-[2%] mr-[2%] last:mr-0"
 				>
 					<LoggedInBoardPreview
 						:key="board.id_str"

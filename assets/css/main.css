@@ -160,3 +160,35 @@
 .userDropdownThemeSubTrigger {
 	@apply relative left-[-1rem] w-[calc(100%+2.1rem)] rounded-none focus:bg-accent focus:bg-lightBlueBg focus:text-primary focus:shadow-blueLeft data-[state=open]:bg-lightBlueBg data-[state=open]:text-primary data-[state=open]:shadow-blueLeft dark:data-[state=open]:bg-accent;
 }
+
+.boardsList {
+	width: 23.5%;
+	margin-bottom: 2%;
+	margin-right: 2%;
+}
+
+.boardsList:nth-child(4n) {
+	margin-right: 0;
+}
+
+@media (max-width: 750px) {
+	.boardsList {
+		margin-bottom: 8px;
+		margin-right: 8px;
+		width: calc(50% - 4px);
+	}
+	.boardsList:nth-child(even) {
+		margin-right: 0px;
+	}
+}
+
+@media (min-width: 751px) and (max-width: 900px) {
+	.boardsList {
+		margin-bottom: 8px;
+		margin-right: 8px;
+		width: 32%;
+	}
+	.boardsList:nth-child(3n) {
+		margin-right: 0px;
+	}
+}

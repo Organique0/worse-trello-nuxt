@@ -1,5 +1,5 @@
 <template>
-	<div class="ml-12 w-full mt-[40px]">
+	<div class="w-full max-w-[825px] min-w-[288px] mt-[40px] mx-[16px]">
 		<div
 			v-if="recentBoards && recentBoards.length > 0"
 			class="mb-16"
@@ -12,12 +12,16 @@
 				/>
 				<h1 class="mb-3">Recently viewed</h1>
 			</div>
-			<div class="grid grid-cols-4 gap-4">
-				<LoggedInBoardPreview
-					v-for="board in recentBoards"
-					:key="board.id_str"
-					:board="board"
-				/>
+			<div class="">
+				<ul class="flex flex-wrap justify-start">
+					<li
+						v-for="board in recentBoards"
+						:key="board.id_str"
+						class="boardsList"
+					>
+						<LoggedInBoardPreview :board="board" />
+					</li>
+				</ul>
 			</div>
 		</div>
 
@@ -69,13 +73,16 @@
 					>
 				</div>
 			</div>
-			<div class="mt-5 grid grid-cols-4 gap-4">
-				<LoggedInBoardPreview
-					v-for="board in workspace.workspace_boards"
-					:key="board.id_str"
-					:board="board"
-				/>
-				<LoggedInEmptyBoard :selectedWorkspaceId_str="workspace.id_str" />
+			<div class="mt-6">
+				<ul class="flex flex-wrap justify-start">
+					<li
+						v-for="board in workspace.workspace_boards"
+						:key="board.id_str"
+						class="boardsList"
+					>
+						<LoggedInBoardPreview :board="board" />
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>

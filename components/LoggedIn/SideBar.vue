@@ -1,5 +1,5 @@
 <template>
-	<div class="w-[25%] bg-inherit">
+	<div class="w-[256px] bg-inherit sticky top-[40px]">
 		<Button
 			class="hoverButton mb-1 block h-9 w-full rounded-md text-left"
 			:class="

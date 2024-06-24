@@ -8,7 +8,11 @@
 					<div class="flex h-full w-full items-center justify-center">
 						<span
 							class="flex h-6 w-6 items-center justify-center rounded-full bg-orange-400 text-xs font-bold text-slate-700"
-							>LG</span
+							>{{
+								user?.first_name[0].toUpperCase() +
+								"" +
+								user?.last_name[0].toUpperCase()
+							}}</span
 						>
 					</div>
 				</Button>

@@ -170,19 +170,5 @@
 				route.params.wid as string
 			);
 		}
-
-		/* 		if (route.params.bid != undefined) {
-			const response = await myWorkspaceStore.getBoardById(
-				route.params.bid as string
-			);
-
-			const boardsWorkspaceId = response.workspace_id_str;
-
-			if (myWorkspaceStore.$state.workspaces.length == 0) {
-				await myWorkspaceStore.loadWorkspace(boardsWorkspaceId);
-			}
-
-			workspaceData.value = myWorkspaceStore.getWorkspace(boardsWorkspaceId);
-		} */
 	});
 </script>

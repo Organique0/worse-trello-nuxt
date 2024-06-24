@@ -1,7 +1,7 @@
 <template>
 	<Popover>
 		<PopoverTrigger
-			class="hoverButtonWithBg flex !h-[100px] w-[200px] cursor-pointer items-center justify-center rounded-sm"
+			class="hoverButtonWithBg flex !h-[100px] cursor-pointer items-center justify-center rounded-sm"
 			:class="class"
 			as-child
 		>

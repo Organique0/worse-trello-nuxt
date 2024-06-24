@@ -83,14 +83,13 @@
 
 <script setup lang="ts">
 	import { getWorkspaceTypeColor } from "~/lib/utils";
+	definePageMeta({
+		layout: "logged-in-home",
+	});
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const router = useRouter();
 
 	myWorkspaceStore.loadRecentBoards();
 	const recentBoards = ref(myWorkspaceStore.recentBoards);
-
-	definePageMeta({
-		layout: "logged-in-home",
-	});
 </script>

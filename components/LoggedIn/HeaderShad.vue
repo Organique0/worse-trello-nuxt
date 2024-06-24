@@ -46,7 +46,7 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0"
+								class="relative mt-0 h-[32px] rounded-sm px-2 py-0 block max-[900px]:hidden"
 								variant="ghost"
 							>
 								Workspaces
@@ -86,7 +86,7 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0"
+								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1040px]:hidden"
 								variant="ghost"
 							>
 								Recent
@@ -127,7 +127,7 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0"
+								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1160px]:hidden"
 								variant="ghost"
 							>
 								Starred
@@ -168,7 +168,7 @@
 						<DropdownMenu>
 							<DropdownMenuTrigger as-child>
 								<Button
-									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0"
+									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1280px]:hidden"
 									variant="ghost"
 								>
 									Templates
@@ -192,9 +192,17 @@
 						>
 							<DropdownMenuTrigger as-child>
 								<Button
-									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-darkBlueBg dark:text-[#1d2125]"
+									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 hover:bg-darkBlueBg dark:text-[#1d2125] max-[1280px]:hidden"
 								>
 									Create
+								</Button>
+								<Button
+									class="relative mt-0 flex h-[32px] rounded-sm px-2 py-0 hover:bg-darkBlueBg dark:text-[#1d2125] min-[1280px]:hidden"
+								>
+									<Icon
+										name="ph:plus-bold"
+										class="text-white"
+									/>
 								</Button>
 							</DropdownMenuTrigger>
 
@@ -385,7 +393,7 @@
 
 				<!--user-->
 				<div class="flex space-x-1">
-					<div class="relative min-w-60">
+					<div class="relative min-w-60 max-[800px]:hidden">
 						<Input
 							id="search"
 							type="text"
@@ -397,11 +405,20 @@
 						>
 							<Icon
 								name="tabler:search"
-								:ssr="true"
-								class="text-black dark:text-slate-400"
+								class="text-slate-600 dark:text-slate-400"
 							/>
 						</span>
 					</div>
+
+					<NuxtLink
+						class="flex items-center justify-center rounded-md bg-transparent hover:bg-slate-300 dark:hover:bg-gray-600 min-[800px]:hidden h-8 w-8"
+						to="/search"
+					>
+						<Icon
+							name="tabler:search"
+							class="text-lg text-slate-600 dark:text-slate-200"
+						/>
+					</NuxtLink>
 
 					<DropdownMenu>
 						<DropdownMenuTrigger

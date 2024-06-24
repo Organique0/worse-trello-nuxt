@@ -1,17 +1,12 @@
 <template>
 	<NuxtLink
-		class="group relative overflow-hidden h-[100px] w-[200px] rounded-md mb-5"
+		class="group relative"
 		:to="resolvedUrl"
 	>
-		<!-- 		<NuxtImg
-			:src="src"
-			width="200"
-			height="100"
-			class="cursor-pointer group-hover:brightness-90"
-		/> -->
 		<div
 			:style="giveBackgroundImage(src)"
-			class="w-full h-full cursor-pointer group-hover:brightness-90 bg-"
+			class="h-[100px] rounded-sm w-full cursor-pointer group-hover:brightness-90 bg-cover bg-[50%]"
+			:class="class"
 		/>
 		<p
 			class="text-medium absolute left-3 top-2 w-[170px] cursor-pointer select-none font-bold text-white"
@@ -47,6 +42,7 @@
 
 	const props = defineProps<{
 		board: Board;
+		class?: String;
 	}>();
 
 	const resolvedUrl = router.resolve({ path: `/b/${props.board.id_str}` }).href;

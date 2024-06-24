@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="w-full"
+		class="w-[100%-4vw] mx-[3vw]"
 		v-if="workspaceData"
 	>
 		<WorkspaceInfoHeader :workspaceData="workspaceData" />
@@ -10,7 +10,7 @@
 
 		<!--FILTERS-->
 		<div
-			class="flex flex-row flex-wrap justify-between max-w-[1250px] pt-[20px] pr-0 pb-[8px] pl-0"
+			class="flex flex-row flex-wrap justify-between max-w-[1250px] pt-[20px] pr-0 pb-[8px] pl-0 relative"
 		>
 			<div class="flex flex-row flex-wrap">
 				<Select
@@ -63,25 +63,27 @@
 		</div>
 
 		<!--SHOW BOARDS-->
-		<div class="flex flex-wrap justify-start">
-			<LoggedInEmptyBoard
-				:selectedWorkspaceId_str="workspaceData.id_str"
-				class="w-[25%]"
-			/>
-
-			<LoggedInBoardPreview
-				v-for="board in boards"
-				:key="board.id_str"
-				:board="board"
-				class="w-[25%]"
-			/>
+		<div class="mx-[-8px]">
+			<ul class="flex flex-wrap justify-start">
+				<li class="w-1/4 py-[4px] px-[8px]">
+					<LoggedInEmptyBoard :selectedWorkspaceId_str="workspaceData.id_str" />
+				</li>
+				<li
+					v-for="board in sortedBoards"
+					class="w-1/4"
+				>
+					<LoggedInBoardPreview
+						:key="board.id_str"
+						:board="board"
+					/>
+				</li>
+			</ul>
 		</div>
 	</div>
 </template>
 
 <script lang="ts" setup>
 	import type { Board, Workspace } from "~/lib/types";
-
 	definePageMeta({
 		layout: "workspace",
 	});
@@ -89,7 +91,29 @@
 	const route = useRoute();
 	const workspaceData = ref<Workspace | null>(null);
 	const boards = ref<Board[]>([]);
-	const sortBy = ref("mostRecent");
+	const sortBy = ref("az");
+
+	const sortedBoards = computed(() => {
+		const sorted = [...boards.value];
+		switch (sortBy.value) {
+			case "mostRecent":
+				return sorted.sort(
+					(a, b) =>
+						new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
+				);
+			case "leastRecent":
+				return sorted.sort(
+					(a, b) =>
+						new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
+				);
+			case "az":
+				return sorted.sort((a, b) => a.title.localeCompare(b.title));
+			case "za":
+				return sorted.sort((a, b) => b.title.localeCompare(a.title));
+			default:
+				return sorted;
+		}
+	});
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 
@@ -97,9 +121,11 @@
 		const workspaceId = route.params.wid as string;
 		workspaceData.value = myWorkspaceStore.getWorkspace(workspaceId);
 		if (workspaceData.value) {
-			console.log("Workspace data found:", workspaceData.value);
 			boards.value = workspaceData.value.workspace_boards || [];
-			boards.value.sort((a, b) => a.title.localeCompare(b.title));
 		}
+	});
+
+	watch(sortBy, (newValue) => {
+		sortBy.value = newValue;
 	});
 </script>

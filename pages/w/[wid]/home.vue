@@ -1,5 +1,8 @@
 <template>
-	<div v-if="workspaceData">
+	<div
+		v-if="workspaceData"
+		class="mx-[16px] mt-[40px] w-full min-w-[288px] max-w-[825px]"
+	>
 		<WorkspaceInfoHeader :workspaceData="workspaceData" />
 		<hr class="w-full p-0 my-[16px]" />
 
@@ -12,13 +15,21 @@
 				<h1>Your boards</h1>
 			</div>
 
-			<div class="mt-5 grid grid-cols-4 gap-4">
-				<LoggedInBoardPreview
-					v-for="board in workspaceData.workspace_boards"
-					:key="board.id_str"
-					:board="board"
-				/>
-				<LoggedInEmptyBoard :selectedWorkspaceId_str="workspaceData.id_str" />
+			<div class="mt-5">
+				<ul class="flex flex-wrap justify-start gap-[2%]">
+					<li
+						v-for="board in workspaceData.workspace_boards"
+						:key="board.id_str"
+						class="p-0 lg:w-[23.5%] mb-[2%] sm:w-[32%] w-[calc(50%-6px)]"
+					>
+						<LoggedInBoardPreview :board="board" />
+					</li>
+					<li class="p-0 w-[23.5%] mb-[2%]">
+						<LoggedInEmptyBoard
+							:selectedWorkspaceId_str="workspaceData.id_str"
+						/>
+					</li>
+				</ul>
 			</div>
 		</div>
 	</div>
@@ -35,10 +46,8 @@
 	const route = useRoute();
 	const workspaceData = ref<Workspace>();
 
-	onBeforeMount(async () => {
-		await myWorkspaceStore.loadWorkspaces();
-		workspaceData.value = myWorkspaceStore.workspaces.find(
-			(workspace) => workspace.id_str == route.params.wid
-		);
+	onMounted(() => {
+		const workspaceId = route.params.wid as string;
+		workspaceData.value = myWorkspaceStore.getWorkspace(workspaceId);
 	});
 </script>

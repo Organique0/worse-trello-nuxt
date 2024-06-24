@@ -149,7 +149,7 @@
 		<!--BOARD ITEMS-->
 
 		<Button
-			class="group workspaceSidemenuButton"
+			class="group workspaceSidemenuButton !justify-between"
 			v-for="board in workspaceData.workspace_boards"
 			@click="() => router.replace(`/b/${board.id_str}`)"
 			:class="
@@ -158,53 +158,98 @@
 				'!bg-gray-300'
 			"
 		>
-			{{ board.title }}
+			<div class="inline-flex gap-1">
+				<div
+					:style="
+						giveBackgroundImage(
+							board.prefs_background_url || board.prefs_background
+						)
+					"
+					class="w-[24px] h-[20px] bg-cover rounded-sm"
+				/>
+				<span>{{ board.title }}</span>
+			</div>
+			<div>
+				<Button
+					class="workspaceSidemenuButtonIcon invisible group-hover:visible"
+					size="icon"
+				>
+					<Icon
+						name="tabler:dots"
+						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600"
+					/>
+				</Button>
+				<Button
+					class="workspaceSidemenuButtonIcon invisible group-hover:visible"
+					size="icon"
+					:class="board.is_favorited && 'visible'"
+					@click="favorite(board.id_str)"
+				>
+					<LogoFavorite
+						:class="
+							board.is_favorited
+								? 'fill-gray-600 stroke-gray-600 stroke-2 hover:fill-none'
+								: 'fill-transparent stroke-gray-600 stroke-2 transition-transform duration-100'
+						"
+					/>
+				</Button>
+			</div>
 		</Button>
 	</div>
 	<div v-else>no data</div>
 </template>
 
 <script lang="ts" setup>
-	import { ref } from "vue";
 	import { useRoute } from "vue-router";
-	import type { Workspace } from "../../lib/types";
-	import { getWorkspaceTypeColor } from "../../lib/utils";
+	import type { Board, Workspace } from "../../lib/types";
+	import { giveBackgroundImage, getWorkspaceTypeColor } from "~/lib/utils";
 
 	const props = defineProps<{
-		currentWorkspaceData: Workspace | undefined;
+		currentWorkspaceData: Workspace;
 	}>();
 
-	const workspaceData = ref<Workspace | undefined>(props.currentWorkspaceData);
+	const { currentWorkspaceData } = toRefs(props);
+	const workspaceData = currentWorkspaceData.value;
 	const route = useRoute();
 	const router = useRouter();
 
-	/* 	onBeforeMount(async () => {
-		if (route.params.wid != undefined) {
-			//if you get data from template, don't load from state again
-			if (props.currentWorkspaceData) {
-				workspaceData.value = props.currentWorkspaceData;
-			} else {
-				if (myWorkspaceStore.$state.workspaces.length == 0) {
-					await myWorkspaceStore.loadWorkspace(route.params.wid as string);
-				}
-				workspaceData.value = myWorkspaceStore.getWorkspace(
-					route.params.wid as string
-				);
-			}
-		}
-		if (route.params.bid != undefined) {
-			if (props.currentWorkspaceData) {
-				workspaceData.value = props.currentWorkspaceData;
-			} else {
-				if (myWorkspaceStore.$state.workspaces.length == 0) {
-					await myWorkspaceStore.loadWorkspace(route.params.wid as string);
-				}
+	//const starredRef = ref(props.board.is_favorited);
 
-				const board = myWorkspaceStore.getBoardById(route.params.bid as string);
-				workspaceData.value = myWorkspaceStore.getWorkspace(
-					board.workspace_id_str
-				);
-			}
+	async function favorite(id: string) {
+		if (!workspaceData) {
+			console.error("workspaceData is undefined");
+			return;
 		}
-	}); */
+
+		const boardIndex = workspaceData.workspace_boards.findIndex(
+			(board: Board) => board.id_str === id
+		);
+
+		if (boardIndex === -1) {
+			console.error(`Board with id ${id} not found`);
+			return;
+		}
+
+		const updatedBoard = {
+			...workspaceData.workspace_boards[boardIndex],
+			is_favorited: !workspaceData.workspace_boards[boardIndex].is_favorited,
+		};
+
+		workspaceData.workspace_boards.splice(boardIndex, 1, updatedBoard);
+
+		try {
+			await $larafetch("api/boards/favorite", {
+				method: "post",
+				body: { id_str: id },
+			});
+		} catch (error) {
+			console.error("Error favoriting board:", error);
+			// Revert the local state change if the API request fails
+			workspaceData.workspace_boards.splice(
+				boardIndex,
+				1,
+				workspaceData.workspace_boards[boardIndex]
+			);
+		}
+	}
 </script>

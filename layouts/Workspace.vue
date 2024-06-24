@@ -27,25 +27,26 @@
 	const myWorkspaceStore = useMyWorkspaceStore();
 
 	onMounted(async () => {
-		if (route.params.wid != undefined) {
-			if (myWorkspaceStore.$state.workspaces.length == 0) {
-				await myWorkspaceStore.loadWorkspace(route.params.wid as string);
-			}
+		updateWorkspaceData();
+	});
+
+	watch(
+		() => route.fullPath,
+		async () => {
+			updateWorkspaceData();
+		}
+	);
+
+	async function updateWorkspaceData() {
+		if (route.params.wid !== undefined) {
 			workspaceData.value = myWorkspaceStore.getWorkspace(
 				route.params.wid as string
 			);
-		}
-		if (route.params.bid != undefined) {
-			if (myWorkspaceStore.$state.workspaces.length == 0) {
-				await myWorkspaceStore.loadWorkspace(route.params.wid as string);
-			}
-
+		} else if (route.params.bid !== undefined) {
 			const board = myWorkspaceStore.getBoardById(route.params.bid as string);
 			workspaceData.value = myWorkspaceStore.getWorkspace(
 				board.workspace_id_str
 			);
 		}
-
-		console.log(route);
-	});
+	}
 </script>

@@ -265,14 +265,9 @@
 		values.prefs_background = selectedColor.value;
 
 		try {
-			const response = await $larafetch("api/boards/create", {
-				method: "post",
-				body: values,
-			});
-
+			const response = await myWorkspaceStore.createBoard(values);
 			if (response.success && response.board) {
-				console.log(response);
-				router.push(`/b/${response.board.id_str}`);
+				await router.push(`/b/${response.board.id_str}`);
 			} else {
 				console.error("Error creating board:", response);
 			}
@@ -287,7 +282,6 @@
 				collectionId: "317099",
 			})
 			.then((result) => {
-				console.log(result);
 				selectedPhoto.value = result.response?.results[0].urls.regular;
 				boardPhotos.value = result.response?.results;
 			});

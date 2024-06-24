@@ -47,12 +47,24 @@ export const useMyWorkspaceStore = defineStore({
       await this.loadWorkspaces();
     },
 
-    /*     async getBoardById(bid: string) {
-          const response = await $larafetch(`api/boards/${bid}`, {
-            method: "get",
-          });
-          return await response;
-        }, */
+    async createBoard(values: any) {
+      const response = await $larafetch("api/boards/create", {
+        method: "post",
+        body: values,
+      });
+      await this.loadWorkspaces();
+
+      return response;
+    },
+
+    async deleteBoard(bid: string) {
+      const response = await $larafetch("api/boards/delete", {
+        method: "delete",
+      });
+      await this.loadWorkspaces();
+
+      return response;
+    },
 
     addRecentId(id: string) {
       const recentBoardsCookie = useCookie<String[]>("recentBoards", {

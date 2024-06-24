@@ -35,8 +35,9 @@
 		<div class="mt-2">
 			<!--BOARDS-->
 			<Button
-				class="workspaceSidemenuButton !bg-gray-300"
-				@click="() => router.replace('/w/' + workspaceData?.id_str)"
+				class="workspaceSidemenuButton"
+				:class="route.path == `/w/${route.params.wid}` && '!bg-gray-300'"
+				@click="() => router.push('/w/' + workspaceData?.id_str)"
 			>
 				<Icon
 					name="mdi:trello"
@@ -45,7 +46,11 @@
 				Boards</Button
 			>
 			<!--MEMBERS-->
-			<Button class="workspaceSidemenuButton">
+			<Button
+				class="workspaceSidemenuButton"
+				:class="route.path.includes('members') && '!bg-gray-300'"
+				@click="() => router.push('/w/' + workspaceData?.id_str + '/members')"
+			>
 				<Icon
 					name="solar:user-linear"
 					class="h-[16px] w-[16px] mr-2"
@@ -61,7 +66,11 @@
 					/>
 				</Button>
 			</Button>
-			<Button class="workspaceSidemenuButton">
+			<Button
+				class="workspaceSidemenuButton"
+				:class="route.path.includes('account') && '!bg-gray-300'"
+				@click="() => router.push('/w/' + workspaceData?.id_str + '/account')"
+			>
 				<LogoSettings class="h-[16px] w-[16px] mr-2" />
 				Workspace settings
 				<!--SETTINGS-->
@@ -143,32 +152,59 @@
 			class="group workspaceSidemenuButton"
 			v-for="board in workspaceData.workspace_boards"
 			@click="() => router.replace(`/b/${board.id_str}`)"
+			:class="
+				route.params.bid != undefined &&
+				route.params.bid == board.id_str &&
+				'!bg-gray-300'
+			"
 		>
 			{{ board.title }}
 		</Button>
 	</div>
+	<div v-else>no data</div>
 </template>
 
 <script lang="ts" setup>
-	import { onBeforeMount, ref } from "vue";
+	import { ref } from "vue";
 	import { useRoute } from "vue-router";
-	import type { Board, Workspace } from "../../lib/types";
+	import type { Workspace } from "../../lib/types";
 	import { getWorkspaceTypeColor } from "../../lib/utils";
 
-	const myWorkspaceStore = useMyWorkspaceStore();
+	const props = defineProps<{
+		currentWorkspaceData: Workspace | undefined;
+	}>();
 
+	const workspaceData = ref<Workspace | undefined>(props.currentWorkspaceData);
 	const route = useRoute();
 	const router = useRouter();
-	const workspaceData = ref<Workspace>();
 
-	onBeforeMount(async () => {
+	/* 	onBeforeMount(async () => {
 		if (route.params.wid != undefined) {
-			if (myWorkspaceStore.$state.workspaces.length == 0) {
-				await myWorkspaceStore.loadWorkspace(route.params.wid as string);
+			//if you get data from template, don't load from state again
+			if (props.currentWorkspaceData) {
+				workspaceData.value = props.currentWorkspaceData;
+			} else {
+				if (myWorkspaceStore.$state.workspaces.length == 0) {
+					await myWorkspaceStore.loadWorkspace(route.params.wid as string);
+				}
+				workspaceData.value = myWorkspaceStore.getWorkspace(
+					route.params.wid as string
+				);
 			}
-			workspaceData.value = myWorkspaceStore.getWorkspace(
-				route.params.wid as string
-			);
 		}
-	});
+		if (route.params.bid != undefined) {
+			if (props.currentWorkspaceData) {
+				workspaceData.value = props.currentWorkspaceData;
+			} else {
+				if (myWorkspaceStore.$state.workspaces.length == 0) {
+					await myWorkspaceStore.loadWorkspace(route.params.wid as string);
+				}
+
+				const board = myWorkspaceStore.getBoardById(route.params.bid as string);
+				workspaceData.value = myWorkspaceStore.getWorkspace(
+					board.workspace_id_str
+				);
+			}
+		}
+	}); */
 </script>

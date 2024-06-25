@@ -5,7 +5,7 @@
 	>
 		<hr class="w-full p-0 my-[16px]" />
 
-		<h1>Boards</h1>
+		<h1 class="text-xl font-bold">Boards</h1>
 
 		<!--FILTERS-->
 		<div
@@ -13,7 +13,11 @@
 		>
 			<div class="flex flex-row">
 				<div class="w-[200px]">
-					<p class="text-gray-600 text-[12px] font-bold mb-1">Sort by</p>
+					<p
+						class="text-gray-600 dark:text-gray-400 text-[12px] font-bold mb-1"
+					>
+						Sort by
+					</p>
 					<Select
 						defaultValue="mostRecent"
 						v-model="sortBy"
@@ -40,7 +44,11 @@
 					</Select>
 				</div>
 				<div class="pl-2 w-[200px]">
-					<p class="text-gray-600 text-[12px] font-bold mb-1">Filter by</p>
+					<p
+						class="text-gray-600 dark:text-gray-400 text-[12px] font-bold mb-1"
+					>
+						Filter by
+					</p>
 					<PopoverRoot>
 						<PopoverTrigger
 							class="border text-sm py-2 px-3 rounded-md w-full flex justify-between items-center"
@@ -53,12 +61,16 @@
 							<PopoverContent
 								side="bottom"
 								align="start"
-								class="w-[304px] bg-white py-2 px-2 rounded-lg shadow-lg"
+								class="w-[304px] bg-white dark:bg-popover py-2 px-2 rounded-lg shadow-lg"
 							>
 								<div class="flex justify-between">
 									<div class="w-[32px]" />
-									<h1 class="font-semibold text-sm">Collections</h1>
-									<PopoverClose class="w-[32px] hoverButton">x</PopoverClose>
+									<h1 class="font-semibold text-sm flex items-center">
+										Collections
+									</h1>
+									<PopoverClose class="w-[32px] h-[32px] hoverButton"
+										>x</PopoverClose
+									>
 								</div>
 
 								<div class="max-h-[795px] mt-4">
@@ -70,7 +82,9 @@
 											Upgrade to Premium to group your boards by department,
 											topic, team and more
 										</p>
-										<Button class="bg-[#DFD8FD] text-black h-9 rounded-sm">
+										<Button
+											class="bg-[#DFD8FD] dark:bg-[#352C63] dakr:hover:bg-[] dark:text-[#B6C2CF] text-black h-9 rounded-sm mb-2"
+										>
 											Try it free for 14 days
 										</Button>
 									</div>
@@ -82,7 +96,9 @@
 			</div>
 
 			<div>
-				<p class="text-gray-600 text-[12px] font-bold mb-1">Search</p>
+				<p class="text-gray-600 dark:text-gray-400 text-[12px] font-bold mb-1">
+					Search
+				</p>
 				<div class="relative flex flex-col min-w-60">
 					<Input
 						id="searchBoards"

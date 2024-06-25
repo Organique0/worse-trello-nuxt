@@ -5,7 +5,7 @@
 	>
 		<div class="flex gap-2 border-b p-3">
 			<div
-				class="rounded-sm h-[32px] w-[32px] text-white font-bold text-[20px] flex justify-center items-center"
+				class="rounded-sm h-[32px] w-[32px] text-white dark:text-black font-bold text-[20px] flex justify-center items-center"
 				:class="getWorkspaceTypeColor(workspaceData.type)"
 			>
 				{{ workspaceData.title.charAt(0).toLocaleUpperCase() }}
@@ -25,7 +25,7 @@
 			<Button class="ml-auto hoverButton h-[32px] w-[32px] p-0 bg-transparent">
 				<Icon
 					name="mingcute:left-line"
-					class="h-5 w-5 text-black fill-red-50"
+					class="h-5 w-5 text-black dark:text-gray-400"
 				/>
 			</Button>
 		</div>
@@ -36,19 +36,25 @@
 			<!--BOARDS-->
 			<Button
 				class="workspaceSidemenuButton"
-				:class="route.path == `/w/${route.params.wid}` && '!bg-gray-300'"
+				:class="
+					route.path == `/w/${route.params.wid}` &&
+					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
+				"
 				@click="() => router.push('/w/' + workspaceData?.id_str)"
 			>
 				<Icon
 					name="mdi:trello"
-					class="h-[16px] w-[16px] mr-2"
+					class="h-[16px] w-[16px] mr-2 dark:text-gray-400"
 				/>
 				Boards</Button
 			>
 			<!--MEMBERS-->
 			<Button
 				class="workspaceSidemenuButton"
-				:class="route.path.includes('members') && '!bg-gray-300'"
+				:class="
+					route.path.includes('members') &&
+					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
+				"
 				@click="() => router.push('/w/' + workspaceData?.id_str + '/members')"
 			>
 				<Icon
@@ -59,16 +65,20 @@
 				<Button
 					class="workspaceSidemenuButtonIcon"
 					size="icon"
+					@click.stop
 				>
 					<Icon
 						name="ic:outline-plus"
-						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600"
+						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400"
 					/>
 				</Button>
 			</Button>
 			<Button
 				class="workspaceSidemenuButton"
-				:class="route.path.includes('account') && '!bg-gray-300'"
+				:class="
+					route.path.includes('account') &&
+					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
+				"
 				@click="() => router.push('/w/' + workspaceData?.id_str + '/account')"
 			>
 				<LogoSettings class="h-[16px] w-[16px] mr-2" />
@@ -77,10 +87,11 @@
 				<Button
 					class="workspaceSidemenuButtonIcon"
 					size="icon"
+					@click.stop
 				>
 					<Icon
 						name="tabler:chevron-down"
-						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600"
+						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400"
 					/>
 				</Button>
 			</Button>
@@ -91,15 +102,15 @@
 
 		<!--TABLE-->
 		<Button class="group workspaceSidemenuButton">
-			<LogoTable class="h-[16px] w-[16px] mr-2" />
-			Table
+			<LogoTable class="h-[16px] w-[16px] mr-2 dark:text-gray-400" />
+			<p class="dark:text-gray-400">Table</p>
 			<Button
 				class="workspaceSidemenuButtonIcon"
 				size="icon"
 			>
 				<Icon
 					name="tabler:dots"
-					class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600"
+					class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
 				/>
 			</Button>
 		</Button>
@@ -107,8 +118,8 @@
 		<!--CALENDAR-->
 		<Button class="group workspaceSidemenuButton flex justify-between">
 			<div class="flex">
-				<LogoCalendar class="h-[16px] w-[16px] mr-2" />
-				Calendar
+				<LogoCalendar class="h-[16px] w-[16px] mr-2 dark:text-gray-400" />
+				<p class="dark:text-gray-400">Calendar</p>
 			</div>
 			<Button
 				class="workspaceSidemenuButtonIcon"
@@ -116,7 +127,7 @@
 			>
 				<Icon
 					name="tabler:dots"
-					class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600"
+					class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
 				/>
 			</Button>
 		</Button>
@@ -126,21 +137,21 @@
 			<h1 class="font-bold text-[14px] block h-full">Your board</h1>
 			<div class="flex gap-1">
 				<Button
-					class="ml-auto mr-2 hoverButton bg-transparent h-[25px] w-[25px] opacityGray !rounded-sm"
-					size="icon"
-				>
-					<Icon
-						name="tabler:dots"
-						class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600"
-					/>
-				</Button>
-				<Button
 					class="workspaceSidemenuButtonIcon"
 					size="icon"
 				>
 					<Icon
+						name="tabler:dots"
+						class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
+					/>
+				</Button>
+				<Button
+					class="workspaceSidemenuButtonIcon dark:hover:!bg-transparent"
+					size="icon"
+				>
+					<Icon
 						name="ic:outline-plus"
-						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600"
+						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
 					/>
 				</Button>
 			</div>
@@ -155,7 +166,7 @@
 			:class="
 				route.params.bid != undefined &&
 				route.params.bid == board.id_str &&
-				'!bg-gray-300'
+				'workspaceSidemenuCurrentRouteButton'
 			"
 		>
 			<div class="inline-flex gap-1">
@@ -167,29 +178,30 @@
 					"
 					class="w-[24px] h-[20px] bg-cover rounded-sm"
 				/>
-				<span>{{ board.title }}</span>
+				<span class="dark:text-gray-400">{{ board.title }}</span>
 			</div>
 			<div>
 				<Button
 					class="workspaceSidemenuButtonIcon invisible group-hover:visible"
 					size="icon"
+					@click.stop
 				>
 					<Icon
 						name="tabler:dots"
-						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600"
+						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
 					/>
 				</Button>
 				<Button
 					class="workspaceSidemenuButtonIcon invisible group-hover:visible"
 					size="icon"
 					:class="board.is_favorited && 'visible'"
-					@click="favorite(board.id_str)"
+					@click.stop="favorite(board.id_str)"
 				>
 					<LogoFavorite
 						:class="
 							board.is_favorited
-								? 'fill-gray-600 stroke-gray-600 stroke-2 hover:fill-none'
-								: 'fill-transparent stroke-gray-600 stroke-2 transition-transform duration-100'
+								? 'fill-gray-600 dark:fill-gray-400 stroke-gray-600 dark:stroke-gray-400 stroke-2 hover:fill-none'
+								: 'fill-transparent stroke-gray-600 dark:stroke-gray-400 stroke-2 transition-transform duration-100'
 						"
 					/>
 				</Button>

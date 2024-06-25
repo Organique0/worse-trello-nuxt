@@ -6,7 +6,7 @@
 		<div>
 			<div class="flex gap-2">
 				<div
-					class="rounded-sm h-[60px] w-[60px] text-white font-bold text-[35px] flex justify-center items-center"
+					class="rounded-sm h-[60px] w-[60px] text-white dark:text-black font-bold text-[35px] flex justify-center items-center"
 					:class="getWorkspaceTypeColor(props.workspaceData.type)"
 				>
 					{{ props.workspaceData.title.charAt(0).toLocaleUpperCase() }}
@@ -20,7 +20,10 @@
 								class="bg-transparent hoverButton text-black h-[24px] w-[24px] p-0 m-0 !rounded-[4px]"
 								@click="editOpen = !editOpen"
 							>
-								<Icon name="clarity:edit-line" />
+								<Icon
+									name="clarity:edit-line"
+									class="dark:text-white"
+								/>
 							</Button>
 						</h2>
 						<span class="text-xs font-light">{{

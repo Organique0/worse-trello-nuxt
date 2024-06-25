@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="w-[340px] border h-full"
+		class="w-[340px] border h-full dark:bg-black/40"
 		v-if="workspaceData != undefined"
 	>
 		<div class="flex gap-2 border-b p-3">

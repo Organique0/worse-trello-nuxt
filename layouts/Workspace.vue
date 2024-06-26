@@ -1,7 +1,8 @@
 <template>
 	<LoggedInHeaderShad />
-	<div class="flex flex-row flex-1 relative overflow-y-auto h-[100vh]">
+	<div class="flex flex-row flex-1 relative overflow-y-auto h-full">
 		<WorkspaceSidebar
+			class="relative"
 			:currentWorkspaceData="workspaceData"
 			v-if="workspaceData"
 		/>
@@ -33,20 +34,21 @@
 	watch(
 		() => route.fullPath,
 		async () => {
-			updateWorkspaceData();
+			await updateWorkspaceData();
 		}
 	);
 
 	async function updateWorkspaceData() {
+		console.log("udpating");
 		if (route.params.wid !== undefined) {
 			workspaceData.value = myWorkspaceStore.getWorkspace(
 				route.params.wid as string
 			);
-		} else if (route.params.bid !== undefined) {
+		} /* else if (route.params.bid !== undefined) {
 			const board = myWorkspaceStore.getBoardById(route.params.bid as string);
 			workspaceData.value = myWorkspaceStore.getWorkspace(
 				board.workspace_id_str
 			);
-		}
+		} */
 	}
 </script>

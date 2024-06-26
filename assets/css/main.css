@@ -199,3 +199,15 @@
 		margin-right: 8px;
 	}
 }
+
+.centerIcon {
+	@apply inline-flex items-center justify-center;
+}
+
+.myPopoverContent {
+	@apply w-[304px] bg-white dark:bg-popover pb-2 pt-4 px-2 rounded-lg shadow-lg;
+}
+
+.myPopoverTitle {
+	@apply mb-3 text-center font-medium text-sm mt-[2px];
+}

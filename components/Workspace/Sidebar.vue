@@ -1,24 +1,24 @@
 <template>
 	<div
 		class="w-[340px] border h-full dark:bg-black/40"
-		v-if="workspaceData != undefined"
+		v-if="currentWorkspaceData != undefined"
 	>
 		<div class="flex gap-2 border-b p-3">
 			<div
 				class="rounded-sm h-[32px] w-[32px] text-white dark:text-black font-bold text-[20px] flex justify-center items-center"
-				:class="getWorkspaceTypeColor(workspaceData.type)"
+				:class="getWorkspaceTypeColor(currentWorkspaceData.type)"
 			>
-				{{ workspaceData.title.charAt(0).toLocaleUpperCase() }}
+				{{ currentWorkspaceData.title.charAt(0).toLocaleUpperCase() }}
 			</div>
 
 			<div class="items-center leading-5">
 				<h2 class="text-[15px] font-bold leading-3">
-					{{ workspaceData.title }}
+					{{ currentWorkspaceData.title }}
 				</h2>
 
 				<span class="text-xs font-light">{{
-					workspaceData.visibility.charAt(0).toUpperCase() +
-					workspaceData.visibility.substring(1)
+					currentWorkspaceData.visibility.charAt(0).toUpperCase() +
+					currentWorkspaceData.visibility.substring(1)
 				}}</span>
 			</div>
 
@@ -40,7 +40,7 @@
 					route.path == `/w/${route.params.wid}` &&
 					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
 				"
-				@click="() => router.push('/w/' + workspaceData?.id_str)"
+				@click="() => router.push('/w/' + currentWorkspaceData?.id_str)"
 			>
 				<Icon
 					name="mdi:trello"
@@ -55,7 +55,9 @@
 					route.path.includes('members') &&
 					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
 				"
-				@click="() => router.push('/w/' + workspaceData?.id_str + '/members')"
+				@click="
+					() => router.push('/w/' + currentWorkspaceData?.id_str + '/members')
+				"
 			>
 				<Icon
 					name="solar:user-linear"
@@ -79,7 +81,9 @@
 					route.path.includes('account') &&
 					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
 				"
-				@click="() => router.push('/w/' + workspaceData?.id_str + '/account')"
+				@click="
+					() => router.push('/w/' + currentWorkspaceData?.id_str + '/account')
+				"
 			>
 				<LogoSettings class="h-[16px] w-[16px] mr-2" />
 				Workspace settings
@@ -134,26 +138,69 @@
 
 		<!--YOUR BOARD-->
 		<div class="flex ml-3 mt-3 justify-between group">
-			<h1 class="font-bold text-[14px] block h-full">Your board</h1>
+			<h1 class="font-bold text-[14px] block h-full">Your boards</h1>
 			<div class="flex gap-1">
-				<Button
-					class="workspaceSidemenuButtonIcon"
-					size="icon"
-				>
-					<Icon
-						name="tabler:dots"
-						class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
+				<PopoverRoot>
+					<PopoverTrigger
+						class="workspaceSidemenuButtonIcon dark:hover:!bg-transparent centerIcon"
+					>
+						<Icon
+							name="tabler:dots"
+							class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
+						/>
+					</PopoverTrigger>
+					<PopoverPortal>
+						<PopoverContent
+							class="myPopoverContent"
+							align="start"
+							side="bottom"
+						>
+							<div>
+								<h1 class="myPopoverTitle">Your boards</h1>
+								<PopoverClose
+									class="hoverButton centerIcon absolute right-[10px] top-[14px] h-[30px] w-[30px] rounded-md"
+								>
+									<Icon
+										name="bitcoin-icons:cross-filled"
+										class="h-4 w-4"
+								/></PopoverClose>
+							</div>
+							<p>Sort</p>
+							<Select
+								defaultValue="mostRecent"
+								v-model="sortBy"
+							>
+								<SelectTrigger>
+									<SelectValue placeholder="Most recent active" />
+								</SelectTrigger>
+								<SelectContent class="rounded-none py-2">
+									<SelectGroup>
+										<SelectItemTheme value="az">
+											Sort alphabetically
+										</SelectItemTheme>
+										<SelectItemTheme value="mostRecent">
+											Sort by most recent
+										</SelectItemTheme>
+									</SelectGroup>
+								</SelectContent>
+							</Select>
+						</PopoverContent>
+					</PopoverPortal>
+				</PopoverRoot>
+
+				<PopoverRoot>
+					<PopoverTrigger
+						class="workspaceSidemenuButtonIcon dark:hover:!bg-transparent centerIcon"
+					>
+						<Icon
+							name="ic:outline-plus"
+							class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
+						/>
+					</PopoverTrigger>
+					<NewBoardPopoverContent
+						:selectedWorkspaceId_str="currentWorkspaceData?.id_str"
 					/>
-				</Button>
-				<Button
-					class="workspaceSidemenuButtonIcon dark:hover:!bg-transparent"
-					size="icon"
-				>
-					<Icon
-						name="ic:outline-plus"
-						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
-					/>
-				</Button>
+				</PopoverRoot>
 			</div>
 		</div>
 
@@ -161,8 +208,8 @@
 
 		<Button
 			class="group workspaceSidemenuButton !justify-between"
-			v-for="board in workspaceData.workspace_boards"
-			@click="() => router.replace(`/b/${board.id_str}`)"
+			v-for="board in sortedBoards"
+			@click="() => router.push(`/b/${board.id_str}`)"
 			:class="
 				route.params.bid != undefined &&
 				route.params.bid == board.id_str &&
@@ -181,16 +228,99 @@
 				<span class="dark:text-gray-400">{{ board.title }}</span>
 			</div>
 			<div>
-				<Button
-					class="workspaceSidemenuButtonIcon invisible group-hover:visible"
-					size="icon"
-					@click.stop
-				>
-					<Icon
-						name="tabler:dots"
-						class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
-					/>
-				</Button>
+				<PopoverRoot v-model:defaultOpen="popoverOpen">
+					<PopoverTrigger
+						@click.prevent
+						@click="togglePopover"
+						class="workspaceSidemenuButtonIcon invisible group-hover:visible centerIcon"
+					>
+						<Icon
+							name="tabler:dots"
+							class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
+						/>
+					</PopoverTrigger>
+					<PopoverPortal>
+						<PopoverContent
+							v-if="!closeBoardOpen"
+							class="myPopoverContent !px-0"
+							align="start"
+							side="bottom"
+						>
+							<!--HEADER-->
+							<div class="flex justify-between">
+								<div class="w-[32px] ml-2" />
+								<h1 class="font-semibold text-sm flex items-center">
+									{{ board.title }}
+								</h1>
+								<PopoverClose
+									class="w-[32px] h-[32px] hoverButton centerIcon mr-2"
+								>
+									<Icon
+										name="material-symbols:close"
+										class="text-gray-600 hover:!text-gray-600 dark:text-gray-400"
+									/>
+								</PopoverClose>
+							</div>
+
+							<!--CLOSE-->
+							<Button
+								class="hoverButton w-full flex justify-between bg-transparent text-black mt-2 !rounded-none h-9"
+								@click="toggleCloseBoardOpen"
+							>
+								Close board
+								<Icon
+									name="tabler:chevron-right"
+									class="w-[18px] h-[18px] text-black dark:text-gray-400"
+							/></Button>
+						</PopoverContent>
+						<PopoverContent
+							v-else
+							class="myPopoverContent"
+							align="start"
+							side="bottom"
+						>
+							<!--HEADER-->
+							<div class="flex justify-between">
+								<Button
+									class="w-[32px] h-[32px] hoverButton centerIcon bg-transparent"
+									size="icon"
+									@click="toggleCloseBoardOpen"
+								>
+									<Icon
+										name="tabler:chevron-left"
+										class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400"
+									/>
+								</Button>
+								<h1 class="font-semibold text-sm flex items-center">
+									Close board?
+								</h1>
+								<PopoverClose class="w-[32px] h-[32px] hoverButton centerIcon">
+									<Icon
+										name="material-symbols:close"
+										class="text-gray-600 hover:!text-gray-600 dark:text-gray-400"
+									/>
+								</PopoverClose>
+							</div>
+
+							<p class="p-2 text-sm">
+								You can find and reopen closed boards at the bottom of
+								<a
+									@click="() => router.push('/u/' + user?.id + '/boards')"
+									class="underline cursor-pointer"
+									>your boards page.</a
+								>
+							</p>
+
+							<!--CLOSE-->
+							<PopoverClose
+								class="w-full bg-transparent text-white mt-2 bg-red-700 hover:bg-red-800 text-center h-9"
+								@click="closeBoard(board.id_str)"
+							>
+								Close
+							</PopoverClose>
+						</PopoverContent>
+					</PopoverPortal>
+				</PopoverRoot>
 				<Button
 					class="workspaceSidemenuButtonIcon invisible group-hover:visible"
 					size="icon"
@@ -215,25 +345,70 @@
 	import { useRoute } from "vue-router";
 	import type { Board, Workspace } from "../../lib/types";
 	import { giveBackgroundImage, getWorkspaceTypeColor } from "~/lib/utils";
-
+	import {
+		PopoverAnchor,
+		PopoverArrow,
+		PopoverClose,
+		PopoverContent,
+		PopoverPortal,
+		PopoverRoot,
+		PopoverTrigger,
+	} from "radix-vue";
+	import NewBoardPopoverContent from "../UI/NewBoardPopoverContent.vue";
 	const props = defineProps<{
 		currentWorkspaceData: Workspace;
 	}>();
 
 	const { currentWorkspaceData } = toRefs(props);
-	const workspaceData = currentWorkspaceData.value;
 	const route = useRoute();
 	const router = useRouter();
+	const sortBy = ref("mostRecent");
+	const closeBoardOpen = ref(false);
+	const popoverOpen = ref(false);
+	const { closeBoard, workspaces } = useMyWorkspaceStore();
 
-	//const starredRef = ref(props.board.is_favorited);
+	const { user } = useMyUserStore();
 
+	const toggleCloseBoardOpen = () => {
+		closeBoardOpen.value = !closeBoardOpen.value;
+	};
+
+	const togglePopover = () => {
+		popoverOpen.value = false;
+		closeBoardOpen.value = false;
+	};
+
+	const createBoard = () => {};
+
+	const sortedBoards = computed(() => {
+		const sorted = currentWorkspaceData.value.workspace_boards.filter(
+			(board) => !board.closed
+		);
+
+		switch (sortBy.value) {
+			case "mostRecent":
+				return sorted
+					.slice()
+					.sort(
+						(a, b) =>
+							new Date(b.updated_at).getTime() -
+							new Date(a.updated_at).getTime()
+					);
+			case "az":
+				return sorted.slice().sort((a, b) => a.title.localeCompare(b.title));
+			default:
+				return sorted;
+		}
+	});
+
+	//favorite locally before the request is send to make it faster
 	async function favorite(id: string) {
-		if (!workspaceData) {
-			console.error("workspaceData is undefined");
+		if (!currentWorkspaceData) {
+			console.error("currentWorkspaceData is undefined");
 			return;
 		}
 
-		const boardIndex = workspaceData.workspace_boards.findIndex(
+		const boardIndex = currentWorkspaceData.value.workspace_boards.findIndex(
 			(board: Board) => board.id_str === id
 		);
 
@@ -243,11 +418,16 @@
 		}
 
 		const updatedBoard = {
-			...workspaceData.workspace_boards[boardIndex],
-			is_favorited: !workspaceData.workspace_boards[boardIndex].is_favorited,
+			...currentWorkspaceData.value.workspace_boards[boardIndex],
+			is_favorited:
+				!currentWorkspaceData.value.workspace_boards[boardIndex].is_favorited,
 		};
 
-		workspaceData.workspace_boards.splice(boardIndex, 1, updatedBoard);
+		currentWorkspaceData.value.workspace_boards.splice(
+			boardIndex,
+			1,
+			updatedBoard
+		);
 
 		try {
 			await $larafetch("api/boards/favorite", {
@@ -256,11 +436,10 @@
 			});
 		} catch (error) {
 			console.error("Error favoriting board:", error);
-			// Revert the local state change if the API request fails
-			workspaceData.workspace_boards.splice(
+			currentWorkspaceData.value.workspace_boards.splice(
 				boardIndex,
 				1,
-				workspaceData.workspace_boards[boardIndex]
+				currentWorkspaceData.value.workspace_boards[boardIndex]
 			);
 		}
 	}

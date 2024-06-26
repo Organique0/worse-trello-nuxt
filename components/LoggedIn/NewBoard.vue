@@ -1,6 +1,6 @@
 <template>
 	<div :class="props.class">
-		<h1 class="mb-3 text-center font-medium text-sm mt-[2px]">Create board</h1>
+		<h1 class="myPopoverTitle">Create board</h1>
 
 		<div
 			:style="
@@ -15,14 +15,6 @@
 
 		<p class="mb-2 mt-6 text-xs font-medium">Background</p>
 		<div class="mb-2">
-			<!-- 			<NuxtImg
-				v-for="image in boardPhotos?.slice(0, 4)"
-				:key="image.id"
-				:src="image.urls.regular"
-				width="64"
-				height="40"
-				class="rounded-sm w-[64px] h-[40px]"
-			/> -->
 			<ul class="flex gap-2">
 				<li
 					v-for="image in boardPhotos?.slice(0, 4)"
@@ -50,18 +42,6 @@
 			</ul>
 		</div>
 		<div class="mb-4 flex justify-between">
-			<!-- 			<img
-				v-for="bg in bgColors"
-				:key="bg"
-				:src="bg"
-				class="h-[32px] w-[40px] rounded-sm cursor-pointer"
-				@click="
-					() => {
-						selectedPhoto = null;
-						selectedColor = bg;
-					}
-				"
-			/> -->
 			<ul class="flex gap-2 max-w-full">
 				<li
 					v-for="bg in bgColors.slice(0, 5)"
@@ -181,6 +161,20 @@
 		>
 			Start with a template
 		</Button>
+		<p class="text-[12px] leading-4 my-1">
+			By using images from Unsplash, you agree to their
+			<a
+				href="https://unsplash.com/license"
+				class="hover:underline"
+				>licence</a
+			>
+			and
+			<a
+				href="https://unsplash.com/terms"
+				class="hover:underline"
+				>Terms of Service</a
+			>
+		</p>
 	</div>
 </template>
 
@@ -206,7 +200,6 @@
 	import { _backgroundImage } from "#tailwind-config/theme";
 	import type { Icon } from "lucide-vue-next";
 	import { giveBackgroundImage } from "~/lib/utils";
-	import type { Board } from "~/lib/types";
 
 	const props = defineProps({
 		class: {

@@ -61,16 +61,18 @@
 							<PopoverContent
 								side="bottom"
 								align="start"
-								class="w-[304px] bg-white dark:bg-popover py-2 px-2 rounded-lg shadow-lg"
+								class="myPopoverContent"
 							>
 								<div class="flex justify-between">
 									<div class="w-[32px]" />
 									<h1 class="font-semibold text-sm flex items-center">
 										Collections
 									</h1>
-									<PopoverClose class="w-[32px] h-[32px] hoverButton"
-										>x</PopoverClose
+									<PopoverClose
+										class="w-[32px] h-[32px] hoverButton centerIcon"
 									>
+										<Icon name="material-symbols:close" />
+									</PopoverClose>
 								</div>
 
 								<div class="max-h-[795px] mt-4">
@@ -165,7 +167,7 @@
 	const searchValue = ref("");
 
 	const sortedBoards = computed(() => {
-		const sorted = [...boards.value];
+		const sorted = [...boards.value.filter((board) => !board.closed)];
 		switch (sortBy.value) {
 			case "mostRecent":
 				sorted.sort(

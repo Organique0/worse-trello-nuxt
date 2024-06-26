@@ -60,6 +60,21 @@ export const useMyWorkspaceStore = defineStore({
     async deleteBoard(bid: string) {
       const response = await $larafetch("api/boards/delete", {
         method: "delete",
+        body: {
+          'board_id': bid
+        }
+      });
+      await this.loadWorkspaces();
+
+      return response;
+    },
+
+    async closeBoard(bid: string) {
+      const response = await $larafetch("api/boards/close", {
+        method: "put",
+        body: {
+          'board_id': bid
+        }
       });
       await this.loadWorkspaces();
 

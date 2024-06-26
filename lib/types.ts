@@ -20,6 +20,7 @@ export interface Board {
     workspace_id_str: string;
     is_favorited: boolean;
     visibility: string;
+    closed: boolean
 };
 
 export interface CreateWorkspaceValues {

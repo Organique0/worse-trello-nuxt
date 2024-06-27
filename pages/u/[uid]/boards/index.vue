@@ -28,7 +28,7 @@
 		<h1 class="mb-6 font-bold">YOUR WORKSPACES</h1>
 
 		<div
-			v-for="workspace in myWorkspaceStore.workspaces"
+			v-for="workspace in workspaces"
 			:key="workspace.title"
 			class="mb-14"
 		>
@@ -95,9 +95,11 @@
 		middleware: ["auth"],
 	});
 
-	const myWorkspaceStore = useMyWorkspaceStore();
+	const { loadRecentBoards, recentBoards, workspaces } = useMyWorkspaceStore();
+
 	const router = useRouter();
 
-	myWorkspaceStore.loadRecentBoards();
-	const recentBoards = ref(myWorkspaceStore.recentBoards);
+	onMounted(() => {
+		loadRecentBoards();
+	});
 </script>

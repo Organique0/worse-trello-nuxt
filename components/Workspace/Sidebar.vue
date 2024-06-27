@@ -1,24 +1,21 @@
 <template>
-	<div
-		class="w-[340px] border h-full dark:bg-black/40"
-		v-if="currentWorkspaceData != undefined"
-	>
+	<div class="w-[340px] border h-full dark:bg-black/40">
 		<div class="flex gap-2 border-b p-3">
 			<div
 				class="rounded-sm h-[32px] w-[32px] text-white dark:text-black font-bold text-[20px] flex justify-center items-center"
-				:class="getWorkspaceTypeColor(currentWorkspaceData.type)"
+				:class="getWorkspaceTypeColor(currentWorkspace.type)"
 			>
-				{{ currentWorkspaceData.title.charAt(0).toLocaleUpperCase() }}
+				{{ currentWorkspace.title.charAt(0).toLocaleUpperCase() }}
 			</div>
 
 			<div class="items-center leading-5">
 				<h2 class="text-[15px] font-bold leading-3">
-					{{ currentWorkspaceData.title }}
+					{{ currentWorkspace.title }}
 				</h2>
 
 				<span class="text-xs font-light">{{
-					currentWorkspaceData.visibility.charAt(0).toUpperCase() +
-					currentWorkspaceData.visibility.substring(1)
+					currentWorkspace.visibility.charAt(0).toUpperCase() +
+					currentWorkspace.visibility.substring(1)
 				}}</span>
 			</div>
 
@@ -40,7 +37,7 @@
 					route.path == `/w/${route.params.wid}` &&
 					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
 				"
-				@click="() => router.push('/w/' + currentWorkspaceData?.id_str)"
+				@click="() => router.push('/w/' + currentWorkspace?.id_str)"
 			>
 				<Icon
 					name="mdi:trello"
@@ -56,7 +53,7 @@
 					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
 				"
 				@click="
-					() => router.push('/w/' + currentWorkspaceData?.id_str + '/members')
+					() => router.push('/w/' + currentWorkspace?.id_str + '/members')
 				"
 			>
 				<Icon
@@ -82,7 +79,7 @@
 					'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
 				"
 				@click="
-					() => router.push('/w/' + currentWorkspaceData?.id_str + '/account')
+					() => router.push('/w/' + currentWorkspace?.id_str + '/account')
 				"
 			>
 				<LogoSettings class="h-[16px] w-[16px] mr-2" />
@@ -197,9 +194,7 @@
 							class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
 						/>
 					</PopoverTrigger>
-					<NewBoardPopoverContent
-						:selectedWorkspaceId_str="currentWorkspaceData?.id_str"
-					/>
+					<NewBoardPopoverContent />
 				</PopoverRoot>
 			</div>
 		</div>
@@ -230,7 +225,7 @@
 			<div>
 				<PopoverRoot v-model:defaultOpen="popoverOpen">
 					<PopoverTrigger
-						@click.prevent
+						@click.stop
 						@click="togglePopover"
 						class="workspaceSidemenuButtonIcon invisible group-hover:visible centerIcon"
 					>
@@ -338,7 +333,6 @@
 			</div>
 		</Button>
 	</div>
-	<div v-else>no data</div>
 </template>
 
 <script lang="ts" setup>
@@ -355,17 +349,18 @@
 		PopoverTrigger,
 	} from "radix-vue";
 	import NewBoardPopoverContent from "../UI/NewBoardPopoverContent.vue";
-	const props = defineProps<{
-		currentWorkspaceData: Workspace;
-	}>();
 
-	const { currentWorkspaceData } = toRefs(props);
 	const route = useRoute();
 	const router = useRouter();
 	const sortBy = ref("mostRecent");
 	const closeBoardOpen = ref(false);
 	const popoverOpen = ref(false);
-	const { closeBoard, workspaces } = useMyWorkspaceStore();
+
+	const props = defineProps<{
+		currentWorkspace: Workspace;
+	}>();
+
+	const { closeBoard, favorite, createBoard } = useMyWorkspaceStore();
 
 	const { user } = useMyUserStore();
 
@@ -378,69 +373,26 @@
 		closeBoardOpen.value = false;
 	};
 
-	const createBoard = () => {};
-
 	const sortedBoards = computed(() => {
-		const sorted = currentWorkspaceData.value.workspace_boards.filter(
+		const sorted = props.currentWorkspace?.workspace_boards.filter(
 			(board) => !board.closed
 		);
 
-		switch (sortBy.value) {
-			case "mostRecent":
-				return sorted
-					.slice()
-					.sort(
-						(a, b) =>
-							new Date(b.updated_at).getTime() -
-							new Date(a.updated_at).getTime()
-					);
-			case "az":
-				return sorted.slice().sort((a, b) => a.title.localeCompare(b.title));
-			default:
-				return sorted;
+		if (sorted) {
+			switch (sortBy.value) {
+				case "mostRecent":
+					return sorted
+						.slice()
+						.sort(
+							(a, b) =>
+								new Date(b.updated_at).getTime() -
+								new Date(a.updated_at).getTime()
+						);
+				case "az":
+					return sorted.slice().sort((a, b) => a.title.localeCompare(b.title));
+				default:
+					return sorted;
+			}
 		}
 	});
-
-	//favorite locally before the request is send to make it faster
-	async function favorite(id: string) {
-		if (!currentWorkspaceData) {
-			console.error("currentWorkspaceData is undefined");
-			return;
-		}
-
-		const boardIndex = currentWorkspaceData.value.workspace_boards.findIndex(
-			(board: Board) => board.id_str === id
-		);
-
-		if (boardIndex === -1) {
-			console.error(`Board with id ${id} not found`);
-			return;
-		}
-
-		const updatedBoard = {
-			...currentWorkspaceData.value.workspace_boards[boardIndex],
-			is_favorited:
-				!currentWorkspaceData.value.workspace_boards[boardIndex].is_favorited,
-		};
-
-		currentWorkspaceData.value.workspace_boards.splice(
-			boardIndex,
-			1,
-			updatedBoard
-		);
-
-		try {
-			await $larafetch("api/boards/favorite", {
-				method: "post",
-				body: { id_str: id },
-			});
-		} catch (error) {
-			console.error("Error favoriting board:", error);
-			currentWorkspaceData.value.workspace_boards.splice(
-				boardIndex,
-				1,
-				currentWorkspaceData.value.workspace_boards[boardIndex]
-			);
-		}
-	}
 </script>

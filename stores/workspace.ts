@@ -7,6 +7,7 @@ export const useMyWorkspaceStore = defineStore({
     return {
       workspaces: [] as Workspace[],
       recentBoards: [] as Board[],
+      currentWorkspace: null as Workspace | null
     }
   },
   getters: {
@@ -18,6 +19,9 @@ export const useMyWorkspaceStore = defineStore({
     },
     getBoardById: (state) => {
       return (bid: string) => state.workspaces.flatMap(workspace => workspace.workspace_boards).find(board => board.id_str === bid) as Board
+    },
+    setCurrentWorkspace: (state) => {
+      return (workspace: Workspace) => state.currentWorkspace = workspace
     }
   },
   actions: {
@@ -34,17 +38,16 @@ export const useMyWorkspaceStore = defineStore({
         method: "get",
       });
 
-      this.workspaces.push(response as never);
-
-      return await response;
+      this.workspaces = await response;
     },
 
     async createWorkspace(values: CreateWorkspaceValues) {
-      await $larafetch("api/workspaces/create", {
+      const response = await $larafetch("api/workspaces/create", {
         method: "post",
         body: values,
       });
-      await this.loadWorkspaces();
+
+      this.workspaces = [...this.workspaces, response];
     },
 
     async createBoard(values: any) {
@@ -52,9 +55,55 @@ export const useMyWorkspaceStore = defineStore({
         method: "post",
         body: values,
       });
-      await this.loadWorkspaces();
+
+      this.$patch((state) => {
+        if (state.currentWorkspace) {
+          state.currentWorkspace.workspace_boards = [
+            ...state.currentWorkspace.workspace_boards,
+            response,
+          ];
+        } else {
+          console.error("Current workspace is not set");
+        }
+      });
 
       return response;
+    },
+
+    async favorite(id: string) {
+      if (!this.currentWorkspace) {
+        console.error("currentWorkspace is undefined");
+        return;
+      }
+
+      const boardIndex = this.currentWorkspace.workspace_boards.findIndex(
+        (board: Board) => board.id_str === id
+      );
+
+      if (boardIndex === -1) {
+        console.error(`Board with id ${id} not found`);
+        return;
+      };
+      const updatedBoard = {
+        ...this.currentWorkspace.workspace_boards[boardIndex],
+        is_favorited: !this.currentWorkspace.workspace_boards[boardIndex].is_favorited,
+      };
+
+      this.currentWorkspace.workspace_boards.splice(boardIndex, 1, updatedBoard);
+
+      try {
+        await $larafetch("api/boards/favorite", {
+          method: "post",
+          body: { id_str: id },
+        });
+      } catch (error) {
+        console.error("Error favoriting board:", error);
+        this.currentWorkspace.workspace_boards.splice(
+          boardIndex,
+          1,
+          this.currentWorkspace.workspace_boards[boardIndex]
+        );
+      }
     },
 
     async deleteBoard(bid: string) {
@@ -64,10 +113,16 @@ export const useMyWorkspaceStore = defineStore({
           'board_id': bid
         }
       });
-      await this.loadWorkspaces();
+
+      this.$patch((state) => {
+        if (state.currentWorkspace) {
+          state.currentWorkspace.workspace_boards = state.currentWorkspace.workspace_boards.filter(board => board.id_str !== bid);
+        }
+      });
 
       return response;
     },
+
 
     async closeBoard(bid: string) {
       const response = await $larafetch("api/boards/close", {
@@ -76,10 +131,30 @@ export const useMyWorkspaceStore = defineStore({
           'board_id': bid
         }
       });
-      await this.loadWorkspaces();
+
+      // Find the index of the board in the workspace_boards array
+      const boardIndex = this.currentWorkspace!.workspace_boards.findIndex(board => board.id_str === bid);
+
+      if (boardIndex !== -1) {
+        // Create a new object with the closed property set to true
+        const updatedBoard = {
+          ...this.currentWorkspace!.workspace_boards[boardIndex],
+          closed: true
+        };
+
+        // Replace the existing board with the updated board
+        this.$patch((state) => {
+          if (state.currentWorkspace) {
+            state.currentWorkspace.workspace_boards.splice(boardIndex, 1, updatedBoard);
+          }
+        });
+      } else {
+        console.error(`Board with id ${bid} not found`);
+      }
 
       return response;
     },
+
 
     addRecentId(id: string) {
       const recentBoardsCookie = useCookie<String[]>("recentBoards", {

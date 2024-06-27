@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="w-[100%-4vw] mx-[3vw]"
-		v-if="workspaceData"
+		v-if="currentWorkspace"
 	>
 		<hr class="w-full p-0 my-[16px]" />
 
@@ -126,7 +126,7 @@
 		<div class="mt-6">
 			<ul class="flex flex-wrap justify-start">
 				<li class="boardsList">
-					<LoggedInEmptyBoard :selectedWorkspaceId_str="workspaceData.id_str" />
+					<LoggedInEmptyBoard />
 				</li>
 				<li
 					v-for="board in sortedBoards"
@@ -160,50 +160,48 @@
 	});
 
 	const route = useRoute();
-	const workspaceData = ref<Workspace | null>(null);
 	const boards = ref<Board[]>([]);
 	const sortBy = ref("az");
-	const myWorkspaceStore = useMyWorkspaceStore();
+	const { currentWorkspace } = useMyWorkspaceStore();
 	const searchValue = ref("");
 
 	const sortedBoards = computed(() => {
-		const sorted = [...boards.value.filter((board) => !board.closed)];
-		switch (sortBy.value) {
-			case "mostRecent":
-				sorted.sort(
-					(a, b) =>
-						new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime()
-				);
-				break;
-			case "leastRecent":
-				sorted.sort(
-					(a, b) =>
-						new Date(a.updated_at).getTime() - new Date(b.updated_at).getTime()
-				);
-				break;
-			case "az":
-				sorted.sort((a, b) => a.title.localeCompare(b.title));
-				break;
-			case "za":
-				sorted.sort((a, b) => b.title.localeCompare(a.title));
-				break;
-		}
+		var sorted = null;
+		if (currentWorkspace) {
+			sorted = [
+				...currentWorkspace.workspace_boards.filter((board) => !board.closed),
+			];
 
-		if (searchValue.value) {
-			return sorted.filter((board) =>
-				board.title.toLowerCase().includes(searchValue.value.toLowerCase())
-			);
-		}
+			switch (sortBy.value) {
+				case "mostRecent":
+					sorted.sort(
+						(a, b) =>
+							new Date(b.updated_at).getTime() -
+							new Date(a.updated_at).getTime()
+					);
+					break;
+				case "leastRecent":
+					sorted.sort(
+						(a, b) =>
+							new Date(a.updated_at).getTime() -
+							new Date(b.updated_at).getTime()
+					);
+					break;
+				case "az":
+					sorted.sort((a, b) => a.title.localeCompare(b.title));
+					break;
+				case "za":
+					sorted.sort((a, b) => b.title.localeCompare(a.title));
+					break;
+			}
 
+			if (searchValue.value) {
+				return sorted.filter((board) =>
+					board.title.toLowerCase().includes(searchValue.value.toLowerCase())
+				);
+			}
+		}
 		return sorted;
-	});
-
-	onMounted(() => {
-		const workspaceId = route.params.wid as string;
-		workspaceData.value = myWorkspaceStore.getWorkspace(workspaceId);
-		if (workspaceData.value) {
-			boards.value = workspaceData.value.workspace_boards || [];
-		}
 	});
 
 	watch(sortBy, (newValue) => {

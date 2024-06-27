@@ -162,7 +162,7 @@
 }
 
 .workspaceSidemenuCurrentRouteButton {
-	@apply dark:!bg-gray-300/30 dark:hover:!bg-gray-500/30;
+	@apply dark:!bg-gray-300/30 dark:hover:!bg-gray-500/30 bg-gray-200;
 }
 
 .boardsList {

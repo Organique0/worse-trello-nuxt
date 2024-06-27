@@ -15,9 +15,7 @@
 					name="bitcoin-icons:cross-filled"
 					class="h-4 w-4"
 			/></PopoverClose>
-			<LoggedInNewBoard
-				:selectedWorkspaceId_str="props.selectedWorkspaceId_str"
-			/>
+			<LoggedInNewBoard :selectedWorkspaceId_str="currentWorkspace?.id_str" />
 		</PopoverContent>
 	</PopoverPortal>
 </template>
@@ -33,8 +31,9 @@
 		PopoverTrigger,
 	} from "radix-vue";
 
+	const { currentWorkspace } = useMyWorkspaceStore();
+
 	interface Props {
-		selectedWorkspaceId_str: string;
 		align?: "center" | "start" | "end" | undefined;
 		side?: "top" | "right" | "bottom" | "left" | undefined;
 	}

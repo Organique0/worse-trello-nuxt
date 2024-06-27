@@ -2,13 +2,12 @@
 	<PopoverRoot>
 		<PopoverTrigger
 			class="hoverButtonWithBg flex !h-[100px] cursor-pointer items-center justify-center rounded-sm"
-			:class="class"
+			:class="props.class"
 			as-child
 		>
 			<p>Create new board</p>
 		</PopoverTrigger>
 		<NewBoardPopoverContent
-			:selectedWorkspaceId_str="props.selectedWorkspaceId_str"
 			side="right"
 			align="start"
 		/>
@@ -27,10 +26,6 @@
 	} from "radix-vue";
 	import NewBoardPopoverContent from "../UI/NewBoardPopoverContent.vue";
 	const props = defineProps({
-		selectedWorkspaceId_str: {
-			type: String,
-			required: true,
-		},
 		class: {
 			type: String,
 			required: false,

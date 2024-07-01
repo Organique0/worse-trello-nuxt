@@ -1,7 +1,10 @@
 <template>
 	<div class="w-full max-w-[825px] min-w-[288px] mt-[40px] mx-[16px]">
 		<div
-			v-if="recentBoards && recentBoards.length > 0"
+			v-if="
+				myWorkspaceStore.recentBoards &&
+				myWorkspaceStore.recentBoards.length > 0
+			"
 			class="mb-16"
 		>
 			<div class="flex gap-x-3">
@@ -15,7 +18,7 @@
 			<div class="">
 				<ul class="flex flex-wrap justify-start">
 					<li
-						v-for="board in recentBoards"
+						v-for="board in myWorkspaceStore.recentBoards"
 						:key="board.id_str"
 						class="boardsList"
 					>
@@ -26,9 +29,8 @@
 		</div>
 
 		<h1 class="mb-6 font-bold">YOUR WORKSPACES</h1>
-
 		<div
-			v-for="workspace in workspaces"
+			v-for="workspace in myWorkspaceStore.workspaces"
 			:key="workspace.title"
 			class="mb-14"
 		>
@@ -95,11 +97,11 @@
 		middleware: ["auth"],
 	});
 
-	const { loadRecentBoards, recentBoards, workspaces } = useMyWorkspaceStore();
+	const myWorkspaceStore = useMyWorkspaceStore();
 
 	const router = useRouter();
 
 	onMounted(() => {
-		loadRecentBoards();
+		myWorkspaceStore.loadRecentBoards();
 	});
 </script>

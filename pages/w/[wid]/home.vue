@@ -3,7 +3,7 @@
 		v-if="workspaceData"
 		class="mx-[16px] mt-[40px] w-full min-w-[288px] max-w-[825px]"
 	>
-		<WorkspaceInfoHeader :workspaceData="workspaceData" />
+		<WorkspaceInfoHeader />
 		<hr class="w-full p-0 my-[16px]" />
 
 		<div class="pl-[14px]">

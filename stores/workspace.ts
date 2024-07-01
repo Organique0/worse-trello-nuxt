@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Board, CreateWorkspaceValues, Workspace } from '~/lib/types';
+import type { Board, CreateWorkspaceValues, List, Workspace } from '~/lib/types';
 
 export const useMyWorkspaceStore = defineStore({
   id: 'myWorkspaceStore',
@@ -7,7 +7,8 @@ export const useMyWorkspaceStore = defineStore({
     return {
       workspaces: [] as Workspace[],
       recentBoards: [] as Board[],
-      currentWorkspace: null as Workspace | null
+      currentWorkspace: null as Workspace | null,
+      currentBoard: null as Board | null,
     }
   },
   getters: {
@@ -22,6 +23,9 @@ export const useMyWorkspaceStore = defineStore({
     },
     setCurrentWorkspace: (state) => {
       return (workspace: Workspace) => state.currentWorkspace = workspace
+    },
+    setCurrentBoard: (state) => {
+      return (board: Board) => state.currentBoard = board
     }
   },
   actions: {
@@ -47,7 +51,7 @@ export const useMyWorkspaceStore = defineStore({
         body: values,
       });
 
-      this.workspaces = [...this.workspaces, response];
+      this.workspaces = [...this.workspaces, response.workspace];
     },
 
     async createBoard(values: any) {
@@ -60,7 +64,7 @@ export const useMyWorkspaceStore = defineStore({
         if (state.currentWorkspace) {
           state.currentWorkspace.workspace_boards = [
             ...state.currentWorkspace.workspace_boards,
-            response,
+            response.board,
           ];
         } else {
           console.error("Current workspace is not set");
@@ -186,6 +190,21 @@ export const useMyWorkspaceStore = defineStore({
         .filter(board => board !== undefined) as Board[];
 
       this.recentBoards = boards;
+    },
+
+    async addList(values: List) {
+      const response = await $larafetch("api/lists/create", {
+        method: "post",
+        body: values,
+      });
+    },
+
+    async fetchBoard<T>(bid: string): Promise<T> {
+      const response = await $larafetch(`api/boards/${bid}`, {
+        method: "get",
+      });
+
+      return response;
     }
   }
 })

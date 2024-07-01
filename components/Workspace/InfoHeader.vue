@@ -1,21 +1,23 @@
 <template>
 	<div
 		class="p-[32px] my-0 mx-auto max-w-[850px] justify-between items-start relative flex"
-		v-if="!editOpen && currentWorkspace"
+		v-if="!editOpen && workspaceStore.currentWorkspace"
 	>
 		<div>
 			<div class="flex gap-2">
 				<div
 					class="rounded-sm h-[60px] w-[60px] text-white dark:text-black font-bold text-[35px] flex justify-center items-center"
-					:class="getWorkspaceTypeColor(currentWorkspace.type)"
+					:class="getWorkspaceTypeColor(workspaceStore.currentWorkspace.type)"
 				>
-					{{ currentWorkspace.title.charAt(0).toLocaleUpperCase() }}
+					{{
+						workspaceStore.currentWorkspace.title.charAt(0).toLocaleUpperCase()
+					}}
 				</div>
 
 				<div class="flex items-center">
 					<div class="h-fit">
 						<h2 class="text-[20px] font-bold leading-6">
-							{{ currentWorkspace.title }}
+							{{ workspaceStore.currentWorkspace.title }}
 							<Button
 								class="bg-transparent hoverButton text-black h-[24px] w-[24px] p-0 m-0 !rounded-[4px]"
 								@click="editOpen = !editOpen"
@@ -27,19 +29,23 @@
 							</Button>
 						</h2>
 						<span class="text-xs font-light">{{
-							currentWorkspace.visibility.charAt(0).toUpperCase() +
-							currentWorkspace.visibility.substring(1)
+							workspaceStore.currentWorkspace.visibility
+								.charAt(0)
+								.toUpperCase() +
+							workspaceStore.currentWorkspace.visibility.substring(1)
 						}}</span>
 					</div>
 				</div>
 			</div>
-			<p class="text-xs font-light">{{ currentWorkspace.description }}</p>
+			<p class="text-xs font-light">
+				{{ workspaceStore.currentWorkspace.description }}
+			</p>
 		</div>
 	</div>
 
 	<div
 		class="w-full mx-12"
-		v-if="currentWorkspace && editOpen"
+		v-if="workspaceStore.currentWorkspace && editOpen"
 	>
 		<form @submit="onSubmit">
 			<FormField
@@ -99,7 +105,7 @@
 	import * as z from "zod";
 	import type { Workspace } from "~/lib/types";
 
-	const { currentWorkspace } = useMyWorkspaceStore();
+	const workspaceStore = useMyWorkspaceStore();
 
 	const route = useRoute();
 	const editOpen = ref(false);

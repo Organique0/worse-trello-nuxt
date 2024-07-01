@@ -28,6 +28,7 @@
 						"
 						@click="
 							() => {
+								selectedFullPhoto = image.urls.full;
 								selectedPhoto = image.urls.regular;
 								selectedColor = null;
 							}
@@ -53,6 +54,7 @@
 						:class="bg == selectedColor && 'before:bg-[#00000029] '"
 						@click="
 							() => {
+								selectedFullPhoto = null;
 								selectedPhoto = null;
 								selectedColor = bg;
 							}
@@ -221,6 +223,7 @@
 	const boardPhotos = ref<any[] | undefined>();
 	const selectedPhoto = ref<null | string>(null);
 	const selectedColor = ref<null | string>(null);
+	const selectedFullPhoto = ref<null | string>(null);
 
 	const visibilityItems = [
 		{
@@ -245,6 +248,10 @@
 				.default(props.selectedWorkspaceId_str || workspaceItems[0].id_str),
 			visibility: z.string().default(visibilityItems[0].label),
 			prefs_background_url: z.string().nullable().default(selectedPhoto.value),
+			prefs_background_url_full: z
+				.string()
+				.nullable()
+				.default(selectedFullPhoto.value),
 			prefs_background: z.string().nullable().default(selectedColor.value),
 		})
 	);
@@ -256,6 +263,7 @@
 	const onSubmit = form.handleSubmit(async (values) => {
 		values.prefs_background_url = selectedPhoto.value;
 		values.prefs_background = selectedColor.value;
+		values.prefs_background_url_full = selectedFullPhoto.value;
 
 		try {
 			const response = await myWorkspaceStore.createBoard(values);
@@ -275,6 +283,7 @@
 				collectionId: "317099",
 			})
 			.then((result) => {
+				selectedFullPhoto.value = result.response?.results[0].urls.full;
 				selectedPhoto.value = result.response?.results[0].urls.regular;
 				boardPhotos.value = result.response?.results;
 			});

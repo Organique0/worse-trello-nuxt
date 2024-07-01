@@ -20,7 +20,7 @@
 					? 'fill-yellow-600 stroke-yellow-600 stroke-2 hover:fill-none absolute bottom-2 right-2'
 					: 'ease translate-x-[150%] transform fill-transparent stroke-white stroke-2 transition-transform duration-300 group-hover:translate-x-0 absolute bottom-2 right-2'
 			"
-			@click="favorite"
+			@click.prevent="favorite"
 		/>
 	</NuxtLink>
 </template>

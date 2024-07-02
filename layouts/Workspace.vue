@@ -14,7 +14,7 @@
 			<WorkspaceSidebar
 				v-if="myWorkspaceStore.currentWorkspace"
 				:currentWorkspace="myWorkspaceStore.currentWorkspace"
-				class="relative bg-opacity-80"
+				class="relative"
 				:style="dynamicBg"
 			/>
 		</client-only>
@@ -36,9 +36,5 @@
 
 	const route = useRoute();
 	const myWorkspaceStore = useMyWorkspaceStore();
-	const myColorStore = useColorStore();
-
-	const dynamicBg = computed(
-		() => "background-color: " + myColorStore.dominantColor + "dd;"
-	);
+	const { dynamicBg } = useDynamicBg("dd");
 </script>

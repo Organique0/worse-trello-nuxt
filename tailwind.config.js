@@ -68,6 +68,7 @@ module.exports = {
 				createWorkspaceFormBg: "url('/public/createWorkspaceFormBg.svg')",
 			},
 			colors: {
+				transWhite: "#ffffff41",
 				wierdBlue: "#091E42",
 				wierdGreen: "#e6fcff",
 				surveyPink: "#f99cdb",

@@ -1,9 +1,9 @@
 <template>
-	<div>boardId : boardData.</div>
+	<div>boardId : {{ boardData }}.</div>
 </template>
 
 <script lang="ts" setup>
-	import type { Board, FullBoard } from "~/lib/types";
+	import type { FullBoard } from "~/lib/types";
 
 	definePageMeta({
 		layout: "workspace",
@@ -11,6 +11,7 @@
 	});
 	const route = useRoute();
 	const myWorkspaceStore = useMyWorkspaceStore();
+	const myColorStore = useColorStore();
 	const boardData = ref<FullBoard>();
 
 	onBeforeMount(async () => {
@@ -18,5 +19,23 @@
 		boardData.value = await myWorkspaceStore.fetchBoard<FullBoard>(
 			route.params.bid as string
 		);
+	});
+
+	//vibrant is loaded from script in the header
+	//that defines window.Vibrant = Vibrant
+	//direct url does not work. So we make an image element first.
+	onMounted(async () => {
+		const imagePath = myWorkspaceStore.currentBoard?.prefs_background_url;
+		if (imagePath) {
+			const img = new Image();
+			img.crossOrigin = "Anonymous";
+			img.src = imagePath;
+
+			img.onload = async () => {
+				//@ts-ignore
+				const palette = await Vibrant.from(img).getPalette();
+				myColorStore.setDominantColor(palette.LightMuted.hex);
+			};
+		}
 	});
 </script>

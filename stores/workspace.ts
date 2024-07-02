@@ -8,7 +8,7 @@ export const useMyWorkspaceStore = defineStore({
       workspaces: [] as Workspace[],
       recentBoards: [] as Board[],
       currentWorkspace: null as Workspace | null,
-      currentBoard: null as Board | null,
+      currentBoard: {} as Board | null,
     }
   },
   getters: {
@@ -25,7 +25,7 @@ export const useMyWorkspaceStore = defineStore({
       return (workspace: Workspace) => state.currentWorkspace = workspace
     },
     setCurrentBoard: (state) => {
-      return (board: Board) => state.currentBoard = board
+      return (board: Board | null) => state.currentBoard = board
     }
   },
   actions: {

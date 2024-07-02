@@ -1,14 +1,21 @@
 <template>
 	<LoggedInHeaderShad />
 	<div
-		class="flex flex-row flex-1 relative overflow-y-auto h-full bg-cover"
-		:style="pageBgStyle"
+		class="flex flex-row flex-1 relative overflow-y-auto h-full bg-cover bg-center"
+		:style="
+			giveBackgroundImage(
+				myWorkspaceStore.currentBoard &&
+					(myWorkspaceStore.currentBoard.prefs_background_url_full ||
+						myWorkspaceStore.currentBoard.prefs_background)
+			)
+		"
 	>
 		<client-only>
 			<WorkspaceSidebar
 				v-if="myWorkspaceStore.currentWorkspace"
 				:currentWorkspace="myWorkspaceStore.currentWorkspace"
-				class="relative bg-[hsl(203,47.8%,69.7%)]"
+				class="relative bg-opacity-80"
+				:style="dynamicBg"
 			/>
 		</client-only>
 		<div class="w-full m-5">
@@ -25,18 +32,13 @@
 </template>
 
 <script lang="ts" setup>
+	import { giveBackgroundImage } from "~/lib/utils";
+
 	const route = useRoute();
 	const myWorkspaceStore = useMyWorkspaceStore();
+	const myColorStore = useColorStore();
 
-	const pageBgStyle = computed(() => {
-		if (
-			myWorkspaceStore.currentBoard &&
-			myWorkspaceStore.currentBoard.prefs_background_url
-		) {
-			return {
-				backgroundImage: `url(${myWorkspaceStore.currentBoard.prefs_background_url_full})`,
-			};
-		}
-		return {};
-	});
+	const dynamicBg = computed(
+		() => "background-color: " + myColorStore.dominantColor + "dd;"
+	);
 </script>

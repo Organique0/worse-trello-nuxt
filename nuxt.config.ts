@@ -26,6 +26,14 @@ export default defineNuxtConfig({
     "@nuxtjs/color-mode",
     "@nuxt/eslint"
   ],
+  app: {
+    head: {
+      title: "Worse Trello",
+      script: [
+        { type: 'text/javascript', src: '/assets/js/vibrant.min.js' }
+      ]
+    }
+  },
   formkit: {
     autoImport: true,
   },

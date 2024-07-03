@@ -23,14 +23,6 @@
 	});
 
 	const onSubmit = async () => {
-		await initiateOAuthFlow();
-	};
-
-	const initiateOAuthFlow = async () => {
-		const redirectUri = encodeURIComponent(
-			`${window.location.origin}/login/google/callback`
-		);
-		const authUrl = `${backendUrl}/login/google?redirect_uri=${redirectUri}`;
-		window.location.href = authUrl;
+		window.location.href = `${backendUrl}/login/${props.for}`;
 	};
 </script>

@@ -1,5 +1,7 @@
 <template>
-	<div class="w-[340px] border h-[calc(100vh-48px)] dark:bg-black/40">
+	<div
+		class="relative w-[340px] border h-[calc(100vh-48px)] dark:!bg-[#1D2125]"
+	>
 		<div v-if="myWorkspaceStore.currentWorkspace">
 			<div class="flex gap-2 border-b p-3">
 				<div
@@ -377,7 +379,6 @@
 	const popoverOpen = ref(false);
 
 	const myWorkspaceStore = useMyWorkspaceStore();
-
 	const { user } = useMyUserStore();
 
 	const toggleCloseBoardOpen = () => {

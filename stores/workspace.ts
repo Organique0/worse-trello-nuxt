@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { Board, CreateWorkspaceValues, List, Workspace } from '~/lib/types';
+import type { Board, CreateWorkspaceValues, FullBoard, List, Workspace } from '~/lib/types';
 
 export const useMyWorkspaceStore = defineStore({
   id: 'myWorkspaceStore',
@@ -19,7 +19,7 @@ export const useMyWorkspaceStore = defineStore({
       return () => state.recentBoards
     },
     getBoardById: (state) => {
-      return (bid: string) => state.workspaces.flatMap(workspace => workspace.workspace_boards).find(board => board.id_str === bid) as Board
+      return (bid: string) => state.workspaces.flatMap(workspace => workspace.workspace_boards).find(board => board.id_str === bid) as FullBoard
     },
     setCurrentWorkspace: (state) => {
       return (workspace: Workspace) => state.currentWorkspace = workspace

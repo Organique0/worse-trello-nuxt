@@ -47,3 +47,28 @@ export interface Card {
 export interface FullBoard extends Board {
     lists: List[],
 }
+
+
+export interface Pallete {
+    DarkMuted: PalleteObject,
+    DarkVibrant: PalleteObject,
+    LightMuted: PalleteObject,
+    LightVibrant: PalleteObject,
+    Muted: PalleteObject,
+    Vibrant: PalleteObject
+}
+
+interface PalleteObject {
+    _hsl: Array<number>,
+    _population: number,
+    _rgb: Array<{ key: number; value: number }>,
+    b: number,
+    bodyTextColor: string | undefined,
+    g: number,
+    hex: string,
+    hsl: Array<{ key: number, value: number }>,
+    population: number,
+    r: number,
+    rgb: Array<{ key: number, value: number }>
+    titleTextColor: string | undefined
+}

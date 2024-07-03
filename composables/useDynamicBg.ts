@@ -4,6 +4,7 @@ import { useColorStore } from '@/stores/color'
 export const useDynamicBg = (opacity?: string | null) => {
   const myColorStore = useColorStore();
   const myWorkspaceStore = useMyWorkspaceStore();
+  const colorMode = useColorMode();
 
   const dynamicBg = computed(() => {
     if (myWorkspaceStore.currentBoard) {

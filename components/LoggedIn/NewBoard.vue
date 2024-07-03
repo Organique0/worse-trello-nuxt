@@ -201,7 +201,7 @@
 	} from "@/shadComponents/ui/select";
 	import { _backgroundImage } from "#tailwind-config/theme";
 	import type { Icon } from "lucide-vue-next";
-	import { giveBackgroundImage } from "~/lib/utils";
+	import { giveBackgroundImage, visibilityItems } from "~/lib/utils";
 
 	const props = defineProps({
 		class: {
@@ -224,21 +224,6 @@
 	const selectedPhoto = ref<null | string>(null);
 	const selectedColor = ref<null | string>(null);
 	const selectedFullPhoto = ref<null | string>(null);
-
-	const visibilityItems = [
-		{
-			label: "private",
-			icon: "i-heroicons-signal",
-		},
-		{
-			label: "workspace",
-			icon: "i-heroicons-signal",
-		},
-		{
-			label: "public",
-			icon: "i-heroicons-signal",
-		},
-	];
 
 	const formSchema = toTypedSchema(
 		z.object({

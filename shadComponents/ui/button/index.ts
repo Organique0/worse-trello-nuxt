@@ -18,6 +18,7 @@ export const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost:
           "hover:bg-slate-200 hover:text-accent-foreground dark:hover:bg-opacity-10 rounded-sm ",
+        boardHeader: "rounded-sm !h-[32px] hover:backdrop-brightness-110 text-white",
         link: "text-primary underline-offset-4 hover:underline",
         homeMenu:
           "h-full rounded-none bg-transparent color-black text-lg font-normal",

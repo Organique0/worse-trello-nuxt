@@ -14,11 +14,10 @@
 			<WorkspaceSidebar
 				v-if="myWorkspaceStore.currentWorkspace"
 				:currentWorkspace="myWorkspaceStore.currentWorkspace"
-				class="relative"
 				:style="dynamicBg"
 			/>
 		</client-only>
-		<div class="w-full m-5">
+		<div class="w-full">
 			<WorkspaceInfoHeader
 				v-if="
 					route.path.includes('members') ||
@@ -36,5 +35,6 @@
 
 	const route = useRoute();
 	const myWorkspaceStore = useMyWorkspaceStore();
+	const myColorStore = useColorStore();
 	const { dynamicBg } = useDynamicBg("dd");
 </script>

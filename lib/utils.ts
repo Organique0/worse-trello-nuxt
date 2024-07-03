@@ -23,3 +23,18 @@ export const workspaceTypeColors = {
 export function getWorkspaceTypeColor(type: string) {
   return workspaceTypeColors[type as keyof typeof workspaceTypeColors];
 }
+
+export const visibilityItems = [
+  {
+    label: "private",
+    icon: "material-symbols:lock-outline",
+  },
+  {
+    label: "workspace",
+    icon: "LogoMembers",
+  },
+  {
+    label: "public",
+    icon: "material-symbols:public",
+  },
+];

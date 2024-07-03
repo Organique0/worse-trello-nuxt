@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="max-h-[48px] min-h-[48px]"
+		class="max-h-[48px] min-h-[48px] dark:!bg-[#1D2125]"
 		:style="dynamicBg"
 	>
 		<ConfigProvider :use-id="useIdFunction">
@@ -195,7 +195,10 @@
 							<DropdownMenuTrigger as-child>
 								<Button
 									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 dark:text-[#1d2125] max-[1280px]:hidden"
-									:class="'!bg-transWhite'"
+									:class="
+										router.currentRoute.value.path.includes('/b/') &&
+										'!bg-transWhite hover:backdrop-brightness-110'
+									"
 								>
 									Create
 								</Button>
@@ -655,6 +658,8 @@
 	import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
 
 	const { dynamicBg } = useDynamicBg();
+	const colorMode = useColorMode();
+	const myColorStore = useColorStore();
 
 	const useIdFunction = () => useId();
 

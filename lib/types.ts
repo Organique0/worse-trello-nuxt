@@ -14,6 +14,7 @@ export interface Board {
     title: string;
     prefs_background_url: string | null;
     prefs_background_url_full: string | null;
+    prefs_background_url_regular: string | null;
     prefs_background: string | null;
     created_at: string;
     updated_at: string;

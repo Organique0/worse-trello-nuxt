@@ -28,6 +28,7 @@
 						"
 						@click="
 							() => {
+								selectedRegularPhoto = convertFullToRegular(image.urls.full);
 								selectedFullPhoto = image.urls.full;
 								selectedPhoto = image.urls.regular;
 								selectedColor = null;
@@ -54,6 +55,7 @@
 						:class="bg == selectedColor && 'before:bg-[#00000029] '"
 						@click="
 							() => {
+								selectedRegularPhoto = null;
 								selectedFullPhoto = null;
 								selectedPhoto = null;
 								selectedColor = bg;
@@ -221,9 +223,10 @@
 	const workspaceItems = myWorkspaceStore.workspaces;
 	const unsplash = useUnsplash();
 	const boardPhotos = ref<any[] | undefined>();
-	const selectedPhoto = ref<null | string>(null);
 	const selectedColor = ref<null | string>(null);
+	const selectedPhoto = ref<null | string>(null);
 	const selectedFullPhoto = ref<null | string>(null);
+	const selectedRegularPhoto = ref<null | string>(null);
 
 	const formSchema = toTypedSchema(
 		z.object({
@@ -233,6 +236,10 @@
 				.default(props.selectedWorkspaceId_str || workspaceItems[0].id_str),
 			visibility: z.string().default(visibilityItems[0].label),
 			prefs_background_url: z.string().nullable().default(selectedPhoto.value),
+			prefs_background_url_regular: z
+				.string()
+				.nullable()
+				.default(selectedRegularPhoto.value),
 			prefs_background_url_full: z
 				.string()
 				.nullable()
@@ -249,6 +256,7 @@
 		values.prefs_background_url = selectedPhoto.value;
 		values.prefs_background = selectedColor.value;
 		values.prefs_background_url_full = selectedFullPhoto.value;
+		values.prefs_background_url_regular = selectedRegularPhoto.value;
 
 		try {
 			const response = await myWorkspaceStore.createBoard(values);
@@ -268,11 +276,22 @@
 				collectionId: "317099",
 			})
 			.then((result) => {
-				selectedFullPhoto.value = result.response?.results[0].urls.full;
+				const fullImageUrl = result.response?.results[0].urls.full;
+				selectedFullPhoto.value = fullImageUrl;
 				selectedPhoto.value = result.response?.results[0].urls.regular;
+				selectedRegularPhoto.value = convertFullToRegular(fullImageUrl);
 				boardPhotos.value = result.response?.results;
 			});
 	});
+
+	const convertFullToRegular = (fullImageUrl: string) => {
+		//modify the url to make an optimized image
+		const url = new URL(fullImageUrl);
+		url.searchParams.set("q", "50");
+		url.searchParams.set("w", "2560");
+		url.searchParams.set("h", "1707");
+		return url.toString();
+	};
 
 	const selectedWorkspaceTitle = computed(() => {
 		const selectedWorkspace = workspaceItems.find(

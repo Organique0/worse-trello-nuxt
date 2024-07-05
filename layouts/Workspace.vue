@@ -5,7 +5,7 @@
 		:style="
 			giveBackgroundImage(
 				myWorkspaceStore.currentBoard &&
-					(myWorkspaceStore.currentBoard.prefs_background_url_full ||
+					(myWorkspaceStore.currentBoard.prefs_background_url_regular ||
 						myWorkspaceStore.currentBoard.prefs_background)
 			)
 		"

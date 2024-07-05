@@ -18,6 +18,9 @@ export default defineNuxtPlugin(async () => {
             const workspace = myWorkspaceStore.getWorkspace(board.workspace_id_str)
             myWorkspaceStore.setCurrentWorkspace(workspace)
             myWorkspaceStore.setCurrentBoard(board)
+        } else {
+            myWorkspaceStore.setCurrentWorkspace(null)
+            myWorkspaceStore.setCurrentBoard(null);
         }
     };
 

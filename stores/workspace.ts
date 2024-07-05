@@ -22,7 +22,7 @@ export const useMyWorkspaceStore = defineStore({
       return (bid: string) => state.workspaces.flatMap(workspace => workspace.workspace_boards).find(board => board.id_str === bid) as FullBoard
     },
     setCurrentWorkspace: (state) => {
-      return (workspace: Workspace) => state.currentWorkspace = workspace
+      return (workspace: Workspace | null) => state.currentWorkspace = workspace
     },
     setCurrentBoard: (state) => {
       return (board: Board | null) => state.currentBoard = board

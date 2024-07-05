@@ -8,7 +8,7 @@ export const useDynamicBg = (opacity?: string | null) => {
 
   const dynamicBg = computed(() => {
     if (myWorkspaceStore.currentBoard) {
-      return `background-color: ${myColorStore.dominantColor}${opacity ? opacity : 'ff'};`
+      return `background-color: ${myWorkspaceStore.currentBoard.dominant_color}${opacity ? opacity : 'ff'};`
     } else {
       return ''
     }

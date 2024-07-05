@@ -1,9 +1,8 @@
-export default defineNuxtPlugin(async () => {
+export default defineNuxtPlugin(async (context) => {
     const { user } = useMyUserStore();
     const route = useRoute();
     if (!user) { return };
     const myWorkspaceStore = useMyWorkspaceStore();
-    const myColorStore = useColorStore();
     if (myWorkspaceStore.$state.workspaces.length == 0) {
         await myWorkspaceStore.loadWorkspaces();
     }
@@ -31,4 +30,5 @@ export default defineNuxtPlugin(async () => {
         async (newParams) => {
             await handleRouteChange(newParams)
         })
+
 })

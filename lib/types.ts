@@ -16,6 +16,7 @@ export interface Board {
     prefs_background_url_full: string | null;
     prefs_background_url_regular: string | null;
     prefs_background: string | null;
+    dominant_color: string
     created_at: string;
     updated_at: string;
     id_str: string;
@@ -35,7 +36,7 @@ export interface List {
     title: string,
     order: number,
     board_id: string,
-    cards: Card
+    cards: Card[]
 }
 
 export interface Card {
@@ -50,7 +51,7 @@ export interface FullBoard extends Board {
 }
 
 
-export interface Pallete {
+/* export interface Pallete {
     DarkMuted: PalleteObject,
     DarkVibrant: PalleteObject,
     LightMuted: PalleteObject,
@@ -72,4 +73,4 @@ interface PalleteObject {
     r: number,
     rgb: Array<{ key: number, value: number }>
     titleTextColor: string | undefined
-}
+} */

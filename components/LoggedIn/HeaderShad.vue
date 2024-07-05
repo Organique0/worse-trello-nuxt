@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="max-h-[48px] min-h-[48px] dark:!bg-[#1D2125]"
-		:style="dynamicBg"
+		:style="[dynamicBg, dynamicText]"
 	>
 		<ConfigProvider :use-id="useIdFunction">
 			<div
@@ -195,8 +195,10 @@
 							<DropdownMenuTrigger as-child>
 								<Button
 									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 dark:text-[#1d2125] max-[1280px]:hidden"
+									:style="dynamicText"
 									:class="
 										router.currentRoute.value.path.includes('/b/') &&
+										colorMode.value != 'dark' &&
 										'!bg-transWhite hover:backdrop-brightness-110'
 									"
 								>
@@ -657,7 +659,7 @@
 	import NotificationListItem from "../UI/NotificationListItem.vue";
 	import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
 
-	const { dynamicBg } = useDynamicBg();
+	const { dynamicBg, dynamicText } = useDynamicBg();
 	const colorMode = useColorMode();
 	const myColorStore = useColorStore();
 
@@ -838,7 +840,7 @@
 	}
 
 	.logoBeforeAfter {
-		filter: invert(49%) sepia(8%) saturate(866%) hue-rotate(180deg)
+		filter: invert(69%) sepia(8%) saturate(866%) hue-rotate(180deg)
 			brightness(84%) contrast(97%);
 	}
 

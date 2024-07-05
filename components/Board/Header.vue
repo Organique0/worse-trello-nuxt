@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="w-full p-3 flex justify-between backdrop-brightness-75"
-		:style="dynamicBg"
+		:style="[dynamicBg, dynamicText]"
 		v-if="boardData"
 	>
 		<div class="flex gap-2">
@@ -14,15 +14,15 @@
 
 			<!--STAR BUTTON-->
 			<Button
-				class="w-[32px]"
+				class="w-[32px] text-inherit"
 				size="icon"
 				variant="boardHeader"
 			>
 				<LogoFavorite
 					:class="
 						boardData.is_favorited
-							? 'fill-white  stroke-white  stroke-2 hover:fill-none'
-							: 'fill-transparent stroke-white  stroke-2 transition-transform duration-100'
+							? 'fill-current  stroke-current  stroke-2 hover:fill-none'
+							: 'fill-transparent stroke-current stroke-2 transition-transform duration-100'
 					"
 				/>
 			</Button>
@@ -50,10 +50,10 @@
 
 			<!--VIEWS POPOVER-->
 			<Button
-				class="flex gap-2 bg-gray-200 text-black hover:brightness-110"
+				class="flex gap-2 bg-inherit text-inherit hover:brightness-110"
 				variant="boardHeader"
 			>
-				<LogoBoardIcon class="w-[15px] h-[15px] text-black" />
+				<LogoBoardIcon class="w-[15px] h-[15px] stroke-currrent" />
 				Board
 				<Icon
 					name="tabler:chevron-down"
@@ -192,7 +192,7 @@
 		PopoverTrigger,
 	} from "radix-vue";
 	const { user } = useMyUserStore();
-	const { dynamicBg } = useDynamicBg("55");
+	const { dynamicBg, dynamicText } = useDynamicBg("55");
 	const props = defineProps({
 		boardData: {
 			type: Object as PropType<FullBoard | null>,

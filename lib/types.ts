@@ -16,7 +16,8 @@ export interface Board {
     prefs_background_url_full: string | null;
     prefs_background_url_regular: string | null;
     prefs_background: string | null;
-    dominant_color: string
+    dominant_color: string;
+    text_color: string;
     created_at: string;
     updated_at: string;
     id_str: string;

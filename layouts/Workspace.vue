@@ -14,7 +14,7 @@
 			<WorkspaceSidebar
 				v-if="myWorkspaceStore.currentWorkspace"
 				:currentWorkspace="myWorkspaceStore.currentWorkspace"
-				:style="dynamicBg"
+				:style="[dynamicBg, dynamicText]"
 			/>
 		</client-only>
 		<div class="w-full">
@@ -36,5 +36,5 @@
 	const route = useRoute();
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const myColorStore = useColorStore();
-	const { dynamicBg } = useDynamicBg("dd");
+	const { dynamicBg, dynamicText } = useDynamicBg("ee");
 </script>

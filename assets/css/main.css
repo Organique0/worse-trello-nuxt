@@ -134,7 +134,7 @@
 }
 
 .hoverButton {
-	@apply rounded-md hover:bg-gray-200 hover:text-accent-foreground dark:hover:bg-opacity-10;
+	@apply rounded-md  hover:text-accent-foreground dark:hover:bg-opacity-10 hover:bg-transparent hover:backdrop-brightness-110;
 }
 
 .hoverButtonWithBg {
@@ -150,7 +150,7 @@
 }
 
 .workspaceSidemenuButton {
-	@apply w-full font-semibold hoverButton bg-transparent text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400 !rounded-none h-[32px] p-0 pl-[16px] flex flex-row  justify-start;
+	@apply w-full font-semibold hoverButton bg-transparent text-inherit hover:text-inherit dark:text-gray-400 dark:hover:!text-gray-400 !rounded-none h-[32px] p-0 pl-[16px] flex flex-row  justify-start;
 }
 
 .workspaceSidemenuButtonIcon {
@@ -162,7 +162,7 @@
 }
 
 .workspaceSidemenuCurrentRouteButton {
-	@apply dark:!bg-gray-300/30 dark:hover:!bg-gray-500/30 bg-gray-200;
+	@apply dark:!bg-gray-300/30 dark:hover:!bg-gray-500/30 backdrop-brightness-75;
 }
 
 .boardsList {

@@ -40,7 +40,7 @@
 
 			<!--START SECTION-->
 
-			<div class="mt-2">
+			<div class="mt-2 text-inherit">
 				<!--BOARDS-->
 				<Button
 					class="workspaceSidemenuButton"

@@ -12,9 +12,20 @@ export const useDynamicBg = (opacity?: string | null) => {
     } else {
       return ''
     }
-  })
+  });
+
+  const dynamicText = computed(() => {
+    if (myWorkspaceStore.currentBoard && colorMode.value != "dark") {
+      return `color: ${myWorkspaceStore.currentBoard.text_color}`
+    } else {
+      return ''
+    }
+  });
+
+
 
   return {
     dynamicBg,
+    dynamicText
   }
 }

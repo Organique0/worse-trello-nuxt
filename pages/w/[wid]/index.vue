@@ -159,17 +159,22 @@
 		middleware: ["auth"],
 	});
 
-	const route = useRoute();
-	const boards = ref<Board[]>([]);
 	const sortBy = ref("az");
-	const { currentWorkspace } = useMyWorkspaceStore();
+	const myWorkspaceStore = useMyWorkspaceStore();
+	const { currentWorkspace } = storeToRefs(myWorkspaceStore);
 	const searchValue = ref("");
 
 	const sortedBoards = computed(() => {
-		var sorted = null;
-		if (currentWorkspace) {
+		var sorted: any[] = [];
+		if (
+			currentWorkspace &&
+			currentWorkspace.value &&
+			currentWorkspace.value.workspace_boards
+		) {
 			sorted = [
-				...currentWorkspace.workspace_boards.filter((board) => !board.closed),
+				...currentWorkspace.value.workspace_boards.filter(
+					(board) => !board.closed
+				),
 			];
 
 			switch (sortBy.value) {

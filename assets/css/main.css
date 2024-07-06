@@ -134,7 +134,7 @@
 }
 
 .hoverButton {
-	@apply rounded-md  hover:text-accent-foreground dark:hover:bg-opacity-10 hover:bg-transparent hover:backdrop-brightness-110;
+	@apply rounded-md  hover:text-accent-foreground dark:hover:bg-opacity-10 hover:bg-transparent hover:backdrop-brightness-90;
 }
 
 .hoverButtonWithBg {

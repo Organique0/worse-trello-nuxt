@@ -171,42 +171,41 @@
 			currentWorkspace.value &&
 			currentWorkspace.value.workspace_boards
 		) {
-			sorted = [
-				...currentWorkspace.value.workspace_boards.filter(
-					(board) => !board.closed
-				),
-			];
+			const sorted = myWorkspaceStore.currentWorkspace?.workspace_boards.filter(
+				(board) => !board.closed
+			);
+			if (sorted) {
+				switch (sortBy.value) {
+					case "mostRecent":
+						sorted.sort(
+							(a, b) =>
+								new Date(b.updated_at).getTime() -
+								new Date(a.updated_at).getTime()
+						);
+						break;
+					case "leastRecent":
+						sorted.sort(
+							(a, b) =>
+								new Date(a.updated_at).getTime() -
+								new Date(b.updated_at).getTime()
+						);
+						break;
+					case "az":
+						sorted.sort((a, b) => a.title.localeCompare(b.title));
+						break;
+					case "za":
+						sorted.sort((a, b) => b.title.localeCompare(a.title));
+						break;
+				}
 
-			switch (sortBy.value) {
-				case "mostRecent":
-					sorted.sort(
-						(a, b) =>
-							new Date(b.updated_at).getTime() -
-							new Date(a.updated_at).getTime()
+				if (searchValue.value) {
+					return sorted.filter((board) =>
+						board.title.toLowerCase().includes(searchValue.value.toLowerCase())
 					);
-					break;
-				case "leastRecent":
-					sorted.sort(
-						(a, b) =>
-							new Date(a.updated_at).getTime() -
-							new Date(b.updated_at).getTime()
-					);
-					break;
-				case "az":
-					sorted.sort((a, b) => a.title.localeCompare(b.title));
-					break;
-				case "za":
-					sorted.sort((a, b) => b.title.localeCompare(a.title));
-					break;
-			}
-
-			if (searchValue.value) {
-				return sorted.filter((board) =>
-					board.title.toLowerCase().includes(searchValue.value.toLowerCase())
-				);
+				}
+				return sorted;
 			}
 		}
-		return sorted;
 	});
 
 	watch(sortBy, (newValue) => {

@@ -398,15 +398,13 @@
 		if (sorted) {
 			switch (sortBy.value) {
 				case "mostRecent":
-					return sorted
-						.slice()
-						.sort(
-							(a, b) =>
-								new Date(b.updated_at).getTime() -
-								new Date(a.updated_at).getTime()
-						);
+					return sorted.sort(
+						(a, b) =>
+							new Date(b.updated_at).getTime() -
+							new Date(a.updated_at).getTime()
+					);
 				case "az":
-					return sorted.slice().sort((a, b) => a.title.localeCompare(b.title));
+					return sorted.sort((a, b) => a.title.localeCompare(b.title));
 				default:
 					return sorted;
 			}

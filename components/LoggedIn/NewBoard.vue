@@ -68,10 +68,100 @@
 						class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
 					/>
 				</li>
-				<li>
-					<Button class="h-[32px] w-[40px] rounded-sm">
-						<Icon name="mdi:dots-horizontal" />
-					</Button>
+				<li class="h-[32px] w-[40px] relative rounded-sm group">
+					<PopoverRoot>
+						<PopoverTrigger
+							class="h-full w-full rounded-sm hoverButtonWithBg flex items-center justify-center"
+						>
+							<Icon name="mdi:dots-horizontal" />
+						</PopoverTrigger>
+						<PopoverPortal>
+							<PopoverContent
+								class="myPopoverContent"
+								side="right"
+								align="center"
+							>
+								<PopoverClose class="popoverCloseButton">
+									<Icon
+										name="bitcoin-icons:cross-filled"
+										class="popoverCloseIconButton"
+								/></PopoverClose>
+
+								<h1 class="myPopoverTitle">Board background</h1>
+
+								<div class="flex justify-between h-6 my-2">
+									<div class="text-xs h-full p-2 flex items-center">Photos</div>
+									<Button class="hoverButtonWithBg !h-full text-xs !rounded-sm">
+										See more
+									</Button>
+								</div>
+
+								<ul class="flex flex-wrap m-0">
+									<li
+										v-for="image in boardPhotos?.slice(0, 6)"
+										class="w-[calc(33.3%-8px)] h-[56px] relative rounded-sm group p-[4px] box-content"
+									>
+										<button
+											:style="giveBackgroundImage(image.urls.regular)"
+											class="w-full h-full !rounded-sm bg-center bg-cover before:absolute before:top-[4px] before:right-[4px] before:w-[calc(100%-8px)] before:rounded-sm before:h-[calc(100%-8px)] before:z-0 before:group-hover:bg-[#00000048]"
+											:class="
+												image.urls.regular == selectedPhoto &&
+												'before:bg-[#00000029] '
+											"
+											@click="
+												() => {
+													selectedRegularPhoto = convertFullToRegular(
+														image.urls.full
+													);
+													selectedFullPhoto = image.urls.full;
+													selectedPhoto = image.urls.regular;
+													selectedColor = null;
+												}
+											"
+										></button>
+										<Icon
+											v-if="image.urls.regular == selectedPhoto"
+											name="material-symbols:check"
+											class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+										/>
+									</li>
+								</ul>
+
+								<div class="flex justify-between h-6 my-1">
+									<div class="text-xs h-full p-2 flex items-center">Colors</div>
+									<Button class="hoverButtonWithBg !h-full text-xs !rounded-sm">
+										See more
+									</Button>
+								</div>
+
+								<ul class="flex flex-wrap m-0">
+									<li
+										v-for="bg in bgColors.slice(0, 6)"
+										class="w-[calc(33.3%-8px)] h-[56px] relative rounded-sm group p-[4px] box-content"
+									>
+										<button
+											:style="giveBackgroundImage(bg)"
+											class="w-full h-full !rounded-sm bg-center bg-cover before:absolute before:top-[4px] before:right-[4px] before:w-[calc(100%-8px)] before:rounded-sm before:h-[calc(100%-8px)] before:z-0 before:group-hover:bg-[#00000048]"
+											:class="bg == selectedColor && 'bg-[#00000029] '"
+											@click="
+												() => {
+													selectedRegularPhoto = null;
+													selectedFullPhoto = null;
+													selectedPhoto = null;
+													selectedColor = bg;
+												}
+											"
+										></button>
+										<Icon
+											v-if="bg == selectedColor"
+											name="material-symbols:check"
+											class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+										/>
+									</li>
+								</ul>
+							</PopoverContent>
+						</PopoverPortal>
+					</PopoverRoot>
 				</li>
 			</ul>
 		</div>
@@ -204,6 +294,15 @@
 	import { _backgroundImage } from "#tailwind-config/theme";
 	import type { Icon } from "lucide-vue-next";
 	import { giveBackgroundImage, visibilityItems } from "~/lib/utils";
+	import {
+		PopoverAnchor,
+		PopoverArrow,
+		PopoverClose,
+		PopoverContent,
+		PopoverPortal,
+		PopoverRoot,
+		PopoverTrigger,
+	} from "radix-vue";
 
 	const props = defineProps({
 		class: {
@@ -303,10 +402,14 @@
 	});
 
 	const bgColors = [
-		"/BgColorBlue.svg",
-		"/BgColorOrange.svg",
-		"/BgColorPink.svg",
-		"/BgColorPurple.svg",
-		"/BgColorBlueDark.svg",
+		"/BgGradientSnow.svg",
+		"/BgGradientOcean.svg",
+		"/BgGradientCrystal.svg",
+		"/BgGradientRainbow.svg",
+		"/BgGradientPeach.svg",
+		"/BgGradientFlower.svg",
+		"/BgGradientEarth.svg",
+		"/BgGradientAlien.svg",
+		"/BgGradientVulcano.svg",
 	];
 </script>

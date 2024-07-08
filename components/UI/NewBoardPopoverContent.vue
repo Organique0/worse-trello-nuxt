@@ -8,12 +8,10 @@
 			updatePositionStrategy="always"
 			class="myPopoverContent"
 		>
-			<PopoverClose
-				class="hoverButton centerIcon absolute right-[10px] top-[14px] h-[30px] w-[30px] rounded-md"
-			>
+			<PopoverClose class="popoverCloseButton">
 				<Icon
 					name="bitcoin-icons:cross-filled"
-					class="h-4 w-4"
+					class="popoverCloseIconButton"
 			/></PopoverClose>
 			<LoggedInNewBoard :selectedWorkspaceId_str="currentWorkspace?.id_str" />
 		</PopoverContent>

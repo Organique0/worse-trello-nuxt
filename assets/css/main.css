@@ -209,7 +209,7 @@
 }
 
 .myPopoverTitle {
-	@apply mb-3 text-center font-medium text-gray-600 text-xs mt-[2px];
+	@apply mb-3 text-center font-medium text-gray-600 text-xs mt-[2px] dark:text-gray-400;
 }
 
 .boardProfileListItem {
@@ -217,7 +217,7 @@
 }
 
 .popoverCloseIconButton {
-	@apply h-4 w-4 text-gray-600;
+	@apply h-4 w-4 text-gray-600 dark:text-gray-400;
 }
 
 .popoverCloseButton {

@@ -350,10 +350,10 @@
 							type="text"
 							placeholder="Your new boards title"
 							v-bind="componentField"
-							class="rounded-sm border-black focus-visible:ring-0"
+							class="rounded-sm border-black focus-visible:ring-0 dark:border-gray-400"
 						/>
 					</FormControl>
-					<FormDescription class="text-black"
+					<FormDescription class="text-black dark:text-gray-400"
 						>👋 Board title is required
 					</FormDescription>
 				</FormItem>
@@ -370,19 +370,23 @@
 						:default-value="selectedWorkspaceId_str"
 					>
 						<FormControl>
-							<SelectTrigger class="rounded-sm border-black focus:ring-0">
+							<SelectTrigger
+								class="rounded-sm border-black focus:ring-0 dark:border-gray-400"
+							>
 								<span>{{ selectedWorkspaceTitle }}</span>
 							</SelectTrigger>
 						</FormControl>
 						<SelectContent class="rounded-none py-1">
-							<SelectItemCreateBoard
-								v-for="item in workspaceItems"
-								:key="item.id_str"
-								:value="item.id_str"
-								class="rounded-none p-3"
-							>
-								{{ item.title }}
-							</SelectItemCreateBoard>
+							<SelectGroup>
+								<SelectItemTheme
+									v-for="item in workspaceItems"
+									:key="item.id_str"
+									:value="item.id_str"
+									class="rounded-none p-3"
+								>
+									{{ item.title }}
+								</SelectItemTheme>
+							</SelectGroup>
 						</SelectContent>
 					</Select>
 				</FormItem>
@@ -396,7 +400,9 @@
 					<FormLabel class="text-xs font-semibold">Visibility</FormLabel>
 					<Select v-bind="componentField">
 						<FormControl>
-							<SelectTrigger class="rounded-sm border-black focus:ring-0">
+							<SelectTrigger
+								class="rounded-sm border-black focus:ring-0 dark:border-gray-400"
+							>
 								<span>{{ form.values.visibility }}</span>
 							</SelectTrigger>
 						</FormControl>
@@ -477,6 +483,7 @@
 	} from "radix-vue";
 	import { useInfiniteScroll, watchDebounced } from "@vueuse/core";
 	import Separator from "~/shadComponents/ui/separator/Separator.vue";
+	import SelectGroup from "~/shadComponents/ui/select/SelectGroup.vue";
 
 	const props = defineProps({
 		class: {

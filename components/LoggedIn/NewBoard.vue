@@ -43,6 +43,7 @@
 				</li>
 			</ul>
 		</div>
+		<!--Colors-->
 		<div class="mb-4 flex justify-between">
 			<ul class="flex gap-2 max-w-full">
 				<li
@@ -68,6 +69,7 @@
 						class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
 					/>
 				</li>
+				<!--More-->
 				<li class="h-[32px] w-[40px] relative rounded-sm group">
 					<PopoverRoot>
 						<PopoverTrigger
@@ -81,84 +83,254 @@
 								side="right"
 								align="center"
 							>
-								<PopoverClose class="popoverCloseButton">
+								<PopoverClose
+									class="popoverCloseButton"
+									@click="
+										() => {
+											seeMoreBgImgOpen = false;
+											seeMoreColorOpen = false;
+										}
+									"
+								>
 									<Icon
 										name="bitcoin-icons:cross-filled"
 										class="popoverCloseIconButton"
 								/></PopoverClose>
 
-								<h1 class="myPopoverTitle">Board background</h1>
+								<div v-if="!seeMoreBgImgOpen && !seeMoreColorOpen">
+									<h1 class="myPopoverTitle">Board background</h1>
 
-								<div class="flex justify-between h-6 my-2">
-									<div class="text-xs h-full p-2 flex items-center">Photos</div>
-									<Button class="hoverButtonWithBg !h-full text-xs !rounded-sm">
-										See more
-									</Button>
+									<div class="flex justify-between h-6 my-2">
+										<div class="text-xs h-full p-2 flex items-center">
+											Photos
+										</div>
+										<Button
+											class="hoverButtonWithBg !h-full text-xs !rounded-sm"
+											@click="() => (seeMoreBgImgOpen = true)"
+										>
+											See more
+										</Button>
+									</div>
+
+									<ul class="flex flex-wrap m-0">
+										<li
+											v-for="image in boardPhotos?.slice(0, 6)"
+											class="w-[calc(33.3%-8px)] h-[56px] relative rounded-sm group p-[4px] box-content"
+										>
+											<button
+												:style="giveBackgroundImage(image.urls.regular)"
+												class="w-full h-full !rounded-sm bg-center bg-cover before:absolute before:top-[4px] before:right-[4px] before:w-[calc(100%-8px)] before:rounded-sm before:h-[calc(100%-8px)] before:z-0 before:group-hover:bg-[#00000048]"
+												:class="
+													image.urls.regular == selectedPhoto &&
+													'before:bg-[#00000029] '
+												"
+												@click="
+													() => {
+														selectedRegularPhoto = convertFullToRegular(
+															image.urls.full
+														);
+														selectedFullPhoto = image.urls.full;
+														selectedPhoto = image.urls.regular;
+														selectedColor = null;
+													}
+												"
+											></button>
+											<Icon
+												v-if="image.urls.regular == selectedPhoto"
+												name="material-symbols:check"
+												class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+											/>
+										</li>
+									</ul>
+
+									<div class="flex justify-between h-6 my-1">
+										<div class="text-xs h-full p-2 flex items-center">
+											Colors
+										</div>
+										<Button
+											class="hoverButtonWithBg !h-full text-xs !rounded-sm"
+											@click="() => (seeMoreColorOpen = true)"
+										>
+											See more
+										</Button>
+									</div>
+
+									<ul class="flex flex-wrap m-0">
+										<li
+											v-for="bg in bgColors.slice(0, 6)"
+											class="w-[calc(33.3%-8px)] h-[56px] relative rounded-sm group p-[4px] box-content"
+										>
+											<button
+												:style="giveBackgroundImage(bg)"
+												class="w-full h-full !rounded-sm bg-center bg-cover before:absolute before:top-[4px] before:right-[4px] before:w-[calc(100%-8px)] before:rounded-sm before:h-[calc(100%-8px)] before:z-0 before:group-hover:bg-[#00000048]"
+												:class="bg == selectedColor && 'bg-[#00000029] '"
+												@click="
+													() => {
+														selectedRegularPhoto = null;
+														selectedFullPhoto = null;
+														selectedPhoto = null;
+														selectedColor = bg;
+													}
+												"
+											></button>
+											<Icon
+												v-if="bg == selectedColor"
+												name="material-symbols:check"
+												class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+											/>
+										</li>
+									</ul>
 								</div>
-
-								<ul class="flex flex-wrap m-0">
-									<li
-										v-for="image in boardPhotos?.slice(0, 6)"
-										class="w-[calc(33.3%-8px)] h-[56px] relative rounded-sm group p-[4px] box-content"
+								<div v-else-if="seeMoreBgImgOpen">
+									<Button
+										size="icon"
+										variant="ghost"
+										class="popoverCloseButton !left-[10px]"
+										aria-label="Close"
+										@click="() => (seeMoreBgImgOpen = false)"
 									>
-										<button
-											:style="giveBackgroundImage(image.urls.regular)"
-											class="w-full h-full !rounded-sm bg-center bg-cover before:absolute before:top-[4px] before:right-[4px] before:w-[calc(100%-8px)] before:rounded-sm before:h-[calc(100%-8px)] before:z-0 before:group-hover:bg-[#00000048]"
-											:class="
-												image.urls.regular == selectedPhoto &&
-												'before:bg-[#00000029] '
-											"
-											@click="
-												() => {
-													selectedRegularPhoto = convertFullToRegular(
-														image.urls.full
-													);
-													selectedFullPhoto = image.urls.full;
-													selectedPhoto = image.urls.regular;
-													selectedColor = null;
-												}
-											"
-										></button>
 										<Icon
-											v-if="image.urls.regular == selectedPhoto"
-											name="material-symbols:check"
-											class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+											name="tabler:chevron-left"
+											class="popoverCloseIconButton"
 										/>
-									</li>
-								</ul>
-
-								<div class="flex justify-between h-6 my-1">
-									<div class="text-xs h-full p-2 flex items-center">Colors</div>
-									<Button class="hoverButtonWithBg !h-full text-xs !rounded-sm">
-										See more
 									</Button>
-								</div>
-
-								<ul class="flex flex-wrap m-0">
-									<li
-										v-for="bg in bgColors.slice(0, 6)"
-										class="w-[calc(33.3%-8px)] h-[56px] relative rounded-sm group p-[4px] box-content"
-									>
-										<button
-											:style="giveBackgroundImage(bg)"
-											class="w-full h-full !rounded-sm bg-center bg-cover before:absolute before:top-[4px] before:right-[4px] before:w-[calc(100%-8px)] before:rounded-sm before:h-[calc(100%-8px)] before:z-0 before:group-hover:bg-[#00000048]"
-											:class="bg == selectedColor && 'bg-[#00000029] '"
-											@click="
-												() => {
-													selectedRegularPhoto = null;
-													selectedFullPhoto = null;
-													selectedPhoto = null;
-													selectedColor = bg;
-												}
-											"
-										></button>
-										<Icon
-											v-if="bg == selectedColor"
-											name="material-symbols:check"
-											class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+									<h1 class="myPopoverTitle">
+										Photos by
+										<a
+											href="https://unsplash.com/"
+											target="_blank"
+											class="text-primary"
+											>Unsplash</a
+										>
+									</h1>
+									<div class="relative flex flex-col w-full mb-3">
+										<Input
+											id="searchPhotos"
+											type="search"
+											placeholder="Photos"
+											class="pl-8 rounded-sm"
+											v-model="searchValue"
 										/>
-									</li>
-								</ul>
+										<span
+											class="absolute start-0 inset-y-0 flex items-center justify-center px-2"
+										>
+											<Icon
+												name="tabler:search"
+												:ssr="true"
+												class="text-slate-600 dark:text-slate-400"
+											/>
+										</span>
+									</div>
+									<div
+										class="grid grid-cols-2 gap-2 h-[85vh] overflow-y-scroll"
+										ref="el"
+									>
+										<div
+											v-for="image in boardPhotos"
+											class="w-full h-[81px] relative rounded-sm group"
+										>
+											<button
+												:style="giveBackgroundImage(image.urls.regular)"
+												class="w-full h-full rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
+												:class="
+													image.urls.regular == selectedPhoto &&
+													'before:bg-[#00000029] '
+												"
+												@click="
+													() => {
+														selectedRegularPhoto = convertFullToRegular(
+															image.urls.full
+														);
+														selectedFullPhoto = image.urls.full;
+														selectedPhoto = image.urls.regular;
+														selectedColor = null;
+													}
+												"
+											></button>
+											<Icon
+												v-if="image.urls.regular == selectedPhoto"
+												name="material-symbols:check"
+												class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+											/>
+										</div>
+									</div>
+								</div>
+								<div v-else-if="seeMoreColorOpen">
+									<Button
+										size="icon"
+										variant="ghost"
+										class="popoverCloseButton !left-[10px]"
+										aria-label="Close"
+										@click="() => (seeMoreColorOpen = false)"
+									>
+										<Icon
+											name="tabler:chevron-left"
+											class="popoverCloseIconButton"
+										/>
+									</Button>
+
+									<h1 class="myPopoverTitle">Colors</h1>
+
+									<div class="h-1/2">
+										<div class="grid grid-cols-3 gap-2">
+											<div
+												v-for="bg in bgColors"
+												class="w-full h-[61px] relative rounded-sm group"
+											>
+												<button
+													:style="giveBackgroundImage(bg)"
+													class="w-full h-full absolute top-0 right-0 rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
+													:class="
+														bg == selectedColor && 'before:bg-[#00000029] '
+													"
+													@click="
+														() => {
+															selectedRegularPhoto = null;
+															selectedFullPhoto = null;
+															selectedPhoto = null;
+															selectedColor = bg;
+														}
+													"
+												></button>
+												<Icon
+													v-if="bg == selectedColor"
+													name="material-symbols:check"
+													class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+												/>
+											</div>
+										</div>
+									</div>
+									<Separator class="my-5" />
+									<div class="h-1/2">
+										<div class="grid grid-cols-3 gap-2">
+											<div
+												v-for="bg in bgSingleColors"
+												class="w-full h-[61px] relative rounded-sm group"
+											>
+												<button
+													:style="giveBackgroundImage(bg)"
+													class="w-full h-full absolute top-0 right-0 rounded-sm bg-center bg-cover before:absolute before:top-0 before:right-0 before:w-full before:rounded-sm before:h-full before:z-0 before:group-hover:bg-[#00000048]"
+													:class="
+														bg == selectedColor && 'before:bg-[#00000029] '
+													"
+													@click="
+														() => {
+															selectedRegularPhoto = null;
+															selectedFullPhoto = null;
+															selectedPhoto = null;
+															selectedColor = bg;
+														}
+													"
+												></button>
+												<Icon
+													v-if="bg == selectedColor"
+													name="material-symbols:check"
+													class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white z-10"
+												/>
+											</div>
+										</div>
+									</div>
+								</div>
 							</PopoverContent>
 						</PopoverPortal>
 					</PopoverRoot>
@@ -303,6 +475,8 @@
 		PopoverRoot,
 		PopoverTrigger,
 	} from "radix-vue";
+	import { useInfiniteScroll, watchDebounced } from "@vueuse/core";
+	import Separator from "~/shadComponents/ui/separator/Separator.vue";
 
 	const props = defineProps({
 		class: {
@@ -321,11 +495,16 @@
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const workspaceItems = myWorkspaceStore.workspaces;
 	const unsplash = useUnsplash();
-	const boardPhotos = ref<any[] | undefined>();
+	const boardPhotos = ref<any[]>([]);
 	const selectedColor = ref<null | string>(null);
 	const selectedPhoto = ref<null | string>(null);
 	const selectedFullPhoto = ref<null | string>(null);
 	const selectedRegularPhoto = ref<null | string>(null);
+	const seeMoreBgImgOpen = ref(false);
+	const seeMoreColorOpen = ref(false);
+	const searchValue = ref("");
+	const el = ref<HTMLElement | null>(null);
+	const page = ref(2);
 
 	const formSchema = toTypedSchema(
 		z.object({
@@ -373,15 +552,82 @@
 		await unsplash.collections
 			.getPhotos({
 				collectionId: "317099",
+				perPage: 30,
+				page: 1,
 			})
 			.then((result) => {
-				const fullImageUrl = result.response?.results[0].urls.full;
-				selectedFullPhoto.value = fullImageUrl;
-				selectedPhoto.value = result.response?.results[0].urls.regular;
-				selectedRegularPhoto.value = convertFullToRegular(fullImageUrl);
-				boardPhotos.value = result.response?.results;
+				if (result.response) {
+					const fullImageUrl = result.response.results[0].urls.full;
+					selectedFullPhoto.value = fullImageUrl;
+					selectedPhoto.value = result.response.results[0].urls.regular;
+					selectedRegularPhoto.value = convertFullToRegular(fullImageUrl);
+					boardPhotos.value = result.response.results;
+				}
 			});
 	});
+
+	useInfiniteScroll(el, async () => {
+		if (!searchValue.value) {
+			await unsplash.collections
+				.getPhotos({
+					collectionId: "317099",
+					perPage: 30,
+					page: page.value,
+				})
+				.then((result) => {
+					if (result.response) {
+						boardPhotos.value?.push(...result.response.results);
+						page.value++;
+					}
+				});
+		} else {
+			await unsplash.search
+				.getPhotos({
+					query: searchValue.value,
+					perPage: 30,
+					page: page.value,
+				})
+				.then((result) => {
+					if (result.response) {
+						boardPhotos.value?.push(...result.response.results);
+						page.value++;
+					}
+				});
+		}
+	});
+
+	watchDebounced(
+		searchValue,
+		async () => {
+			if (searchValue.value) {
+				await unsplash.search
+					.getPhotos({
+						query: searchValue.value,
+						perPage: 30,
+						page: 1,
+					})
+					.then((result) => {
+						if (result.response) {
+							boardPhotos.value = result.response.results;
+							page.value++;
+						}
+					});
+			} else {
+				await unsplash.collections
+					.getPhotos({
+						collectionId: "317099",
+						perPage: 30,
+						page: 1,
+					})
+					.then((result) => {
+						if (result.response) {
+							boardPhotos.value = result.response.results;
+						}
+					});
+			}
+		},
+		{ debounce: 400, maxWait: 500 }
+	);
 
 	const convertFullToRegular = (fullImageUrl: string) => {
 		//modify the url to make an optimized image
@@ -411,5 +657,17 @@
 		"/BgGradientEarth.svg",
 		"/BgGradientAlien.svg",
 		"/BgGradientVulcano.svg",
+	];
+
+	const bgSingleColors = [
+		"rgb(0, 121, 191)",
+		"rgb(210, 144, 52)",
+		"rgb(81, 152, 57)",
+		"rgb(176, 70, 50)",
+		"rgb(137, 96, 158)",
+		"rgb(205, 90, 145)",
+		"rgb(75, 191, 107)",
+		"rgb(0, 174, 204)",
+		"rgb(131, 140, 145)",
 	];
 </script>

@@ -661,7 +661,6 @@
 
 	const { dynamicBg, dynamicText } = useDynamicBg();
 	const colorMode = useColorMode();
-	const myColorStore = useColorStore();
 
 	const useIdFunction = () => useId();
 

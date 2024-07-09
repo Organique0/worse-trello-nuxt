@@ -6,7 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const giveBackgroundImage = (imageUrl: string | null) => {
-  return "background-image:url(" + imageUrl + ")";
+  if (imageUrl?.charAt(0) != 'r') {
+    return "background-image:url(" + imageUrl + ")";
+  } else {
+    return "background-color:" + imageUrl;
+  }
+
 };
 
 export const workspaceTypeColors = {

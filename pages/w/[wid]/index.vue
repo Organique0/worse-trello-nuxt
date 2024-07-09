@@ -106,7 +106,7 @@
 						id="searchBoards"
 						type="search"
 						placeholder="Search boards"
-						class="pl-10 rounded-sm"
+						class="pl-8 rounded-sm"
 						v-model="searchValue"
 					/>
 					<span

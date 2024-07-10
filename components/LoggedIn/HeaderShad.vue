@@ -5,13 +5,14 @@
 	>
 		<ConfigProvider :use-id="useIdFunction">
 			<div
-				class="box-border flex max-h-12 overflow-hidden border-b-[1px] p-[8px] transition-colors"
+				class="box-border flex max-h-12 overflow-hidden border-b-[1px] border-b-slate-400 p-[8px] transition-colors"
 			>
 				<div class="flex w-full space-x-1">
 					<!---more button-->
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="relative mt-0 block h-[32px] w-[32px] flex-shrink-0 rounded-sm py-2 hover:bg-slate-200 dark:hover:bg-opacity-10"
+							class="relative mt-0 block h-[32px] w-[32px] flex-shrink-0 rounded-sm py-2"
+							:class="dynamicHover"
 						>
 							<Icon
 								name="gravity-ui:dots-9"
@@ -32,13 +33,18 @@
 
 					<!--gif logo-->
 					<div
-						class="relative mt-0 block h-[32px] flex-shrink-0 rounded-sm px-2 py-2 hover:bg-slate-200 dark:hover:bg-opacity-10"
+						class="relative mt-0 block h-[32px] flex-shrink-0 rounded-sm px-2 py-2"
 						@mouseenter="addHoverClass"
 						@mouseleave="removeHoverClass"
 						@click="() => router.push('/')"
+						:class="dynamicHover"
 					>
+						<!--please explain why does the filter change the size? if you remove this !sepia it will change size. like what?-->
 						<div
-							:class="currentGif"
+							:class="[
+								currentGif,
+								colorStore.dominantColor == 'white' && '!sepia',
+							]"
 							class="logoBeforeAfter"
 						>
 							<div class="m-0 h-[16px] w-[75px] px-0 py-[8px] opacity-100" />
@@ -51,6 +57,7 @@
 							<Button
 								class="relative mt-0 h-[32px] rounded-sm px-2 py-0 block max-[900px]:hidden"
 								variant="ghost"
+								:class="dynamicHover"
 							>
 								Workspaces
 
@@ -91,6 +98,7 @@
 							<Button
 								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1040px]:hidden"
 								variant="ghost"
+								:class="dynamicHover"
 							>
 								Recent
 								<Icon
@@ -131,6 +139,7 @@
 							<Button
 								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1160px]:hidden"
 								variant="ghost"
+								:class="dynamicHover"
 							>
 								Starred
 								<Icon
@@ -172,6 +181,7 @@
 								<Button
 									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1280px]:hidden"
 									variant="ghost"
+									:class="dynamicHover"
 								>
 									Templates
 									<Icon
@@ -307,7 +317,7 @@
 								<Button
 									size="icon"
 									variant="ghost"
-									class="hoverButton absolute left-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
+									class="absolute left-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
 									aria-label="Close"
 									@click="toggleCreateInHeaderOpen"
 								>
@@ -319,7 +329,7 @@
 								<Button
 									size="icon"
 									variant="ghost"
-									class="hoverButton absolute right-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
+									class="absolute right-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
 									aria-label="Close"
 									@click="closeDropdown"
 								>
@@ -338,7 +348,7 @@
 								<Button
 									size="icon"
 									variant="ghost"
-									class="hoverButton absolute left-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
+									class="absolute left-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
 									aria-label="Close"
 									@click="toggleTemplatesInHeaderOpen"
 								>
@@ -350,7 +360,7 @@
 								<Button
 									size="icon"
 									variant="ghost"
-									class="hoverButton absolute right-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
+									class="absolute right-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
 									aria-label="Close"
 									@click="closeDropdown"
 								>
@@ -372,7 +382,7 @@
 								<Button
 									size="icon"
 									variant="ghost"
-									class="hoverButton absolute left-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
+									class="absolute left-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
 									aria-label="Close"
 									@click="toggleCreateInHeaderOpen"
 								>
@@ -384,7 +394,7 @@
 								<Button
 									size="icon"
 									variant="ghost"
-									class="hoverButton absolute right-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
+									class="absolute right-[15px] top-[15px] inline-flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md outline-none"
 									aria-label="Close"
 									@click="closeDropdown"
 								>
@@ -406,35 +416,42 @@
 							id="search"
 							type="text"
 							placeholder="Search..."
-							class="h-full pl-10"
+							class="h-full pl-10 bg-transWhite border border-gray-400"
+							:class="
+								colorStore.dominantColor == 'white' &&
+								'placeholder:text-white hover:!backdrop-brightness-110 transition-all !border-white'
+							"
 						/>
 						<span
 							class="absolute inset-y-0 start-0 flex items-center justify-center px-2"
 						>
 							<Icon
 								name="tabler:search"
-								class="text-slate-600 dark:text-slate-400"
+								:style="dynamicText"
 							/>
 						</span>
 					</div>
 
 					<NuxtLink
-						class="flex items-center justify-center rounded-md bg-transparent hover:bg-slate-300 dark:hover:bg-gray-600 min-[800px]:hidden h-8 w-8"
+						class="flex items-center justify-center rounded-md bg-transparent dark:hover:bg-gray-600 min-[800px]:hidden h-8 w-8"
 						to="/search"
+						:class="dynamicHover"
 					>
 						<Icon
 							name="tabler:search"
-							class="text-lg text-slate-600 dark:text-slate-200"
+							:style="dynamicText"
 						/>
 					</NuxtLink>
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="flex h-8 w-8 items-center justify-center rounded-full bg-transparent hover:bg-slate-300 dark:hover:bg-gray-600"
+							class="flex h-8 w-8 items-center justify-center !rounded-full bg-transparent dark:hover:bg-gray-600"
+							:style="dynamicText"
+							:class="dynamicHover"
 						>
 							<Icon
 								name="tabler:school-bell"
-								class="text-lg text-slate-600 dark:text-slate-200"
+								class="text-lg"
 							/>
 						</DropdownMenuTrigger>
 						<DropdownMenuContent class="h-[25rem] w-[432px] p-3">
@@ -550,11 +567,13 @@
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="flex h-8 w-8 items-center justify-center rounded-full bg-transparent hover:bg-slate-300 dark:hover:bg-gray-600 dark:hover:brightness-110"
+							class="flex h-8 w-8 items-center justify-center !rounded-full bg-transparent dark:hover:bg-gray-600 dark:hover:brightness-110"
+							:class="dynamicHover"
 						>
 							<Icon
 								name="ph:question"
-								class="text-xl text-slate-700 dark:text-slate-200"
+								class="text-xl"
+								:style="dynamicText"
 							/>
 						</DropdownMenuTrigger>
 
@@ -617,7 +636,7 @@
 						</DropdownMenuContent>
 					</DropdownMenu>
 
-					<LoggedInUserDropdown />
+					<LoggedInUserDropdown :dynamicHover="dynamicHover" />
 				</div>
 			</div>
 		</ConfigProvider>
@@ -659,8 +678,9 @@
 	import NotificationListItem from "../UI/NotificationListItem.vue";
 	import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
 
-	const { dynamicBg, dynamicText } = useDynamicBg();
+	const { dynamicBg, dynamicText, dynamicHover } = useDynamicBg();
 	const colorMode = useColorMode();
+	const colorStore = useColorStore();
 
 	const useIdFunction = () => useId();
 
@@ -699,13 +719,6 @@
 	const closeCreateWorkspaceDialog = () => {
 		open.value = false;
 	};
-
-	async function create(action: string) {
-		const data = await $larafetch(action, {
-			method: "post",
-			body: { title: "" },
-		});
-	}
 
 	const templatesItems = [
 		{

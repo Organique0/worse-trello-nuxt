@@ -3,7 +3,8 @@
 		<DropdownMenu>
 			<DropdownMenuTrigger as-child>
 				<Button
-					class="relative block h-8 w-8 rounded-full border-none bg-transparent p-1 hover:bg-slate-300 dark:hover:bg-gray-600 dark:hover:brightness-110"
+					class="relative block h-8 w-8 !rounded-full border-none !bg-transparent p-1 dark:hover:bg-gray-600 dark:hover:brightness-110"
+					:class="dynamicHover"
 				>
 					<div class="flex h-full w-full items-center justify-center">
 						<span
@@ -187,4 +188,9 @@
 	watch(theme, (newTheme) => {
 		colorMode.preference = newTheme;
 	});
+	const colorStore = useColorStore();
+
+	defineProps<{
+		dynamicHover: String;
+	}>();
 </script>

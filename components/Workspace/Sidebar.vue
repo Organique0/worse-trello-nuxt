@@ -1,9 +1,9 @@
 <template>
 	<div
-		class="relative w-[340px] border h-[calc(100vh-48px)] dark:!bg-[#1D2125]"
+		class="relative w-[340px] border border-slate-400 border-t-0 h-[calc(100vh-48px)] dark:!bg-[#1D2125]"
 	>
 		<div v-if="myWorkspaceStore.currentWorkspace">
-			<div class="flex gap-2 border-b p-3">
+			<div class="flex gap-2 border-b border-b-slate-400 p-3">
 				<div
 					class="rounded-sm h-[32px] w-[32px] text-white dark:text-black font-bold text-[20px] flex justify-center items-center"
 					:class="getWorkspaceTypeColor(myWorkspaceStore.currentWorkspace.type)"
@@ -44,10 +44,11 @@
 				<!--BOARDS-->
 				<Button
 					class="workspaceSidemenuButton"
-					:class="
+					:class="[
 						route.path == `/w/${route.params.wid}` &&
-						'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
-					"
+							'!bg-gray-300 workspaceSidemenuCurrentRouteButton',
+						dynamicHover,
+					]"
 					@click="
 						() => router.push('/w/' + myWorkspaceStore.currentWorkspace?.id_str)
 					"
@@ -61,10 +62,11 @@
 				<!--MEMBERS-->
 				<Button
 					class="workspaceSidemenuButton"
-					:class="
+					:class="[
 						route.path.includes('members') &&
-						'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
-					"
+							'!bg-gray-300 workspaceSidemenuCurrentRouteButton',
+						dynamicHover,
+					]"
 					@click="
 						() =>
 							router.push(
@@ -90,10 +92,11 @@
 				</Button>
 				<Button
 					class="workspaceSidemenuButton"
-					:class="
+					:class="[
 						route.path.includes('account') &&
-						'!bg-gray-300 workspaceSidemenuCurrentRouteButton'
-					"
+							'!bg-gray-300 workspaceSidemenuCurrentRouteButton',
+						dynamicHover,
+					]"
 					@click="
 						() =>
 							router.push(
@@ -121,7 +124,10 @@
 			<h1 class="font-bold text-[14px] ml-3 mt-3 mb-3">Workspace views</h1>
 
 			<!--TABLE-->
-			<Button class="group workspaceSidemenuButton">
+			<Button
+				class="group workspaceSidemenuButton"
+				:class="dynamicHover"
+			>
 				<LogoTable class="h-[16px] w-[16px] mr-2 dark:text-gray-400" />
 				<p class="dark:text-gray-400">Table</p>
 				<Button
@@ -136,7 +142,10 @@
 			</Button>
 
 			<!--CALENDAR-->
-			<Button class="group workspaceSidemenuButton flex justify-between">
+			<Button
+				class="group workspaceSidemenuButton flex justify-between"
+				:class="dynamicHover"
+			>
 				<div class="flex">
 					<LogoCalendar class="h-[16px] w-[16px] mr-2 dark:text-gray-400" />
 					<p class="dark:text-gray-400">Calendar</p>
@@ -224,11 +233,12 @@
 				class="group workspaceSidemenuButton !justify-between"
 				v-for="board in sortedBoards"
 				@click="() => router.push(`/b/${board.id_str}`)"
-				:class="
+				:class="[
 					route.params.bid != undefined &&
-					route.params.bid == board.id_str &&
-					'workspaceSidemenuCurrentRouteButton'
-				"
+						route.params.bid == board.id_str &&
+						dynamicCurrentRoute,
+					dynamicHover,
+				]"
 			>
 				<div class="inline-flex gap-1">
 					<div
@@ -278,13 +288,13 @@
 
 								<!--CLOSE-->
 								<Button
-									class="hoverButton w-full flex justify-between bg-transparent text-black mt-2 !rounded-none h-9"
+									class="hoverButton w-full flex justify-between bg-transparent text-black dark:text-gray-400 mt-2 !rounded-none h-9"
 									@click="toggleCloseBoardOpen"
 								>
 									Close board
 									<Icon
 										name="tabler:chevron-right"
-										class="w-[18px] h-[18px] text-black dark:text-gray-400"
+										class="w-[18px] h-[18px] text-inherit"
 								/></Button>
 							</PopoverContent>
 							<PopoverContent
@@ -359,7 +369,6 @@
 
 <script lang="ts" setup>
 	import { useRoute } from "vue-router";
-	import type { Board, Workspace } from "../../lib/types";
 	import { giveBackgroundImage, getWorkspaceTypeColor } from "~/lib/utils";
 	import {
 		PopoverAnchor,
@@ -377,6 +386,7 @@
 	const sortBy = ref("mostRecent");
 	const closeBoardOpen = ref(false);
 	const popoverOpen = ref(false);
+	const { dynamicHover, dynamicCurrentRoute } = useDynamicBg();
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const { user } = useMyUserStore();

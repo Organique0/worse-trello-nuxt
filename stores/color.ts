@@ -1,9 +1,8 @@
-// stores/colorStore.ts
 import { defineStore } from 'pinia';
 
 export const useColorStore = defineStore('color', {
   state: () => ({
-    dominantColor: '#ffffff', // default to white
+    dominantColor: 'white',
   }),
   actions: {
     setDominantColor(color: string) {

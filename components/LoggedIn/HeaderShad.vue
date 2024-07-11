@@ -43,7 +43,7 @@
 						<div
 							:class="[
 								currentGif,
-								colorStore.dominantColor == 'white' && !dark && '!sepia',
+								colorStore.dominantColor == 'white' && !dark,
 							]"
 							class="logoBeforeAfter"
 						>
@@ -800,30 +800,6 @@
 		},
 	];
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const starredItems: any[] = [
-		/*     {
-            src: "/templatesExample.jpg",
-            title: "1-on-1 Meeting Agenda",
-            type: "Trello workspace"
-          } */
-	];
-
-	const recentItems = computed(() => {
-		myWorkspaceStore.recentBoards;
-	});
-
-	const workspaceItems = [
-		{
-			src: "/templatesExample.jpg",
-			title: "Trello Workspace",
-		},
-		{
-			src: "/templatesExample.jpg",
-			title: "Trello Workspace",
-		},
-	];
-
 	const notificationItems = [
 		{
 			title: "Hey there!",
@@ -909,11 +885,13 @@
 			brightness(84%) contrast(97%);
 	}
 
-	@media (prefers-color-scheme: dark) {
-		.logoBeforeAfter {
-			filter: brightness(0) saturate(100%) invert(66%) sepia(20%) saturate(225%)
-				hue-rotate(170deg) brightness(101%) contrast(85%) !important;
-		}
+	.dark .logoBeforeAfter {
+		filter: brightness(0) saturate(100%) invert(66%) sepia(20%) saturate(225%)
+			hue-rotate(170deg) brightness(101%) contrast(85%) !important;
+	}
+
+	.logoBeforeAfter.sepia {
+		filter: sepia(1);
 	}
 
 	div[data-radix-select-viewport] > div {

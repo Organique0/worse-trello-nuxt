@@ -1,5 +1,7 @@
+import { get } from '@vueuse/core';
 import { defineStore } from 'pinia'
 import type { Board, CreateWorkspaceValues, FullBoard, List, Workspace } from '~/lib/types';
+import workspace from '~/plugins/workspace';
 
 export const useMyWorkspaceStore = defineStore({
   id: 'myWorkspaceStore',
@@ -9,6 +11,7 @@ export const useMyWorkspaceStore = defineStore({
       recentBoards: [] as Board[],
       currentWorkspace: null as Workspace | null,
       currentBoard: {} as Board | null,
+      starredBoards: [] as Board[],
     }
   },
   getters: {
@@ -26,7 +29,7 @@ export const useMyWorkspaceStore = defineStore({
     },
     setCurrentBoard: (state) => {
       return (board: Board | null) => state.currentBoard = board
-    }
+    },
   },
   actions: {
     async loadWorkspaces() {
@@ -34,7 +37,9 @@ export const useMyWorkspaceStore = defineStore({
         method: "get",
       });
 
-      this.workspaces = await response;
+      const workspaces = await response;
+      this.workspaces = workspaces;
+      this.$state.starredBoards = workspaces.flatMap((workspace: Workspace) => workspace.workspace_boards).filter((board: Board) => board.is_favorited)
     },
 
     async loadWorkspace(wid: string) {
@@ -75,25 +80,51 @@ export const useMyWorkspaceStore = defineStore({
     },
 
     async favorite(id: string) {
-      if (!this.currentWorkspace) {
-        console.error("currentWorkspace is undefined");
-        return;
-      }
+      const board = this.getBoardById(id);
+      const workspace = this.getWorkspace((board as FullBoard).workspace_id_str);
 
-      const boardIndex = this.currentWorkspace.workspace_boards.findIndex(
+      const boardIndex = workspace.workspace_boards.findIndex(
         (board: Board) => board.id_str === id
+      );
+
+      const workspaceIndex = this.workspaces.findIndex(
+        (w: Workspace) => w.id_str === workspace.id_str
       );
 
       if (boardIndex === -1) {
         console.error(`Board with id ${id} not found`);
         return;
       };
+
       const updatedBoard = {
-        ...this.currentWorkspace.workspace_boards[boardIndex],
-        is_favorited: !this.currentWorkspace.workspace_boards[boardIndex].is_favorited,
+        ...this.workspaces[workspaceIndex].workspace_boards[boardIndex],
+        is_favorited: !this.workspaces[workspaceIndex].workspace_boards[boardIndex].is_favorited,
       };
 
-      this.currentWorkspace.workspace_boards.splice(boardIndex, 1, updatedBoard);
+      this.workspaces[workspaceIndex].workspace_boards.splice(boardIndex, 1, updatedBoard);
+
+      const existing = this.starredBoards.find((b: Board) => b.id_str == board.id_str);
+
+      if (!existing) {
+        board.is_favorited = true;
+        this.starredBoards.unshift(board);
+      } else {
+        this.starredBoards = this.starredBoards.filter((b: Board) => b.id_str != board.id_str);
+      }
+
+
+      if (this.recentBoards.length > 0) {
+        const recentBoardIndex = this.recentBoards.findIndex(
+          (board: Board) => board.id_str === id
+        );
+
+        if (recentBoardIndex !== -1) {
+          this.recentBoards.splice(recentBoardIndex, 1);
+          this.removeRecentId(board.id_str);
+        }
+      }
+
+
 
       try {
         await $larafetch("api/boards/favorite", {
@@ -102,11 +133,11 @@ export const useMyWorkspaceStore = defineStore({
         });
       } catch (error) {
         console.error("Error favoriting board:", error);
-        this.currentWorkspace.workspace_boards.splice(
-          boardIndex,
-          1,
-          this.currentWorkspace.workspace_boards[boardIndex]
-        );
+        /*         this.currentWorkspace.workspace_boards.splice(
+                  boardIndex,
+                  1,
+                  this.currentWorkspace.workspace_boards[boardIndex]
+                ); */
       }
     },
 
@@ -177,6 +208,20 @@ export const useMyWorkspaceStore = defineStore({
 
       if (rbc.length > 4) {
         rbc.pop();
+      }
+    },
+
+    removeRecentId(id: string) {
+      const recentBoardsCookie = useCookie<String[]>("recentBoards", {
+        default: () => [],
+        sameSite: true,
+      });
+
+      const rbc = recentBoardsCookie.value;
+      const index = rbc.indexOf(id);
+
+      if (index != -1) {
+        rbc.splice(index, 1);
       }
     },
 

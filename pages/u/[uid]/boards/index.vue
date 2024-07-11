@@ -2,6 +2,33 @@
 	<div class="w-full max-w-[825px] min-w-[288px] mt-[40px] mx-[16px]">
 		<div
 			v-if="
+				myWorkspaceStore.starredBoards &&
+				myWorkspaceStore.starredBoards.length > 0
+			"
+			class="mb-16"
+		>
+			<div class="flex gap-x-3">
+				<Icon
+					name="cil:star"
+					width="25"
+					height="25"
+				/>
+				<h1 class="mb-3">Starred boards</h1>
+			</div>
+			<div class="">
+				<ul class="flex flex-wrap justify-start">
+					<li
+						v-for="board in myWorkspaceStore.starredBoards"
+						:key="board.id_str"
+						class="boardsList"
+					>
+						<LoggedInBoardPreview :board="board" />
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div
+			v-if="
 				myWorkspaceStore.recentBoards &&
 				myWorkspaceStore.recentBoards.length > 0
 			"

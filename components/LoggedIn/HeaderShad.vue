@@ -70,20 +70,23 @@
 						</DropdownMenuTrigger>
 
 						<DropdownMenuContent class="w-[20rem] p-3">
-							<DropdownMenuLabel class="mb-2 text-[12px] font-normal leading-4"
+							<DropdownMenuLabel class="text-[12px] font-normal leading-4"
 								>Your Workspaces
 							</DropdownMenuLabel>
 
 							<DropdownMenuItem
-								v-for="item in workspaceItems"
+								v-for="item in myWorkspaceStore.workspaces"
 								:key="item.title"
-								class="h-[4rem]"
+								class="h-[3.5rem] rounded-md workspaceHeaderShadButtonDark"
+								@click="router.push(`/w/${item.id_str}`)"
 							>
 								<div class="inline-flex w-full">
-									<NuxtImg
-										:src="item.src"
-										class="h-10 w-10 rounded-sm"
-									/>
+									<div
+										class="rounded-sm h-[40px] w-[40px] text-white dark:text-black font-bold text-[20px] flex justify-center items-center"
+										:class="getWorkspaceTypeColor(item.type)"
+									>
+										{{ item.title.charAt(0).toLocaleUpperCase() }}
+									</div>
 									<p class="ml-3 content-center font-semibold">
 										{{ item.title }}
 									</p>
@@ -113,6 +116,7 @@
 								v-for="board in myWorkspaceStore.recentBoards"
 								:key="board.title"
 								class="group"
+								@click="router.push(`/b/${board.id_str}`)"
 							>
 								<div class="group inline-flex w-full items-center">
 									<div
@@ -121,7 +125,7 @@
 												board.prefs_background || board.prefs_background_url
 											)
 										"
-										class="h-8 w-10 rounded-sm"
+										class="h-8 w-10 rounded-sm bg-cover"
 									/>
 									<div class="ml-3">
 										<p class="font-semibold">{{ board.title }}</p>
@@ -166,17 +170,42 @@
 						</DropdownMenuTrigger>
 
 						<DropdownMenuContent class="w-[20rem] p-3">
-							<div v-if="starredItems.length > 0">
+							<div v-if="myWorkspaceStore.starredBoards.length > 0">
 								<DropdownMenuItem
-									v-for="item in starredItems"
-									:key="item.title"
+									v-for="board in myWorkspaceStore.starredBoards"
+									:key="board.title"
+									class="group"
+									@click="router.push(`/b/${board.id_str}`)"
 								>
-									<div class="inline-flex w-full">
-										<NuxtImg
-											:src="item.src"
-											class="h-8 w-8"
+									<div class="group inline-flex w-full items-center">
+										<div
+											:style="
+												giveBackgroundImage(
+													board.prefs_background || board.prefs_background_url
+												)
+											"
+											class="h-8 w-10 rounded-sm bg-cover"
 										/>
-										<p class="ml-1 font-semibold">{{ item.title }}</p>
+										<div class="ml-3">
+											<p class="font-semibold">{{ board.title }}</p>
+											<p class="text-xs font-light">
+												{{ board.workspace_id_str }}
+											</p>
+										</div>
+										<Button
+											class="workspaceSidemenuButtonIcon invisible group-hover:visible"
+											size="icon"
+											:class="board.is_favorited && 'visible'"
+											@click.stop="myWorkspaceStore.favorite(board.id_str)"
+										>
+											<LogoFavorite
+												:class="
+													board.is_favorited
+														? 'fill-gray-600 dark:fill-gray-400 stroke-gray-600 dark:stroke-gray-400 stroke-2 hover:fill-none'
+														: 'fill-transparent stroke-gray-600 dark:stroke-gray-400 stroke-2 transition-transform duration-100'
+												"
+											/>
+										</Button>
 									</div>
 								</DropdownMenuItem>
 							</div>
@@ -697,7 +726,7 @@
 	import { ConfigProvider, VisuallyHidden } from "radix-vue";
 	import NotificationListItem from "../UI/NotificationListItem.vue";
 	import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
-	import { giveBackgroundImage } from "~/lib/utils";
+	import { getWorkspaceTypeColor, giveBackgroundImage } from "~/lib/utils";
 
 	const { dynamicBg, dynamicText, dynamicHover } = useDynamicBg();
 	const colorMode = useColorMode();

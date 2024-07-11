@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="max-h-[48px] min-h-[48px] dark:!bg-[#1D2125]"
+		class="max-h-[48px] min-h-[48px] dark:!bg-[#1D2125] dark:!text-gray-400"
 		:style="[dynamicBg, dynamicText]"
 	>
 		<ConfigProvider :use-id="useIdFunction">
@@ -11,7 +11,7 @@
 					<!---more button-->
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="relative mt-0 block h-[32px] w-[32px] flex-shrink-0 rounded-sm py-2"
+							class="relative mt-0 block h-[32px] w-[32px] flex-shrink-0 rounded-sm py-2 workspaceHeaderShadButtonDark"
 							:class="dynamicHover"
 						>
 							<Icon
@@ -33,17 +33,17 @@
 
 					<!--gif logo-->
 					<div
-						class="relative mt-0 block h-[32px] flex-shrink-0 rounded-sm px-2 py-2"
+						class="relative mt-0 block h-[32px] flex-shrink-0 rounded-sm px-2 py-2 workspaceHeaderShadButtonDark"
 						@mouseenter="addHoverClass"
 						@mouseleave="removeHoverClass"
 						@click="() => router.push('/')"
-						:class="dynamicHover"
+						:class="!dark && dynamicHover"
 					>
 						<!--please explain why does the filter change the size? if you remove this !sepia it will change size. like what?-->
 						<div
 							:class="[
 								currentGif,
-								colorStore.dominantColor == 'white' && '!sepia',
+								colorStore.dominantColor == 'white' && !dark && '!sepia',
 							]"
 							class="logoBeforeAfter"
 						>
@@ -55,9 +55,9 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="relative mt-0 h-[32px] rounded-sm px-2 py-0 block max-[900px]:hidden"
+								class="relative mt-0 h-[32px] rounded-sm px-2 py-0 block max-[900px]:hidden workspaceHeaderShadButtonDark"
 								variant="ghost"
-								:class="dynamicHover"
+								:class="!dark && dynamicHover"
 							>
 								Workspaces
 
@@ -96,9 +96,9 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1040px]:hidden"
+								class="workspaceHeaderShadButton max-[1040px]:hidden workspaceHeaderShadButtonDark"
 								variant="ghost"
-								:class="dynamicHover"
+								:class="!dark && dynamicHover"
 							>
 								Recent
 								<Icon
@@ -110,24 +110,39 @@
 						</DropdownMenuTrigger>
 						<DropdownMenuContent class="w-[20rem] p-3">
 							<DropdownMenuItem
-								v-for="item in recentItems"
-								:key="item.title"
+								v-for="board in myWorkspaceStore.recentBoards"
+								:key="board.title"
 								class="group"
 							>
 								<div class="group inline-flex w-full items-center">
-									<NuxtImg
-										:src="item.src"
+									<div
+										:style="
+											giveBackgroundImage(
+												board.prefs_background || board.prefs_background_url
+											)
+										"
 										class="h-8 w-10 rounded-sm"
 									/>
 									<div class="ml-3">
-										<p class="font-semibold">{{ item.title }}</p>
-										<p class="text-xs font-light">{{ item.type }}</p>
+										<p class="font-semibold">{{ board.title }}</p>
+										<p class="text-xs font-light">
+											{{ board.workspace_id_str }}
+										</p>
 									</div>
-									<Icon
-										name="material-symbols-light:star-outline"
-										:ssr="true"
-										class="group-hover:color-blue-400 ml-auto hidden h-6 w-6 hover:text-orange-400 group-hover:block"
-									/>
+									<Button
+										class="workspaceSidemenuButtonIcon invisible group-hover:visible"
+										size="icon"
+										:class="board.is_favorited && 'visible'"
+										@click.stop="myWorkspaceStore.favorite(board.id_str)"
+									>
+										<LogoFavorite
+											:class="
+												board.is_favorited
+													? 'fill-gray-600 dark:fill-gray-400 stroke-gray-600 dark:stroke-gray-400 stroke-2 hover:fill-none'
+													: 'fill-transparent stroke-gray-600 dark:stroke-gray-400 stroke-2 transition-transform duration-100'
+											"
+										/>
+									</Button>
 								</div>
 							</DropdownMenuItem>
 						</DropdownMenuContent>
@@ -137,9 +152,9 @@
 					<DropdownMenu>
 						<DropdownMenuTrigger as-child>
 							<Button
-								class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1160px]:hidden"
+								class="workspaceHeaderShadButton max-[1160px]:hidden workspaceHeaderShadButtonDark"
 								variant="ghost"
-								:class="dynamicHover"
+								:class="!dark && dynamicHover"
 							>
 								Starred
 								<Icon
@@ -179,9 +194,9 @@
 						<DropdownMenu>
 							<DropdownMenuTrigger as-child>
 								<Button
-									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 max-[1280px]:hidden"
+									class="workspaceHeaderShadButton max-[1280px]:hidden workspaceHeaderShadButtonDark"
 									variant="ghost"
-									:class="dynamicHover"
+									:class="!dark && dynamicHover"
 								>
 									Templates
 									<Icon
@@ -204,11 +219,11 @@
 						>
 							<DropdownMenuTrigger as-child>
 								<Button
-									class="relative mt-0 block h-[32px] rounded-sm px-2 py-0 dark:text-[#1d2125] max-[1280px]:hidden"
+									class="workspaceHeaderShadButton dark:text-[#1d2125] max-[1280px]:hidden"
 									:style="dynamicText"
 									:class="
 										router.currentRoute.value.path.includes('/b/') &&
-										colorMode.value != 'dark' &&
+										!dark &&
 										'!bg-transWhite hover:backdrop-brightness-110'
 									"
 								>
@@ -416,7 +431,7 @@
 							id="search"
 							type="text"
 							placeholder="Search..."
-							class="h-full pl-10 bg-transWhite border border-gray-400"
+							class="h-full pl-10 bg-transWhite border border-gray-400 dark:!bg-[#282d33]"
 							:class="
 								colorStore.dominantColor == 'white' &&
 								'placeholder:text-white hover:!backdrop-brightness-110 transition-all !border-white'
@@ -427,7 +442,8 @@
 						>
 							<Icon
 								name="tabler:search"
-								:style="dynamicText"
+								:style="!dark && dynamicText"
+								class="text-gray-400 workspaceHeaderShadButtonDark"
 							/>
 						</span>
 					</div>
@@ -435,19 +451,20 @@
 					<NuxtLink
 						class="flex items-center justify-center rounded-md bg-transparent dark:hover:bg-gray-600 min-[800px]:hidden h-8 w-8"
 						to="/search"
-						:class="dynamicHover"
+						:class="!dark && dynamicHover"
 					>
 						<Icon
 							name="tabler:search"
-							:style="dynamicText"
+							:style="!dark && dynamicText"
+							class="text-gray-400"
 						/>
 					</NuxtLink>
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="flex h-8 w-8 items-center justify-center !rounded-full bg-transparent dark:hover:bg-gray-600"
-							:style="dynamicText"
-							:class="dynamicHover"
+							class="flex h-8 w-8 items-center justify-center !rounded-full bg-transparent workspaceHeaderShadButtonDark text-gray-400"
+							:style="!dark && dynamicText"
+							:class="!dark && dynamicHover"
 						>
 							<Icon
 								name="tabler:school-bell"
@@ -567,13 +584,13 @@
 
 					<DropdownMenu>
 						<DropdownMenuTrigger
-							class="flex h-8 w-8 items-center justify-center !rounded-full bg-transparent dark:hover:bg-gray-600 dark:hover:brightness-110"
-							:class="dynamicHover"
+							class="flex h-8 w-8 items-center justify-center !rounded-full bg-transparent workspaceHeaderShadButtonDark text-gray-400"
+							:style="!dark && dynamicText"
+							:class="!dark && dynamicHover"
 						>
 							<Icon
 								name="ph:question"
-								class="text-xl"
-								:style="dynamicText"
+								class="text-lg"
 							/>
 						</DropdownMenuTrigger>
 
@@ -636,7 +653,10 @@
 						</DropdownMenuContent>
 					</DropdownMenu>
 
-					<LoggedInUserDropdown :dynamicHover="dynamicHover" />
+					<LoggedInUserDropdown
+						:dynamicHover="dynamicHover"
+						:dark="dark"
+					/>
 				</div>
 			</div>
 		</ConfigProvider>
@@ -677,10 +697,18 @@
 	import { ConfigProvider, VisuallyHidden } from "radix-vue";
 	import NotificationListItem from "../UI/NotificationListItem.vue";
 	import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
+	import { giveBackgroundImage } from "~/lib/utils";
 
 	const { dynamicBg, dynamicText, dynamicHover } = useDynamicBg();
 	const colorMode = useColorMode();
 	const colorStore = useColorStore();
+
+	const myWorkspaceStore = useMyWorkspaceStore();
+
+	const dark = ref(false);
+	onMounted(() => {
+		dark.value = colorMode.value == "dark";
+	});
 
 	const useIdFunction = () => useId();
 
@@ -752,13 +780,9 @@
           } */
 	];
 
-	const recentItems = [
-		{
-			src: "/templatesExample.jpg",
-			title: "1-on-1 Meeting Agenda",
-			type: "Trello workspace",
-		},
-	];
+	const recentItems = computed(() => {
+		myWorkspaceStore.recentBoards;
+	});
 
 	const workspaceItems = [
 		{
@@ -854,6 +878,13 @@
 	.logoBeforeAfter {
 		filter: invert(69%) sepia(8%) saturate(866%) hue-rotate(180deg)
 			brightness(84%) contrast(97%);
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.logoBeforeAfter {
+			filter: brightness(0) saturate(100%) invert(66%) sepia(20%) saturate(225%)
+				hue-rotate(170deg) brightness(101%) contrast(85%) !important;
+		}
 	}
 
 	div[data-radix-select-viewport] > div {

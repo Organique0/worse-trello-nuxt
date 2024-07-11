@@ -3,8 +3,8 @@
 		<DropdownMenu>
 			<DropdownMenuTrigger as-child>
 				<Button
-					class="relative block h-8 w-8 !rounded-full border-none !bg-transparent p-1 dark:hover:bg-gray-600 dark:hover:brightness-110"
-					:class="dynamicHover"
+					class="relative block h-8 w-8 !rounded-full border-none !bg-transparent p-1 workspaceHeaderShadButtonDark"
+					:class="!dark && dynamicHover"
 				>
 					<div class="flex h-full w-full items-center justify-center">
 						<span
@@ -192,5 +192,6 @@
 
 	defineProps<{
 		dynamicHover: String;
+		dark: boolean;
 	}>();
 </script>

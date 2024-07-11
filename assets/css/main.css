@@ -153,12 +153,19 @@
 	@apply w-full font-semibold bg-transparent text-inherit hover:text-inherit dark:text-gray-400 dark:hover:!text-gray-400 dark:hover:!bg-gray-400/20 !rounded-none h-[32px] p-0 pl-[16px] flex flex-row  justify-start;
 }
 
+.workspaceHeaderShadButtonDark {
+	@apply dark:text-gray-400 dark:hover:!text-gray-400 dark:hover:!bg-gray-400/20;
+}
+.workspaceHeaderShadButton {
+	@apply relative mt-0 block h-[32px] rounded-sm px-2 py-0;
+}
+
 .workspaceSidemenuButtonIcon {
 	@apply ml-auto mr-2 hoverButton bg-transparent h-[25px] w-[25px] opacityGray !rounded-sm dark:hover:!bg-transparent;
 }
 
 .userDropdownThemeSubTrigger {
-	@apply relative left-[-1rem] w-[calc(100%+2.1rem)] rounded-none focus:bg-accent focus:bg-lightBlueBg focus:text-primary focus:shadow-blueLeft data-[state=open]:bg-lightBlueBg data-[state=open]:text-primary data-[state=open]:shadow-blueLeft dark:data-[state=open]:bg-accent;
+	@apply relative left-[-1rem] w-[calc(100%+2.1rem)] rounded-none focus:text-primary focus:shadow-blueLeft data-[state=open]:bg-lightBlueBg data-[state=open]:text-primary data-[state=open]:shadow-blueLeft dark:data-[state=open]:bg-accent;
 }
 
 .workspaceSidemenuCurrentRouteButton {

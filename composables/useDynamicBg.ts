@@ -32,8 +32,10 @@ export const useDynamicBg = (opacity?: string | null) => {
   });
 
   const dynamicHover = computed(() => {
+    if (route.path.includes('/w/')) {
+      return 'hover:!bg-gray-200/80'
+    }
     if (
-      router.currentRoute.value.path.includes('/b/') &&
       colorStore.dominantColor === 'white'
     ) {
       return 'hover:!bg-white/20 hover:!text-white '
@@ -52,11 +54,24 @@ export const useDynamicBg = (opacity?: string | null) => {
     }
   });
 
+  const dynamicBorder = computed(() => {
+    if (route.path.includes('/w/')) {
+      return 'border-gray-200'
+    }
+    if (colorStore.dominantColor === 'white') {
+      return 'border-white/20'
+    } else {
+      return 'border-black/20'
+    }
+  });
+
+
 
   return {
     dynamicBg,
     dynamicText,
     dynamicHover,
-    dynamicCurrentRoute
+    dynamicCurrentRoute,
+    dynamicBorder
   }
 }

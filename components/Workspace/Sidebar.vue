@@ -1,9 +1,14 @@
 <template>
 	<div
-		class="relative w-[340px] border border-slate-400 border-t-0 h-[calc(100vh-48px)] dark:!bg-[#1D2125]"
+		v-if="true"
+		class="relative w-[340px] border dark:border-gray-600 border-t-0 h-full dark:!bg-[#1D2125] border-l-0"
+		:class="dynamicBorder"
 	>
 		<div v-if="myWorkspaceStore.currentWorkspace">
-			<div class="flex gap-2 border-b border-b-slate-400 p-3">
+			<div
+				class="flex gap-2 border-b dark:border-b-gray-600 p-3"
+				:class="dynamicBorder"
+			>
 				<div
 					class="rounded-sm h-[32px] w-[32px] text-white dark:text-black font-bold text-[20px] flex justify-center items-center"
 					:class="getWorkspaceTypeColor(myWorkspaceStore.currentWorkspace.type)"
@@ -16,11 +21,11 @@
 				</div>
 
 				<div class="items-center leading-5">
-					<h2 class="text-[15px] font-bold leading-3">
+					<h2 class="text-[15px] font-bold leading-3 dark:text-gray-400">
 						{{ myWorkspaceStore.currentWorkspace.title }}
 					</h2>
 
-					<span class="text-xs font-light">{{
+					<span class="text-xs font-light dark:text-gray-400">{{
 						myWorkspaceStore.currentWorkspace.visibility
 							.charAt(0)
 							.toUpperCase() +
@@ -30,6 +35,7 @@
 
 				<Button
 					class="ml-auto hoverButton h-[32px] w-[32px] p-0 bg-transparent"
+					@click="toggleSidebarOpen"
 				>
 					<Icon
 						name="mingcute:left-line"
@@ -121,7 +127,9 @@
 			</div>
 
 			<!--WORKSPACE VIEWS-->
-			<h1 class="font-bold text-[14px] ml-3 mt-3 mb-3">Workspace views</h1>
+			<h1 class="font-bold text-[14px] ml-3 mt-3 mb-3 dark:text-gray-400">
+				Workspace views
+			</h1>
 
 			<!--TABLE-->
 			<Button
@@ -163,7 +171,9 @@
 
 			<!--YOUR BOARD-->
 			<div class="flex ml-3 mt-3 justify-between group">
-				<h1 class="font-bold text-[14px] block h-full">Your boards</h1>
+				<h1 class="font-bold text-[14px] block h-full dark:text-gray-400">
+					Your boards
+				</h1>
 				<div class="flex gap-1">
 					<PopoverRoot>
 						<PopoverTrigger
@@ -365,6 +375,10 @@
 			</Button>
 		</div>
 	</div>
+	<button
+		class="relative border-r border-gray-700 h-full dark:!bg-[#1D2125] w-3"
+		v-else
+	></button>
 </template>
 
 <script lang="ts" setup>
@@ -386,10 +400,16 @@
 	const sortBy = ref("mostRecent");
 	const closeBoardOpen = ref(false);
 	const popoverOpen = ref(false);
-	const { dynamicHover, dynamicCurrentRoute } = useDynamicBg();
+	const { dynamicHover, dynamicCurrentRoute, dynamicBorder } = useDynamicBg();
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const { user } = useMyUserStore();
+
+	const open = ref(true);
+
+	const toggleSidebarOpen = () => {
+		open.value = !open.value;
+	};
 
 	const toggleCloseBoardOpen = () => {
 		closeBoardOpen.value = !closeBoardOpen.value;

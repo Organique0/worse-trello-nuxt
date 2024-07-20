@@ -1,7 +1,7 @@
 <template>
 	<LoggedInHeaderShad />
 	<div
-		class="flex flex-row flex-1 relative overflow-y-auto h-full bg-cover bg-center"
+		class="flex flex-row flex-1 relative overflow-y-auto bg-cover bg-center h-[calc(100vh-48px)] w-[100vw]"
 		:style="
 			giveBackgroundImage(
 				myWorkspaceStore.currentBoard &&

@@ -5,7 +5,8 @@
 	>
 		<ConfigProvider :use-id="useIdFunction">
 			<div
-				class="box-border flex max-h-12 overflow-hidden border-b-[1px] border-b-slate-400 p-[8px] transition-colors"
+				class="box-border flex max-h-12 overflow-hidden border-b-[1px] dark:border-b-gray-700 p-[8px] transition-colors"
+				:class="dynamicBorder"
 			>
 				<div class="flex w-full space-x-1">
 					<!---more button-->
@@ -728,7 +729,8 @@
 	import AllowMarketingEmailsNotificationItem from "~/components/UI/AllowMarketingEmailsNotificationItem.vue";
 	import { getWorkspaceTypeColor, giveBackgroundImage } from "~/lib/utils";
 
-	const { dynamicBg, dynamicText, dynamicHover } = useDynamicBg();
+	const { dynamicBg, dynamicText, dynamicHover, dynamicBorder } =
+		useDynamicBg();
 	const colorMode = useColorMode();
 	const colorStore = useColorStore();
 

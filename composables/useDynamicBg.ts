@@ -65,6 +65,37 @@ export const useDynamicBg = (opacity?: string | null) => {
     }
   });
 
+  const dynamicIcons = computed(() => {
+    if (colorStore.dominantColor === 'white') {
+      return 'text-white hover:!text-white dark:text-gray-400 w-[18px] h-[18px]'
+    } else {
+      return 'text-gray-600 hover:!text-gray-600 dark:text-gray-400 w-[18px] h-[18px]'
+    }
+  });
+
+  const dynamicHiddenIcons = computed(() => {
+    if (colorStore.dominantColor === 'white') {
+      return 'w-[18px] h-[18px] text-transparent group-hover:!text-white dark:group-hover:!text-gray-400'
+    } else {
+      return 'w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400'
+    }
+  });
+
+  const dynamicFavoriteFull = computed(() => {
+    if (colorStore.dominantColor === 'white') {
+      return 'fill-white dark:fill-gray-400 stroke-white dark:stroke-gray-400 stroke-2 hover:fill-none'
+    } else {
+      return 'fill-gray-600 dark:fill-gray-400 stroke-gray-600 dark:stroke-gray-400 stroke-2 hover:fill-none'
+    }
+  });
+
+  const dynamicFavoriteEmpty = computed(() => {
+    if (colorStore.dominantColor === 'white') {
+      return 'fill-transparent stroke-white dark:stroke-gray-400 stroke-2 transition-transform duration-100'
+    } else {
+      return 'fill-transparent stroke-gray-600 dark:stroke-gray-400 stroke-2 transition-transform duration-100'
+    }
+  })
 
 
   return {
@@ -72,6 +103,10 @@ export const useDynamicBg = (opacity?: string | null) => {
     dynamicText,
     dynamicHover,
     dynamicCurrentRoute,
-    dynamicBorder
+    dynamicBorder,
+    dynamicIcons,
+    dynamicHiddenIcons,
+    dynamicFavoriteFull,
+    dynamicFavoriteEmpty
   }
 }

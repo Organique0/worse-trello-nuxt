@@ -36,10 +36,12 @@
 				<Button
 					class="ml-auto hoverButton h-[32px] w-[32px] p-0 bg-transparent"
 					@click="toggleSidebarOpen"
+					:class="dynamicHover"
 				>
 					<Icon
 						name="mingcute:left-line"
-						class="h-5 w-5 text-black dark:text-gray-400"
+						class="h-5 w-5 dark:text-gray-400"
+						:class="dynamicIcons"
 					/>
 				</Button>
 			</div>
@@ -92,7 +94,7 @@
 					>
 						<Icon
 							name="ic:outline-plus"
-							class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400"
+							:class="dynamicIcons"
 						/>
 					</Button>
 				</Button>
@@ -120,7 +122,7 @@
 					>
 						<Icon
 							name="tabler:chevron-down"
-							class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400"
+							:class="dynamicIcons"
 						/>
 					</Button>
 				</Button>
@@ -144,7 +146,7 @@
 				>
 					<Icon
 						name="tabler:dots"
-						class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
+						:class="dynamicHiddenIcons"
 					/>
 				</Button>
 			</Button>
@@ -164,7 +166,7 @@
 				>
 					<Icon
 						name="tabler:dots"
-						class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
+						:class="dynamicHiddenIcons"
 					/>
 				</Button>
 			</Button>
@@ -181,7 +183,7 @@
 						>
 							<Icon
 								name="tabler:dots"
-								class="w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400"
+								:class="dynamicHiddenIcons"
 							/>
 						</PopoverTrigger>
 						<PopoverPortal>
@@ -229,7 +231,7 @@
 						>
 							<Icon
 								name="ic:outline-plus"
-								class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
+								:class="dynamicIcons"
 							/>
 						</PopoverTrigger>
 						<NewBoardPopoverContent />
@@ -270,7 +272,7 @@
 						>
 							<Icon
 								name="tabler:dots"
-								class="w-[18px] h-[18px] text-gray-600 hover:!text-gray-600 dark:text-gray-400 dark:hover:!text-gray-400"
+								:class="dynamicIcons"
 							/>
 						</PopoverTrigger>
 						<PopoverPortal>
@@ -365,9 +367,7 @@
 					>
 						<LogoFavorite
 							:class="
-								board.is_favorited
-									? 'fill-gray-600 dark:fill-gray-400 stroke-gray-600 dark:stroke-gray-400 stroke-2 hover:fill-none'
-									: 'fill-transparent stroke-gray-600 dark:stroke-gray-400 stroke-2 transition-transform duration-100'
+								board.is_favorited ? dynamicFavoriteFull : dynamicFavoriteEmpty
 							"
 						/>
 					</Button>
@@ -400,7 +400,15 @@
 	const sortBy = ref("mostRecent");
 	const closeBoardOpen = ref(false);
 	const popoverOpen = ref(false);
-	const { dynamicHover, dynamicCurrentRoute, dynamicBorder } = useDynamicBg();
+	const {
+		dynamicHover,
+		dynamicCurrentRoute,
+		dynamicBorder,
+		dynamicIcons,
+		dynamicHiddenIcons,
+		dynamicFavoriteFull,
+		dynamicFavoriteEmpty,
+	} = useDynamicBg();
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 	const { user } = useMyUserStore();

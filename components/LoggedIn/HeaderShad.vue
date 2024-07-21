@@ -44,7 +44,7 @@
 						<div
 							:class="[
 								currentGif,
-								colorStore.dominantColor == 'white' && !dark,
+								colorStore.dominantColor == 'white' && 'filter-none sepia',
 							]"
 							class="logoBeforeAfter"
 						>
@@ -736,9 +736,8 @@
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 
-	const dark = ref(false);
-	onMounted(() => {
-		dark.value = colorMode.value == "dark";
+	const dark = computed(() => {
+		return colorMode.value == "dark";
 	});
 
 	const useIdFunction = () => useId();

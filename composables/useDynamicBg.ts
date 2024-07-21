@@ -66,6 +66,9 @@ export const useDynamicBg = (opacity?: string | null) => {
   });
 
   const dynamicIcons = computed(() => {
+    if (route.path.includes('/w/')) {
+      return 'text-gray-600 hover:!text-gray-600 dark:text-gray-400 w-[18px] h-[18px]'
+    }
     if (colorStore.dominantColor === 'white') {
       return 'text-white hover:!text-white dark:text-gray-400 w-[18px] h-[18px]'
     } else {
@@ -74,6 +77,9 @@ export const useDynamicBg = (opacity?: string | null) => {
   });
 
   const dynamicHiddenIcons = computed(() => {
+    if (route.path.includes('/w/')) {
+      return 'w-[18px] h-[18px] text-transparent group-hover:!text-gray-600 dark:group-hover:!text-gray-400'
+    }
     if (colorStore.dominantColor === 'white') {
       return 'w-[18px] h-[18px] text-transparent group-hover:!text-white dark:group-hover:!text-gray-400'
     } else {
@@ -82,6 +88,9 @@ export const useDynamicBg = (opacity?: string | null) => {
   });
 
   const dynamicFavoriteFull = computed(() => {
+    if (route.path.includes('/w/')) {
+      return 'fill-gray-600 dark:fill-gray-400 stroke-gray-600 dark:stroke-gray-400 stroke-2 hover:fill-none'
+    }
     if (colorStore.dominantColor === 'white') {
       return 'fill-white dark:fill-gray-400 stroke-white dark:stroke-gray-400 stroke-2 hover:fill-none'
     } else {
@@ -90,6 +99,9 @@ export const useDynamicBg = (opacity?: string | null) => {
   });
 
   const dynamicFavoriteEmpty = computed(() => {
+    if (route.path.includes('/w/')) {
+      return 'fill-transparent stroke-gray-600 dark:stroke-gray-400 stroke-2 transition-transform duration-100'
+    }
     if (colorStore.dominantColor === 'white') {
       return 'fill-transparent stroke-white dark:stroke-gray-400 stroke-2 transition-transform duration-100'
     } else {

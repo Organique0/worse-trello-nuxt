@@ -44,7 +44,9 @@
 						<div
 							:class="[
 								currentGif,
-								colorStore.dominantColor == 'white' && 'filter-none sepia',
+								colorStore.dominantColor == 'white' &&
+									route.path.includes('/b') &&
+									'filter-none sepia',
 							]"
 							class="logoBeforeAfter"
 						>
@@ -733,6 +735,7 @@
 		useDynamicBg();
 	const colorMode = useColorMode();
 	const colorStore = useColorStore();
+	const route = useRoute();
 
 	const myWorkspaceStore = useMyWorkspaceStore();
 

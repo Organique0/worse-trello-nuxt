@@ -92,8 +92,8 @@
 		values.order = currentBoard?.board_lists
 			? currentBoard?.board_list.length + 1
 			: 1;
-		await addList(values);
 		toggleAddListDialog();
+		await addList(values);
 	});
 
 	//END

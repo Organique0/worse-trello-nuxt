@@ -257,8 +257,7 @@ export const useMyWorkspaceStore = defineStore({
       });
 
       this.$patch((state) => {
-        const listIndex = state.currentBoard?.board_list.findIndex(list => list.id_str === response.list_id_str) as number;
-
+        const listIndex = state.currentBoard?.board_list.findIndex(list => list.id_str == response.list_id_str) as number;
         state.currentBoard?.board_list[listIndex].board_list_card.push(response);
       });
 
@@ -270,6 +269,6 @@ export const useMyWorkspaceStore = defineStore({
       });
 
       return response;
-    }
+    },
   }
 })

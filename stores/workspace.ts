@@ -1,6 +1,6 @@
 import { get } from '@vueuse/core';
 import { defineStore } from 'pinia'
-import type { Board, CreateWorkspaceValues, FullBoard, List, Workspace } from '~/lib/types';
+import type { Board, CreateWorkspaceValues, FullBoard, board_list, Workspace } from '~/lib/types';
 import workspace from '~/plugins/workspace';
 
 export const useMyWorkspaceStore = defineStore({
@@ -10,7 +10,7 @@ export const useMyWorkspaceStore = defineStore({
       workspaces: [] as Workspace[],
       recentBoards: [] as Board[],
       currentWorkspace: null as Workspace | null,
-      currentBoard: {} as Board | null,
+      currentBoard: {} as FullBoard | null,
       starredBoards: [] as Board[],
     }
   },
@@ -28,7 +28,7 @@ export const useMyWorkspaceStore = defineStore({
       return (workspace: Workspace | null) => state.currentWorkspace = workspace
     },
     setCurrentBoard: (state) => {
-      return (board: Board | null) => state.currentBoard = board
+      return (board: FullBoard | null) => state.currentBoard = board
     },
   },
   actions: {
@@ -237,11 +237,31 @@ export const useMyWorkspaceStore = defineStore({
       this.recentBoards = boards;
     },
 
-    async addList(values: List) {
+    async addList(values: { title: string }) {
       const response = await $larafetch("api/lists/create", {
         method: "post",
         body: values,
       });
+
+      //const changedBoard = await this.fetchBoard<FullBoard>(this.currentBoard!.id_str);
+
+      this.$patch((state) => {
+        state.currentBoard?.board_list.push(response);
+      });
+    },
+
+    async addCard(values: { title: string }) {
+      const response = await $larafetch("api/cards/create", {
+        method: "post",
+        body: values,
+      });
+
+      this.$patch((state) => {
+        const listIndex = state.currentBoard?.board_list.findIndex(list => list.id_str === response.list_id_str) as number;
+
+        state.currentBoard?.board_list[listIndex].board_list_card.push(response);
+      });
+
     },
 
     async fetchBoard<T>(bid: string): Promise<T> {

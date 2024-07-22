@@ -1,7 +1,7 @@
 <template>
 	<LoggedInHeaderShad />
 	<div
-		class="flex flex-row flex-1 relative overflow-y-auto bg-cover bg-center h-[calc(100vh-48px)] w-[100vw]"
+		class="flex flex-row flex-1 relative bg-cover bg-center h-[calc(100vh-48px)] w-[100vw]"
 		:style="
 			giveBackgroundImage(
 				myWorkspaceStore.currentBoard &&
@@ -17,7 +17,7 @@
 				:style="[dynamicBg, dynamicText]"
 			/>
 		</client-only>
-		<div class="w-full">
+		<div class="w-[calc(100vw-260px)]">
 			<WorkspaceInfoHeader
 				v-if="
 					route.path.includes('members') ||

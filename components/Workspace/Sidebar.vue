@@ -1,7 +1,7 @@
 <template>
 	<div
 		v-if="true"
-		class="relative w-[340px] border dark:border-gray-600 border-t-0 h-full dark:!bg-[#1D2125] border-l-0"
+		class="relative min-w-[260px] border dark:border-gray-600 border-t-0 h-full dark:!bg-[#1D2125] border-l-0"
 		:class="dynamicBorder"
 	>
 		<div v-if="myWorkspaceStore.currentWorkspace">

@@ -1,17 +1,28 @@
 <template>
 	<div
-		class="transition-all transition-duration-300 hover:bg-[#A6C5E229] bg-[#ffffff3d] w-[272px] rounded-md p-3 font-semibold text-sm flex align-middle items-center"
-		:style="dynamicText"
-		@click="toggleAddListDialog"
 		v-if="!addListDialogOpen"
+		class="flex gap-1 justify-between items-center px-[8px] pb-0"
 	>
-		<Icon
-			name="ic:outline-plus"
-			:color="myColorStore.dominantColor == 'white' ? 'white' : 'black'"
-			size="20"
-			class="mr-2"
-		/>
-		<p class="h-[20px]">Add another list</p>
+		<Button
+			variant="ghost"
+			@click="toggleAddListDialog"
+			class="rounded-md w-full justify-start h-9 !p-1"
+		>
+			<Icon
+				name="ic:outline-plus"
+				color="black"
+				size="20"
+				class="mr-2"
+			/>
+			<p class="h-[20px]">Add a card</p>
+		</Button>
+		<Button
+			variant="ghost"
+			class="rounded-md h-9 w-[2.4rem]"
+			size="icon"
+		>
+			<LogoCardFromTemplate class="text-gray-600" />
+		</Button>
 	</div>
 
 	<div
@@ -25,10 +36,10 @@
 			>
 				<FormItem>
 					<FormControl>
-						<Input
-							class="rounded-sm"
+						<Textarea
+							class="resize-none min-h-[36px] max-h-[160px] m-0 overflow-hidden overflow-y-auto border rounded-lg shadow-sm"
 							type="text"
-							placeholder="Enter list title..."
+							placeholder="Enter title for this card..."
 							v-bind="componentField"
 						/>
 					</FormControl>
@@ -37,9 +48,9 @@
 			<div class="flex gap-1 mt-2">
 				<Button
 					type="submit"
-					class="workspaceHeaderShadButton w-20"
+					class="workspaceHeaderShadButton"
 				>
-					Add list
+					Add card
 				</Button>
 				<Button
 					variant="ghost"
@@ -62,7 +73,10 @@
 	import { Button } from "~/shadComponents/ui/button";
 	const myColorStore = useColorStore();
 	const { dynamicText } = useDynamicBg();
-	const { addList, currentBoard, currentWorkspace } = useMyWorkspaceStore();
+	const { addCard, currentBoard, currentWorkspace } = useMyWorkspaceStore();
+	const props = defineProps<{
+		boardList: board_list;
+	}>();
 
 	//FORM START
 	import {
@@ -76,6 +90,7 @@
 	import { useForm } from "vee-validate";
 	import { toTypedSchema } from "@vee-validate/zod";
 	import * as z from "zod";
+	import type { board_list, Card } from "~/lib/types";
 	const formSchema = toTypedSchema(
 		z.object({
 			title: z.string(),
@@ -87,13 +102,13 @@
 
 	const onSubmit = form.handleSubmit(async (values) => {
 		//@ts-expect-error
-		values.board_id = currentBoard?.id_str;
+		values.list_id = props.boardList.id_str;
 		//@ts-expect-error
-		values.order = currentBoard?.board_lists
-			? currentBoard?.board_list.length + 1
-			: 1;
-		await addList(values);
-		toggleAddListDialog();
+		values.order = props.boardList.cards ? props.boardList.cards.length + 1 : 1;
+		//@ts-expect-error
+		values.description = "";
+		await addCard(values);
+		form.resetForm();
 	});
 
 	//END

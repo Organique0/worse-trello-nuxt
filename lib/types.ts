@@ -33,22 +33,23 @@ export interface CreateWorkspaceValues {
     description?: string | undefined,
 }
 
-export interface List {
+export interface board_list {
     title: string,
     order: number,
-    board_id: string,
-    cards: Card[]
+    id_str: string,
+    board_list_card: Card[]
 }
 
 export interface Card {
     title: string,
     order: number,
-    list_id: string
-    description?: string | undefined,
+    list_id_str: string,
+    id_str: string,
+    description?: string | null,
 }
 
 export interface FullBoard extends Board {
-    lists: List[],
+    board_list: board_list[],
 }
 
 

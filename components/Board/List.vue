@@ -26,18 +26,23 @@
 				:list="boardList.board_list_card"
 				:disabled="!enabled"
 				item-key="name"
-				class="list-group"
+				class="mx-[8px] list-group"
 				ghost-class="ghost"
+				drag-class="drag"
+				chosen-class="chosen"
 				:move="checkMove"
-				@start="dragging = true"
-				@end="dragging = false"
+				group="list"
+				@start="onStart"
+				@end="onEnd"
+				@change="log"
 			>
 				<template #item="{ element }">
-					<div
-						class="list-group-item px-[8px]"
-						:class="{ 'not-draggable': !enabled }"
-					>
-						<BoardCard :element="element" />
+					<div class="list-group-item">
+						<BoardCard
+							:element="element"
+							class="h-9 p-2 my-2 border rounded-lg shadow-sm flex items-center cursor-pointer !opacity-100"
+							:class="!dragging && 'hover:outline hover:outline-primary'"
+						/>
 					</div>
 				</template>
 			</draggable>
@@ -51,11 +56,21 @@
 	import type { board_list } from "~/lib/types";
 
 	const props = defineProps<{ boardList: board_list }>();
-	const enabled = ref(true);
-	const dragging = ref(false);
+	const enabled = ref<Boolean>(true);
+	const dragging = ref<Boolean>(false);
 
 	const checkMove = (e: any) => {
-		console.log(e.draggedContext.futureIndex);
+		//console.log(e.draggedContext.futureIndex);
+	};
+	const log = (e: any) => {
+		//console.log("log" + e);
+	};
+	const onStart = () => {
+		dragging.value = true;
+	};
+
+	const onEnd = () => {
+		dragging.value = false;
 	};
 </script>
 <style scoped>
@@ -64,8 +79,14 @@
 	}
 
 	.ghost {
-		opacity: 0.5;
-		background: #c8ebfb;
+		@apply bg-gray-300 rounded-lg;
+	}
+
+	.chosen {
+	}
+
+	.drag {
+		@apply bg-white;
 	}
 
 	.not-draggable {

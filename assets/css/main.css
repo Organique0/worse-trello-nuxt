@@ -112,7 +112,7 @@
 }
 
 .bgImage {
-	background-image: url("trello-left.svg"), url("trello-right.svg");
+	background-image: url("/trello-left.svg"), url("/trello-right.svg");
 	background-size: 368px, 368px;
 	background-position:
 		left bottom,

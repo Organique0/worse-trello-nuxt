@@ -3,7 +3,6 @@ import { useColorStore } from '@/stores/color'
 import { useRouter } from 'vue-router'
 
 export const useDynamicBg = (opacity?: string | null) => {
-  const myColorStore = useColorStore();
   const myWorkspaceStore = useMyWorkspaceStore();
   const colorMode = useColorMode();
   const router = useRouter();
@@ -21,9 +20,9 @@ export const useDynamicBg = (opacity?: string | null) => {
   const dynamicText = computed(() => {
     if (myWorkspaceStore.currentBoard) {
       if (myWorkspaceStore.currentBoard.text_color == "#FFFFFF") {
-        myColorStore.setDominantColor("white");
+        colorStore.setDominantColor("white");
       } else {
-        myColorStore.setDominantColor("black");
+        colorStore.setDominantColor("black");
       }
       return `color: ${myWorkspaceStore.currentBoard.text_color}`
     } else {

@@ -7,11 +7,11 @@ export const useMyWorkspaceStore = defineStore({
   id: 'myWorkspaceStore',
   persist: [
     {
-      pick: ['currentBoard', 'currentWorkspace', 'recentBoards', 'starredBoards'],
+      pick: ['currentBoard'],
       storage: piniaPluginPersistedstate.cookies()
     },
     {
-      pick: ['workspaces'],
+      pick: ['workspaces', 'recentBoards', 'starredBoards', 'currentWorkspace',],
       storage: piniaPluginPersistedstate.localStorage(),
     }
 

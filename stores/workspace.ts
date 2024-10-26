@@ -5,7 +5,17 @@ import workspace from '~/plugins/workspace';
 
 export const useMyWorkspaceStore = defineStore({
   id: 'myWorkspaceStore',
-  persist: { storage: piniaPluginPersistedstate.localStorage() },
+  persist: [
+    {
+      pick: ['currentBoard'],
+      storage: piniaPluginPersistedstate.cookies()
+    },
+    {
+      pick: ['workspaces', 'currentWorkspace', 'recentBoards', 'starredBoards'],
+      storage: piniaPluginPersistedstate.localStorage(),
+    }
+
+  ],
   state: () => {
     return {
       workspaces: [] as Workspace[],

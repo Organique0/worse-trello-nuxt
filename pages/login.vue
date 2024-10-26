@@ -109,10 +109,7 @@
 	//type Schema = z.output<typeof schema>
 
 	import { reset } from "@formkit/core";
-	definePageMeta({ middleware: ["guest"] });
-	definePageMeta({
-		layout: "no-header",
-	});
+	definePageMeta({ middleware: ["guest"], layout: "no-header" });
 
 	const router = useRouter();
 	const route = useRoute();

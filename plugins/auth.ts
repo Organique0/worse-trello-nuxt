@@ -2,6 +2,6 @@
 
 export default defineNuxtPlugin(async () => {
   const { user, refresh } = useMyUserStore();
-  if (user !== null) return;
+  //if (user !== null) return;
   await refresh();
 });

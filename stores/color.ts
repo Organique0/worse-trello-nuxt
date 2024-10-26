@@ -4,7 +4,7 @@ export const useColorStore = defineStore('color', {
   state: () => ({
     dominantColor: 'white',
   }),
-  persist: { storage: piniaPluginPersistedstate.localStorage() },
+  persist: { storage: piniaPluginPersistedstate.cookies() },
   actions: {
     setDominantColor(color: string) {
       this.dominantColor = color;

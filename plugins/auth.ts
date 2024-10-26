@@ -1,7 +1,8 @@
 //import { useUser, fetchCurrentUser } from "~/composables/useAuth";
 
 export default defineNuxtPlugin(async () => {
-  const { user, refresh } = useMyUserStore();
+  const store = useMyUserStore();
   //if (user !== null) return;
-  await refresh();
+
+  await useAsyncData('myUserStore', () => store.refresh());
 });

@@ -17,11 +17,11 @@ export default defineNuxtConfig({
   modules: [
     "nuxt-icon",
     "@pinia/nuxt",
+    'pinia-plugin-persistedstate/nuxt',
     "@nuxt/ui",
     "@nuxt/image",
     "vue3-carousel-nuxt",
     "@formkit/nuxt",
-    "@pinia/nuxt",
     "shadcn-nuxt",
     "@nuxtjs/color-mode",
     "@nuxt/eslint"

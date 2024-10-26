@@ -35,6 +35,7 @@ export type ResetPasswordCredentials = {
 
 export const useMyUserStore = defineStore({
   id: "myUserStore",
+  persist: { storage: piniaPluginPersistedstate.sessionStorage() },
   state: () => ({
     user: null as User | null,
   }),

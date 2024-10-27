@@ -1,7 +1,10 @@
 export default defineNuxtPlugin(async (context) => {
     const { user } = useMyUserStore();
     const route = useRoute();
-    if (!user) { return };
+    if (!user) {
+        console.log("User not found, returning from plugin workspace");
+        return
+    };
     const myWorkspaceStore = useMyWorkspaceStore();
     if (myWorkspaceStore.$state.workspaces.length == 0) {
         await myWorkspaceStore.loadWorkspaces();

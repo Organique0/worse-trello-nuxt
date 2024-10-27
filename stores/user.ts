@@ -46,10 +46,8 @@ export const useMyUserStore = defineStore({
     async refresh() {
       try {
         this.user = await fetchCurrentUser();
-        return true;
       } catch {
         this.user = null;
-        return false;
       }
     },
 

@@ -4,5 +4,8 @@ export default defineNuxtPlugin(async () => {
   const store = useMyUserStore();
   //if (user !== null) return;
 
-  await useAsyncData('myUserStore', () => store.refresh());
+  const r = await useAsyncData('myUserStore', () => store.refresh());
+  if (!r) {
+    navigateTo('/login', { replace: true });
+  }
 });

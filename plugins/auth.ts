@@ -1,13 +1,25 @@
 //import { useUser, fetchCurrentUser } from "~/composables/useAuth";
 
 export default defineNuxtPlugin(async () => {
-  if (import.meta.client) {
-    const store = useMyUserStore();
-    await store.refresh();
+    const MyUserStore = useMyUserStore();
+    const { user } = storeToRefs(MyUserStore);
 
-    if (!store.user) {
-      console.log('User not found, redirecting to login from plugin auth');
-      navigateTo('/login', { replace: true });
-    }
-  }
+    const fetchUser = async () => {
+        if (user.value === null) {
+            try {
+                MyUserStore.user = await MyUserStore.fetchCurrentUser();
+            } catch {
+                MyUserStore.user = null;
+            }
+        }
+    };
+
+    fetchUser();
+    watch(user, async () => {
+        if (user.value === null) {
+            fetchUser();
+        }
+    });
+
+
 });

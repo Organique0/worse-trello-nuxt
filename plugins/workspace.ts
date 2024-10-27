@@ -1,11 +1,11 @@
 export default defineNuxtPlugin(async (context) => {
     const route = useRoute();
     const myWorkspaceStore = useMyWorkspaceStore();
-    if (myWorkspaceStore.$state.workspaces.length == 0) {
-        await myWorkspaceStore.loadWorkspaces();
-    }
+    const MyUserStore = useMyUserStore();
+    const { isLoggedIn } = storeToRefs(MyUserStore);
 
     const handleRouteChange = async (routeParams: any) => {
+
         if (routeParams.wid !== undefined) {
             const workspace = myWorkspaceStore.getWorkspace(routeParams.wid as string)
             myWorkspaceStore.setCurrentWorkspace(workspace)
@@ -21,13 +21,26 @@ export default defineNuxtPlugin(async (context) => {
         }
     };
 
-    await handleRouteChange(route.params);
+
+
 
     watch(
         () => route.params,
         async (newParams) => {
-            await handleRouteChange(newParams)
+            if (isLoggedIn.value) {
+                await handleRouteChange(newParams)
+            }
+
         })
+
+
+    watch(isLoggedIn, async () => {
+        if (isLoggedIn.value == true) {
+            if (myWorkspaceStore.$state.workspaces.length == 0) {
+                await myWorkspaceStore.loadWorkspaces();
+            }
+        }
+    })
 
 
 })

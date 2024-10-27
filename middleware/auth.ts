@@ -6,7 +6,7 @@ export default defineNuxtRouteMiddleware(async (context) => {
 
   // Ensure the store is hydrated from the persisted state
   if (import.meta.server) {
-    console.log(userStore.$state.user);
+    console.log(userStore.user);
   }
   else {
     console.log('Running on client');
